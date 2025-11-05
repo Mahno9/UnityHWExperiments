@@ -1,22 +1,29 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 [RequireComponent(typeof(Collider))]
 public class GroundSwitcher : MonoBehaviour
 {
+    const float GroundCheckDistanceTail = 0.01f;
+
     private float _objectHalfSize;
     private Vector3 _objectCenterShift;
-    const float GroundCheckDistance = 0.01f;
+
+
+    private GravityUpdaterStrategy _gravityUpdater;
 
     public Vector3 GravityNormal => Physics.gravity.normalized;
 
     private Vector3 ObjectCenter => _objectCenterShift + transform.position;
 
+    private float GroundCheckDistance => _objectHalfSize + GroundCheckDistanceTail;
+
     public bool IsGrounded
     {
         get
         {
-            Debug.DrawLine(_objectCenterShift + transform.position, _objectCenterShift + transform.position + GravityNormal * (_objectHalfSize + GroundCheckDistance), Color.green);
-            return Physics.Raycast(ObjectCenter, GravityNormal, _objectHalfSize + GroundCheckDistance);
+            return Physics.Raycast(ObjectCenter, GravityNormal, GroundCheckDistance);
         }
     }
 
@@ -33,5 +40,24 @@ public class GroundSwitcher : MonoBehaviour
         Collider collider = GetComponent<Collider>();
         _objectCenterShift = collider.bounds.center - transform.position;
         _objectHalfSize = collider.bounds.extents.y;
+    }
+
+    private void Update()
+    {
+        _gravityUpdater?.OnUpdate(ObjectCenter);
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        _gravityUpdater?.OnGrounding(-collision.contacts[0].normal);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        GravityUpdaterStrategy gravityUpdater = collision.collider.gameObject.GetComponent<GravityUpdaterStrategy>();
+        if (gravityUpdater != null)
+            _gravityUpdater = gravityUpdater;
+
+        _gravityUpdater?.OnGrounding(-collision.contacts[0].normal);
     }
 }

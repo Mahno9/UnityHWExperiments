@@ -12,10 +12,24 @@ public class Movement : MonoBehaviour
     private const float InputDeadZone = 0.1f;
     private const float Invert = -1;
 
-    Rigidbody _rigidbody;
-    GroundSwitcher _ground;
+    private Rigidbody _rigidbody;
+    private GroundSwitcher _ground;
 
-    float _horizontalMoveDirection;
+    private float _horizontalMoveDirection; // Use HorizontalMoveDirection property to access and expire
+    private float HorizontalMoveDirection
+    {
+        get
+        {
+            if (_horizontalMoveDirection != 0)
+            {
+                float tmp = _horizontalMoveDirection;
+                _horizontalMoveDirection = 0;
+                return tmp;
+            }
+            return 0;
+        }
+        set { _horizontalMoveDirection = value; }
+    }
 
     private bool _needJump = false; // Use NeedJump property to access and expire
     private bool NeedJump
@@ -46,24 +60,25 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetAxisRaw(VerticalAxisName) > InputDeadZone && _ground.IsGrounded)
-            NeedJump = true;
+        if (_ground.IsGrounded)
+        {
+            if (Input.GetAxisRaw(VerticalAxisName) > InputDeadZone)
+                NeedJump = true;
 
-        float horizontalAxisValue = Input.GetAxisRaw(HorizontalAxisName);
-        _horizontalMoveDirection = Mathf.Abs(horizontalAxisValue) > InputDeadZone ? horizontalAxisValue : 0;
+            float horizontalAxisValue = Input.GetAxisRaw(HorizontalAxisName);
+            HorizontalMoveDirection = Mathf.Abs(horizontalAxisValue) > InputDeadZone ? horizontalAxisValue : 0;
+        }
     }
 
     private void FixedUpdate()
     {
-        Vector3 movingForce = _ground.WorldForwardNormal * movementForce * _horizontalMoveDirection;
+        Vector3 movingForce = _ground.WorldForwardNormal * movementForce * HorizontalMoveDirection;
         _rigidbody.AddForce(movingForce, ForceMode.Acceleration);
-        Debug.DrawLine(transform.position, transform.position + movingForce, Color.yellow);
 
         if (NeedJump)
         {
             Vector3 jumpingForce = _ground.GravityNormal * jumpForce * Invert;
             _rigidbody.AddForce(jumpingForce, ForceMode.Impulse);
-            Debug.DrawLine(transform.position, transform.position + jumpingForce, Color.cyan);
         }
     }
 }
