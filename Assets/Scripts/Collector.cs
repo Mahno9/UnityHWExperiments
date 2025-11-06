@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class Collector : MonoBehaviour
 {
-    SortedSet<Collectable> _knownCollectables;
+    HashSet<Collectable> _knownCollectables;
 
     private void Awake()
     {
@@ -14,6 +13,8 @@ public class Collector : MonoBehaviour
         Collectable[] collectables = FindObjectsOfType<Collectable>();
         foreach (Collectable obj in collectables)
             _knownCollectables.Add(obj);
+
+        Debug.Log("Collectables: " + string.Join("\n", collectables.Select((c, i) => $"{i}: {c.name}").ToArray()));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,6 +24,7 @@ public class Collector : MonoBehaviour
         {
             collectable.OnCollect();
             _knownCollectables.Remove(collectable);
+            Debug.Log("Collecting: " + other.name);
         }
         else
         {

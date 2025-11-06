@@ -8,10 +8,10 @@ public class Movement : MonoBehaviour
     [SerializeField] float jumpForce;
     [SerializeField] float airMovementReduce = 2.0f;
 
-    private const string HorizontalAxisName = "Horizontal";
-    private const string VerticalAxisName = "Vertical";
-    private const float InputDeadZone = 0.1f;
-    private const float Invert = -1;
+    private const string HORIZONTAL_AXIS_NAME = "Horizontal";
+    private const string VERTICAL_AXIS_NAME = "Vertical";
+    private const float INPUT_DEAD_ZONE = 0.1f;
+    private const float IVNERT = -1;
 
     private Rigidbody _rigidbody;
     private GroundSwitcher _ground;
@@ -72,7 +72,7 @@ public class Movement : MonoBehaviour
 
     private void ProcessJump()
     {
-        if (Input.GetAxisRaw(VerticalAxisName) < InputDeadZone)
+        if (Input.GetAxisRaw(VERTICAL_AXIS_NAME) < INPUT_DEAD_ZONE)
             return;
 
         NeedJump = true;
@@ -80,8 +80,8 @@ public class Movement : MonoBehaviour
 
     private void ProcessMove(float movementReduce)
     {
-        float horizontalAxisValue = Input.GetAxisRaw(HorizontalAxisName);
-        HorizontalMoveDirection = Mathf.Abs(horizontalAxisValue) > InputDeadZone ? horizontalAxisValue / movementReduce : 0;
+        float horizontalAxisValue = Input.GetAxisRaw(HORIZONTAL_AXIS_NAME);
+        HorizontalMoveDirection = Mathf.Abs(horizontalAxisValue) > INPUT_DEAD_ZONE ? horizontalAxisValue / movementReduce : 0;
     }
 
     private void FixedUpdate()
@@ -91,7 +91,7 @@ public class Movement : MonoBehaviour
 
         if (NeedJump)
         {
-            Vector3 jumpingForce = _ground.GravityNormal * jumpForce * Invert;
+            Vector3 jumpingForce = _ground.GravityNormal * jumpForce * IVNERT;
             _rigidbody.AddForce(jumpingForce, ForceMode.Impulse);
         }
     }

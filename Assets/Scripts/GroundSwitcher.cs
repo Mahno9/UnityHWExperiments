@@ -1,15 +1,19 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.UIElements;
 
 [RequireComponent(typeof(SphereCollider))]
 public class GroundSwitcher : MonoBehaviour
 {
+    private const float CHECK_ANGLE_BASE = 0f;
+    private const float CHECK_ANGLE_LEFT = -40f;
+    private const float CHECK_ANGLE_RIGHT = 40f;
+
     [SerializeField] private float groundCheckDistanceTail = 1.1f;
 
     private float _objectRadius;
     private Vector3 _objectCenterShift;
-
 
     private GravityUpdaterStrategy _gravityUpdater;
 
@@ -23,10 +27,10 @@ public class GroundSwitcher : MonoBehaviour
     {
         get
         {
-            //RuntimeDebugLine.DrawLine(ObjectCenter, ObjectCenter + GravityNormal * GroundCheckDistance, Color.red, 1);
-            Physics.Raycast(ObjectCenter, GravityNormal, out RaycastHit hitInfo, GroundCheckDistance);
-            Collider collider = hitInfo.collider?.gameObject?.GetComponent<Collider>();
-            return collider != null && collider.isTrigger == false;
+            return
+                CheckIsGrounded(CHECK_ANGLE_BASE) ||
+                CheckIsGrounded(CHECK_ANGLE_LEFT) ||
+                CheckIsGrounded(CHECK_ANGLE_RIGHT);
         }
     }
 
@@ -80,5 +84,16 @@ public class GroundSwitcher : MonoBehaviour
             _gravityUpdater.OnGrounding(-collision.contacts[0].normal);
             return;
         }
+    }
+
+    bool CheckIsGrounded(float degreeToCheck)
+    {
+        Quaternion rotation = Quaternion.Euler(0, 0, degreeToCheck);
+
+        //RuntimeDebugLine.DrawLine(ObjectCenter, ObjectCenter + GravityNormal * GroundCheckDistance, Color.red, 1);
+
+        Physics.Raycast(ObjectCenter, rotation * GravityNormal, out RaycastHit hitInfo, GroundCheckDistance);
+        Collider collider = hitInfo.collider?.gameObject?.GetComponent<Collider>();
+        return collider != null && collider.isTrigger == false;
     }
 }

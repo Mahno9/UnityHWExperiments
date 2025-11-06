@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 public abstract class GravityUpdaterStrategy : MonoBehaviour
 {
     protected float _gravityValue;
