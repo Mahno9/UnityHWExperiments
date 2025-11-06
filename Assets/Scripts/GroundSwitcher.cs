@@ -2,12 +2,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(SphereCollider))]
 public class GroundSwitcher : MonoBehaviour
 {
-    const float GroundCheckDistanceTail = 0.01f;
+    [SerializeField] private float groundCheckDistanceTail = 1.1f;
 
-    private float _objectHalfSize;
+    private float _objectRadius;
     private Vector3 _objectCenterShift;
 
 
@@ -17,13 +17,16 @@ public class GroundSwitcher : MonoBehaviour
 
     private Vector3 ObjectCenter => _objectCenterShift + transform.position;
 
-    private float GroundCheckDistance => _objectHalfSize + GroundCheckDistanceTail;
+    private float GroundCheckDistance => _objectRadius * groundCheckDistanceTail;
 
     public bool IsGrounded
     {
         get
         {
-            return Physics.Raycast(ObjectCenter, GravityNormal, GroundCheckDistance);
+            //RuntimeDebugLine.DrawLine(ObjectCenter, ObjectCenter + GravityNormal * GroundCheckDistance, Color.red, 1);
+            Physics.Raycast(ObjectCenter, GravityNormal, out RaycastHit hitInfo, GroundCheckDistance);
+            Collider collider = hitInfo.collider?.gameObject?.GetComponent<Collider>();
+            return collider != null && collider.isTrigger == false;
         }
     }
 
@@ -37,9 +40,9 @@ public class GroundSwitcher : MonoBehaviour
 
     private void Awake()
     {
-        Collider collider = GetComponent<Collider>();
+        SphereCollider collider = GetComponent<SphereCollider>();
         _objectCenterShift = collider.bounds.center - transform.position;
-        _objectHalfSize = collider.bounds.extents.y;
+        _objectRadius = collider.radius * transform.localScale.y;
     }
 
     private void Update()
@@ -49,15 +52,33 @@ public class GroundSwitcher : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        _gravityUpdater?.OnGrounding(-collision.contacts[0].normal);
+        if (_gravityUpdater == null)
+            return;
+
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            if (contact.otherCollider.gameObject.GetComponent<GravityUpdaterStrategy>() == null)
+                continue;
+
+            _gravityUpdater.OnGrounding(-contact.normal);
+            return;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        GravityUpdaterStrategy gravityUpdater = collision.collider.gameObject.GetComponent<GravityUpdaterStrategy>();
-        if (gravityUpdater != null)
+        _gravityUpdater = null;
+
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            if (contact.otherCollider.gameObject.GetComponent<GravityUpdaterStrategy>() == null)
+                continue;
+
+            GravityUpdaterStrategy gravityUpdater = collision.collider.gameObject.GetComponent<GravityUpdaterStrategy>();
             _gravityUpdater = gravityUpdater;
 
-        _gravityUpdater?.OnGrounding(-collision.contacts[0].normal);
+            _gravityUpdater.OnGrounding(-collision.contacts[0].normal);
+            return;
+        }
     }
 }

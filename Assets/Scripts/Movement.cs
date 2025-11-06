@@ -6,6 +6,7 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] float movementForce;
     [SerializeField] float jumpForce;
+    [SerializeField] float airMovementReduce = 2.0f;
 
     private const string HorizontalAxisName = "Horizontal";
     private const string VerticalAxisName = "Vertical";
@@ -50,8 +51,6 @@ public class Movement : MonoBehaviour
     }
 
 
-    private Vector3 GravityNormal { get { return Physics.gravity.normalized; } }
-
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -62,12 +61,27 @@ public class Movement : MonoBehaviour
     {
         if (_ground.IsGrounded)
         {
-            if (Input.GetAxisRaw(VerticalAxisName) > InputDeadZone)
-                NeedJump = true;
-
-            float horizontalAxisValue = Input.GetAxisRaw(HorizontalAxisName);
-            HorizontalMoveDirection = Mathf.Abs(horizontalAxisValue) > InputDeadZone ? horizontalAxisValue : 0;
+            ProcessJump();
+            ProcessMove(1.0f);
         }
+        else
+        {
+            ProcessMove(airMovementReduce);
+        }
+    }
+
+    private void ProcessJump()
+    {
+        if (Input.GetAxisRaw(VerticalAxisName) < InputDeadZone)
+            return;
+
+        NeedJump = true;
+    }
+
+    private void ProcessMove(float movementReduce)
+    {
+        float horizontalAxisValue = Input.GetAxisRaw(HorizontalAxisName);
+        HorizontalMoveDirection = Mathf.Abs(horizontalAxisValue) > InputDeadZone ? horizontalAxisValue / movementReduce : 0;
     }
 
     private void FixedUpdate()
