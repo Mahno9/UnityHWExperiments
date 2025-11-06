@@ -1,0 +1,52 @@
+# https://editorconfig.org
+root = true
+
+[*.cs]
+# Правила именования
+# PascalCase для public-членов, классов, методов и свойств
+dotnet_naming_rule.public_members_pascal_case.symbols = public_symbols
+dotnet_naming_rule.public_members_pascal_case.style = pascal_case_style
+dotnet_naming_rule.public_members_pascal_case.severity = suggestion
+
+dotnet_naming_symbols.public_symbols.applicable_kinds = class, method, property, field, event
+dotnet_naming_symbols.public_symbols.applicable_accessibilities = public
+
+# camelCase для локальных переменных
+dotnet_naming_rule.private_locals_camel_case.symbols = private_locals
+dotnet_naming_rule.private_locals_camel_case.style = camel_case_style
+dotnet_naming_rule.private_locals_camel_case.severity = suggestion
+
+dotnet_naming_symbols.private_locals.applicable_kinds = parameter, local
+
+# Приватные поля начинаются с _ и camelCase
+dotnet_naming_rule.private_fields_with_underscore.symbols = private_fields
+dotnet_naming_rule.private_fields_with_underscore.style = underscore_camel_case_style
+dotnet_naming_rule.private_fields_with_underscore.severity = suggestion
+
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+
+# Константы в UPPER_CASE_WITH_UNDERSCORE
+dotnet_naming_rule.constants_upper_case.symbols = constants
+dotnet_naming_rule.constants_upper_case.style = upper_case_style
+dotnet_naming_rule.constants_upper_case.severity = suggestion
+
+dotnet_naming_symbols.constants.applicable_kinds = field
+dotnet_naming_symbols.constants.required_modifiers = const
+
+# Стили
+dotnet_naming_style.pascal_case_style.capitalization = pascal_case
+dotnet_naming_style.camel_case_style.capitalization = camel_case
+dotnet_naming_style.underscore_camel_case_style.capitalization = camel_case
+dotnet_naming_style.underscore_camel_case_style.required_prefix = _
+dotnet_naming_style.upper_case_style.capitalization = all_upper
+dotnet_naming_style.upper_case_style.word_separator = _
+
+# Правила стиля кода
+# Отключить требование фигурных скобок для однострочных блоков
+csharp_prefer_braces = false:suggestion
+
+# Для правила "if-else с фигурными скобками" понадобится StyleCop (ниже)
+
+# Разрешить явное сравнение "== false" (отключаем упрощение)
+dotnet_diagnostic.IDE0075.severity = none

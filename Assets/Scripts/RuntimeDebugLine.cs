@@ -4,7 +4,7 @@ public static class RuntimeDebugLine
 {
     public static void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0f, float width = 0.03f)
     {
-        GameObject go = new GameObject("RuntimeDebugLine");
+        GameObject go = new("RuntimeDebugLine");
         LineRenderer lr = go.AddComponent<LineRenderer>();
 
         lr.material = new Material(Shader.Find("Sprites/Default"));

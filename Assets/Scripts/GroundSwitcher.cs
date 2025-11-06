@@ -10,7 +10,7 @@ public class GroundSwitcher : MonoBehaviour
     private const float CHECK_ANGLE_LEFT = -40f;
     private const float CHECK_ANGLE_RIGHT = 40f;
 
-    [SerializeField] private float groundCheckDistanceTail = 1.1f;
+    [SerializeField] private float _groundCheckDistanceTail = 1.1f;
 
     private float _objectRadius;
     private Vector3 _objectCenterShift;
@@ -21,7 +21,7 @@ public class GroundSwitcher : MonoBehaviour
 
     private Vector3 ObjectCenter => _objectCenterShift + transform.position;
 
-    private float GroundCheckDistance => _objectRadius * groundCheckDistanceTail;
+    private float GroundCheckDistance => _objectRadius * _groundCheckDistanceTail;
 
     public bool IsGrounded
     {
@@ -51,7 +51,9 @@ public class GroundSwitcher : MonoBehaviour
 
     private void Update()
     {
-        _gravityUpdater?.OnUpdate(ObjectCenter);
+        if (_gravityUpdater == null)
+            return;
+        _gravityUpdater.OnUpdate(ObjectCenter);
     }
 
     private void OnCollisionStay(Collision collision)
@@ -93,7 +95,6 @@ public class GroundSwitcher : MonoBehaviour
         //RuntimeDebugLine.DrawLine(ObjectCenter, ObjectCenter + GravityNormal * GroundCheckDistance, Color.red, 1);
 
         Physics.Raycast(ObjectCenter, rotation * GravityNormal, out RaycastHit hitInfo, GroundCheckDistance);
-        Collider collider = hitInfo.collider?.gameObject?.GetComponent<Collider>();
-        return collider != null && collider.isTrigger == false;
+        return hitInfo.collider != null && hitInfo.collider.isTrigger == false;
     }
 }

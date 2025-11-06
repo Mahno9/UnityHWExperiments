@@ -369,15 +369,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaeb24e51f545654582ba117d68f7863, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statusText: {fileID: 1366788917}
-  timerText: {fileID: 1340700274}
-  progressStatus: "\u041E\u0441\u0442\u0430\u043E\u0441\u044C \u0441\u043E\u0431\u0440\u0430\u0442\u044C:
+  _statusText: {fileID: 1366788917}
+  _timerText: {fileID: 1340700274}
+  _progressStatus: "\u041E\u0441\u0442\u0430\u043E\u0441\u044C \u0441\u043E\u0431\u0440\u0430\u0442\u044C:
     {0} / {1}"
-  winStatus: "\u041F\u043E\u0437\u0434\u0440\u0430\u0432\u043B\u044F\u044E! \u0412\u0441\u0451
+  _winStatus: "\u041F\u043E\u0437\u0434\u0440\u0430\u0432\u043B\u044F\u044E! \u0412\u0441\u0451
     \u0441\u043E\u0431\u0440\u0430\u043D\u043E!"
-  loseStatus: "\u0412\u0440\u0435\u043C\u044F \u0432\u044B\u0448\u043B\u043E! \u0422\u044B
+  _loseStatus: "\u0412\u0440\u0435\u043C\u044F \u0432\u044B\u0448\u043B\u043E! \u0422\u044B
     \u0440\u0430\u0441\u0441\u044B\u043F\u0430\u0435\u0448\u044C\u0441\u044F..."
-  timeFormat: "\u041E\u0441\u0442\u0430\u043B\u043E\u0441\u044C: {0:F0} \u0441\u0435\u043A."
+  _timeFormat: "\u041E\u0441\u0442\u0430\u043B\u043E\u0441\u044C: {0:F0} \u0441\u0435\u043A."
 --- !u!114 &47768720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -390,9 +390,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64329c296b2d2cf4e99fd0cf13c69412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collector: {fileID: 1447647689}
-  statusUpdater: {fileID: 47768719}
-  gameTime: 60
+  _collector: {fileID: 1447647689}
+  _statusUpdater: {fileID: 47768719}
+  _gameTime: 60
 --- !u!4 &47768721
 Transform:
   m_ObjectHideFlags: 0
@@ -1034,7 +1034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7135e742eb319b746b33b8d468fdb160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectOnCollect: {fileID: 2394047719602898083, guid: 7db33ef642c512f409f9f1214e2af456,
+  _effectOnCollect: {fileID: 2394047719602898083, guid: 7db33ef642c512f409f9f1214e2af456,
     type: 3}
 --- !u!4 &135042895
 Transform:
@@ -1157,8 +1157,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160000735}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.99, y: 0.907, z: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -11.99, y: 0.996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1484,7 +1484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7135e742eb319b746b33b8d468fdb160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectOnCollect: {fileID: 2394047719602898083, guid: 0e9daee89f1f4a44f8615cfb2eb4a46f,
+  _effectOnCollect: {fileID: 2394047719602898083, guid: 0e9daee89f1f4a44f8615cfb2eb4a46f,
     type: 3}
 --- !u!4 &246471811 stripped
 Transform:
@@ -1903,8 +1903,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2755bae4ec524d94c89ef4525189a45e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  followItem: {fileID: 1447647682}
-  offset: {x: 0, y: 2, z: -3}
+  _followItem: {fileID: 1447647682}
+  _offset: {x: 0, y: 2, z: -3}
 --- !u!4 &340698174 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 211060118000718597, guid: a8cc610235c43164cb7d9665673d0322,
@@ -2550,7 +2550,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7135e742eb319b746b33b8d468fdb160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectOnCollect: {fileID: 2394047719602898083, guid: 2728ecad29b7a5d4ea73e05ca5cb22c2,
+  _effectOnCollect: {fileID: 2394047719602898083, guid: 2728ecad29b7a5d4ea73e05ca5cb22c2,
     type: 3}
 --- !u!136 &429416293
 CapsuleCollider:
@@ -2634,7 +2634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7135e742eb319b746b33b8d468fdb160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectOnCollect: {fileID: 2394047719602898083, guid: d3a8dac054c4468479b2ab6952f0cbe0,
+  _effectOnCollect: {fileID: 2394047719602898083, guid: d3a8dac054c4468479b2ab6952f0cbe0,
     type: 3}
 --- !u!4 &451266854
 Transform:
@@ -2804,7 +2804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7135e742eb319b746b33b8d468fdb160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectOnCollect: {fileID: 2394047719602898083, guid: aa6e7458a95c6bc45a82e1b4c791d50b,
+  _effectOnCollect: {fileID: 2394047719602898083, guid: aa6e7458a95c6bc45a82e1b4c791d50b,
     type: 3}
 --- !u!4 &461961737
 Transform:
@@ -5077,7 +5077,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7135e742eb319b746b33b8d468fdb160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectOnCollect: {fileID: 2394047719602898083, guid: e4769504f1b5d4c4a99c84b9df75c08e,
+  _effectOnCollect: {fileID: 2394047719602898083, guid: e4769504f1b5d4c4a99c84b9df75c08e,
     type: 3}
 --- !u!4 &870936992
 Transform:
@@ -5148,7 +5148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7135e742eb319b746b33b8d468fdb160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectOnCollect: {fileID: 2394047719602898083, guid: b17358788765aa447b75887f93aaab01,
+  _effectOnCollect: {fileID: 2394047719602898083, guid: b17358788765aa447b75887f93aaab01,
     type: 3}
 --- !u!4 &882916974
 Transform:
@@ -7773,9 +7773,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e25da037e2e556f45a6c920e16cc067a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementForce: 5
-  jumpForce: 5
-  airMovementReduce: 2
+  _movementForce: 5
+  _jumpForce: 5
+  _airMovementReduce: 2
 --- !u!114 &1447647688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7788,7 +7788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 284e46f94fcb5c34185ba6c699678b77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundCheckDistanceTail: 1.2
+  _groundCheckDistanceTail: 1.2
 --- !u!114 &1447647689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8828,7 +8828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7135e742eb319b746b33b8d468fdb160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectOnCollect: {fileID: 2394047719602898083, guid: 793f96dbfee2c204b8b38113d97b1521,
+  _effectOnCollect: {fileID: 2394047719602898083, guid: 793f96dbfee2c204b8b38113d97b1521,
     type: 3}
 --- !u!4 &1649549506
 Transform:
@@ -9238,7 +9238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7135e742eb319b746b33b8d468fdb160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectOnCollect: {fileID: 2394047719602898083, guid: 97985986f0cd90741a8d83de8073085f,
+  _effectOnCollect: {fileID: 2394047719602898083, guid: 97985986f0cd90741a8d83de8073085f,
     type: 3}
 --- !u!4 &1724186038
 Transform:
@@ -10284,7 +10284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7135e742eb319b746b33b8d468fdb160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectOnCollect: {fileID: 2394047719602898083, guid: 064660cf9b96a994aa48a71ae49d01e0,
+  _effectOnCollect: {fileID: 2394047719602898083, guid: 064660cf9b96a994aa48a71ae49d01e0,
     type: 3}
 --- !u!4 &2008756074
 Transform:

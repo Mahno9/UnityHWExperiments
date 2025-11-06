@@ -19,8 +19,7 @@ public class Collector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Collectable collectable = other.GetComponent<Collectable>();
-        if (collectable != null)
+        if (other.TryGetComponent<Collectable>(out Collectable collectable))
         {
             collectable.OnCollect();
             _knownCollectables.Remove(collectable);

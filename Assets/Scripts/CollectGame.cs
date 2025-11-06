@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class CollectGame : MonoBehaviour
 {
-    [SerializeField] private Collector collector;
-    [SerializeField] private CollectGameStatusUpdater statusUpdater;
-    [SerializeField] private float gameTime = 60f;
+    [SerializeField] private Collector _collector;
+    [SerializeField] private CollectGameStatusUpdater _statusUpdater;
+    [SerializeField] private float _gameTime = 60f;
 
     private int _totalCollectablesCount;
 
-    private int UncollectedCount => collector.GetUncollected().Length;
+    private int UncollectedCount => _collector.GetUncollected().Length;
 
     private void Start()
     {
@@ -25,30 +25,30 @@ public class CollectGame : MonoBehaviour
 
     private void CountdownTimer()
     {
-        gameTime -= Time.deltaTime;
+        _gameTime -= Time.deltaTime;
     }
 
     private void UpdateTimer()
     {
-        statusUpdater.UpdateTimer(gameTime);
+        _statusUpdater.UpdateTimer(_gameTime);
     }
 
     private void UpdateStatus()
     {
         if (IsLose())
         {
-            statusUpdater.UpdateStatusLose();
+            _statusUpdater.UpdateStatusLose();
             return;
         }
 
         if (IsWin())
         {
-            statusUpdater.UpdateStatusWin();
-            statusUpdater.UpdateTimer(0);
+            _statusUpdater.UpdateStatusWin();
+            _statusUpdater.UpdateTimer(0);
             return;
         }
 
-        statusUpdater.UpdateStatusWithCount(UncollectedCount, _totalCollectablesCount);
+        _statusUpdater.UpdateStatusWithCount(UncollectedCount, _totalCollectablesCount);
     }
 
     private bool IsWin()
@@ -58,6 +58,6 @@ public class CollectGame : MonoBehaviour
 
     private bool IsLose()
     {
-        return gameTime <= 0;
+        return _gameTime <= 0;
     }
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 [RequireComponent(typeof(GroundSwitcher))]
 public class Movement : MonoBehaviour
 {
-    [SerializeField] float movementForce;
-    [SerializeField] float jumpForce;
-    [SerializeField] float airMovementReduce = 2.0f;
+    [SerializeField] float _movementForce;
+    [SerializeField] float _jumpForce;
+    [SerializeField] float _airMovementReduce = 2.0f;
 
     private const string HORIZONTAL_AXIS_NAME = "Horizontal";
     private const string VERTICAL_AXIS_NAME = "Vertical";
@@ -66,7 +66,7 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            ProcessMove(airMovementReduce);
+            ProcessMove(_airMovementReduce);
         }
     }
 
@@ -86,12 +86,12 @@ public class Movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector3 movingForce = _ground.WorldForwardNormal * movementForce * HorizontalMoveDirection;
+        Vector3 movingForce = _movementForce * HorizontalMoveDirection * _ground.WorldForwardNormal;
         _rigidbody.AddForce(movingForce, ForceMode.Acceleration);
 
         if (NeedJump)
         {
-            Vector3 jumpingForce = _ground.GravityNormal * jumpForce * IVNERT;
+            Vector3 jumpingForce = _jumpForce * IVNERT * _ground.GravityNormal;
             _rigidbody.AddForce(jumpingForce, ForceMode.Impulse);
         }
     }
