@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Follower : MonoBehaviour
 {
-    [SerializeField] Transform _followItem;
-    [SerializeField] Vector3 _offset;
+    [SerializeField] private Transform _followItem;
+    [SerializeField] private Vector3 _offset;
 
     private void LateUpdate()
     {

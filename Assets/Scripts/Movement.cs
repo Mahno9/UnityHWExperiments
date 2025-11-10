@@ -4,14 +4,14 @@ using UnityEngine;
 [RequireComponent(typeof(GroundSwitcher))]
 public class Movement : MonoBehaviour
 {
-    [SerializeField] float _movementForce;
-    [SerializeField] float _jumpForce;
-    [SerializeField] float _airMovementReduce = 2.0f;
-
     private const string HORIZONTAL_AXIS_NAME = "Horizontal";
     private const string VERTICAL_AXIS_NAME = "Vertical";
     private const float INPUT_DEAD_ZONE = 0.1f;
     private const float IVNERT = -1;
+
+    [SerializeField] private float _movementForce;
+    [SerializeField] private float _jumpForce;
+    [SerializeField] private float _airMovementReduce = 2.0f;
 
     private Rigidbody _rigidbody;
     private GroundSwitcher _ground;

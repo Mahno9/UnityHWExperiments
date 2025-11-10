@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class Collector : MonoBehaviour
 {
-    HashSet<Collectable> _knownCollectables;
+    private HashSet<Collectable> _knownCollectables;
 
     private void Awake()
     {

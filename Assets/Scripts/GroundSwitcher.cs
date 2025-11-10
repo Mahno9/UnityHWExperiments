@@ -71,7 +71,7 @@ public class GroundSwitcher : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         _gravityUpdater = null;
 
@@ -88,7 +88,7 @@ public class GroundSwitcher : MonoBehaviour
         }
     }
 
-    bool CheckIsGrounded(float degreeToCheck)
+    private bool CheckIsGrounded(float degreeToCheck)
     {
         Quaternion rotation = Quaternion.Euler(0, 0, degreeToCheck);
 
