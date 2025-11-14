@@ -2,6 +2,12 @@
 root = true
 
 [*.cs]
+
+spelling_language = en-us,ru-ru
+
+# Отключить всё по умолчанию
+dotnet_analyzer_diagnostic.severity = none
+
 # Правила именования
 # PascalCase для public-членов, классов, методов и свойств
 dotnet_naming_rule.public_members_pascal_case.symbols = public_symbols
@@ -43,10 +49,71 @@ dotnet_naming_style.upper_case_style.capitalization = all_upper
 dotnet_naming_style.upper_case_style.word_separator = _
 
 # Правила стиля кода
-# Отключить требование фигурных скобок для однострочных блоков
-csharp_prefer_braces = false:suggestion
+############################################################
+# USING / IMPORTS ORDER
+############################################################
 
-# Для правила "if-else с фигурными скобками" понадобится StyleCop (ниже)
+dotnet_diagnostic.IDE0005.severity = warning         # Удаление неиспользуемых using
+dotnet_diagnostic.IDE0065.severity = warning         # Упорядочивание using
 
-# Разрешить явное сравнение "== false" (отключаем упрощение)
-dotnet_diagnostic.IDE0075.severity = none
+
+############################################################
+# TYPES & var
+############################################################
+
+dotnet_diagnostic.IDE0007.severity = warning         # Использовать var если тип очевиден
+dotnet_diagnostic.IDE0008.severity = warning         # Не использовать var если тип неочевиден
+
+
+############################################################
+# STRUCTURE / LAYOUT
+############################################################
+
+dotnet_diagnostic.IDE0039.severity = warning         # Использовать локальные функции при возможности
+dotnet_diagnostic.IDE0040.severity = warning         # Добавлять explicit access modifiers
+dotnet_diagnostic.IDE0051.severity = warning         # Приватный код не должен быть неиспользуемым
+dotnet_diagnostic.IDE0052.severity = warning         # Неиспользуемые приватные поля
+
+
+############################################################
+# BOOLEAN METHODS
+############################################################
+
+# Проверка имен методов с Is/Can/Has — отдельного встроенного правила нет,
+# фиксируется naming-rule ниже
+
+dotnet_naming_rule.bool_methods_prefix.style = bool_prefix
+dotnet_naming_rule.bool_methods_prefix.symbols = bool_methods
+dotnet_naming_rule.bool_methods_prefix.severity = warning
+
+dotnet_naming_symbols.bool_methods.applicable_kinds = method
+dotnet_naming_symbols.bool_methods.required_modifiers =
+dotnet_naming_symbols.bool_methods.applicable_accessibilities = *
+dotnet_naming_style.bool_prefix.capitalization = pascal_case
+dotnet_naming_style.bool_prefix.required_prefix = Is,Can,Has
+
+
+############################################################
+# FORMATTING
+############################################################
+
+dotnet_diagnostic.IDE0055.severity = warning         # Форматирование по стилю
+dotnet_diagnostic.IDE0060.severity = warning         # Неиспользуемые параметры
+dotnet_diagnostic.IDE0034.severity = warning         # Упростить выражения (кроме логических ! — не влияет)
+
+
+############################################################
+# EXTRA (отношение к SRP, magic numbers и др.)
+############################################################
+
+dotnet_diagnostic.CA1506.severity = warning          # Сложность типа (приближение SRP)
+dotnet_diagnostic.CA1502.severity = warning          # Сложность метода
+dotnet_diagnostic.CA5394.severity = warning          # Числа без пояснений (magic numbers в константах)
+
+
+# Порядок using: System -> Unity -> custom
+csharp_using_directive_placement = outside_namespace:suggestion
+
+# Порядок элементов в классе: Fields -> Constructor -> Properties -> Methods
+dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = true

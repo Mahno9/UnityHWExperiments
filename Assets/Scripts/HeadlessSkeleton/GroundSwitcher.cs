@@ -1,7 +1,4 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using UnityEngine.UIElements;
 
 [RequireComponent(typeof(SphereCollider))]
 public class GroundSwitcher : MonoBehaviour

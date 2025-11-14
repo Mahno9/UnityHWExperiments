@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
@@ -9,7 +10,7 @@ public class Collector : MonoBehaviour
 
     private void Awake()
     {
-        _knownCollectables = new ();
+        _knownCollectables = new();
         Collectable[] collectables = FindObjectsOfType<Collectable>();
         foreach (Collectable obj in collectables)
             _knownCollectables.Add(obj);

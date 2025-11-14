@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -10,9 +9,15 @@ public class SceneLoader : MonoBehaviour
 
     private void Awake()
     {
-        var button = GetComponent<Button>();
-        if (button != null)
-            button.onClick.AddListener(OnButtonClicked);
+        if (TryGetComponent<Button>(out Button button))
+        {
+            if (button != null)
+                button.onClick.AddListener(OnButtonClicked);
+        }
+        else
+        {
+            Debug.LogError("SceneLoader requires a Button component.");
+        }
     }
 
     private void OnButtonClicked()

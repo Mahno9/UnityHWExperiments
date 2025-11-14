@@ -50,7 +50,6 @@ public class Movement : MonoBehaviour
         }
     }
 
-
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
