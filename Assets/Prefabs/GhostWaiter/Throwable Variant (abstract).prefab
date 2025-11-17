@@ -11,22 +11,22 @@ PrefabInstance:
     - target: {fileID: 903005516661937217, guid: 3d283aaeb70b0b344b665ec5897fa74a,
         type: 3}
       propertyPath: m_Name
-      value: Throwable Variant
+      value: Throwable Variant (abstract)
       objectReference: {fileID: 0}
     - target: {fileID: 3137551318120683610, guid: 3d283aaeb70b0b344b665ec5897fa74a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.028
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3137551318120683610, guid: 3d283aaeb70b0b344b665ec5897fa74a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.727
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3137551318120683610, guid: 3d283aaeb70b0b344b665ec5897fa74a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.458
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3137551318120683610, guid: 3d283aaeb70b0b344b665ec5897fa74a,
         type: 3}

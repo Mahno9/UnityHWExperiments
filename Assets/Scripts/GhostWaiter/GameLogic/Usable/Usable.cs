@@ -1,43 +1,17 @@
 using UnityEngine;
 
-public abstract class Usable : MonoBehaviour
+public abstract class Usable : Holdable
 {
-    private const float TAKING_FLOAT_EPSILON = 0.01f;
+    [SerializeField] private GameObject _useFx;
 
-    [SerializeField] private float _takingFloatSpeed = 10f;
-
-    private Holder _holder;
-    protected Holder Holder => _holder;
-
-    public abstract void Use();
-
-    public void SetHolderInstant(Holder holder)
+    public virtual void Use()
     {
-        _holder = holder;
-        transform.SetParent(holder.GetJointTransform());
-        transform.localPosition = Vector3.zero;
+        if (_useFx != null)
+            Instantiate(_useFx, transform.position, Quaternion.identity);
+
+        Destroy(gameObject);
     }
 
-    public void SetHolder(Holder holder)
-    {
-        _holder = holder;
-        if (_holder)
-            transform.SetParent(holder.GetJointTransform(), true);
-    }
-
-    private void Update()
-    {
-        UpdateTakingFloatAnimation();
-    }
-
-    private void UpdateTakingFloatAnimation()
-    {
-        if (Holder == null || transform.localPosition.Equals(Vector3.zero))
-            return;
-
-        transform.localPosition /= 1 + Time.deltaTime * _takingFloatSpeed;
-        if (transform.localPosition.magnitude < TAKING_FLOAT_EPSILON)
-            transform.localPosition = Vector3.zero;
-    }
-
+    public virtual void Init(WaiterGameState gameState)
+    { }
 }

@@ -1,7 +1,15 @@
+using UnityEngine;
+
 public class UseSpeedIncrease : Usable
 {
+    [SerializeField] private float _speedMultiplier = 1.1f;
+
     public override void Use()
     {
-        throw new System.NotImplementedException();
+        if (Holder.TryGetComponent<CharacterMover>(out CharacterMover mover))
+            mover.IncreaseMoveSpeedBy(_speedMultiplier);
+
+        base.Use();
     }
+
 }

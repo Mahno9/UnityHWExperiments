@@ -8,6 +8,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private SpawnPoint[] _spawnHolders;
     [SerializeField] private Usable[] _spawnItems;
     [SerializeField] private float _spawnInterval = 2f;
+    [SerializeField] private WaiterGameState _gameState;
 
     private float _spawnRemainingTime;
 
@@ -36,7 +37,7 @@ public class Spawner : MonoBehaviour
 
         Usable itemPrefab = GetRandomSpawnItem();
         Usable spawnedItem = Instantiate(itemPrefab);
-        // Skip Init since spawned items in Spawner have no owner.
+        spawnedItem.Init(_gameState);
 
         emptyHolder.InlayUsable(spawnedItem);
     }

@@ -19,8 +19,8 @@ public class InfiniteSelfSpawnPoint : SpawnPoint
 
     private void SpawnUsable()
     {
-        Assert.IsNotNull(_usablePrefab, $"{nameof(_usablePrefab)} is not assigned in the inspector of {nameof(InfiniteSelfSpawnPoint)} attached to {gameObject.name}.");
-        Assert.IsTrue(IsEmpty, $"Trying to spawn usable in non-empty {nameof(InfiniteSelfSpawnPoint)} attached to {gameObject.name}.");
+        Assert.IsNotNull(_usablePrefab);
+        Assert.IsTrue(IsEmpty);
         InlayUsable(Instantiate(_usablePrefab));
     }
 }

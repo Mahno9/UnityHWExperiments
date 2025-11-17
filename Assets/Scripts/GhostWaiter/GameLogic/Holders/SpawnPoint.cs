@@ -4,19 +4,19 @@ public class SpawnPoint : Holder
 {
     [SerializeField] private Transform _jointTransform;
 
-    private Usable _currentUsable;
+    private Usable _heldUsable;
 
     public virtual Usable ExtractUsable()
     {
-        Usable _extractedUsable = _currentUsable;
-        _currentUsable = null;
+        Usable _extractedUsable = _heldUsable;
+        _heldUsable = null;
         return _extractedUsable;
     }
 
     public bool InlayUsable(Usable usable)
     {
         if (IsEmpty)
-            _currentUsable = usable;
+            _heldUsable = usable;
         else
             return false;
 
@@ -30,5 +30,5 @@ public class SpawnPoint : Holder
         return _jointTransform;
     }
 
-    public bool IsEmpty => _currentUsable == null;
+    public bool IsEmpty => _heldUsable == null;
 }

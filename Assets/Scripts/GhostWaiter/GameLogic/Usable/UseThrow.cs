@@ -56,7 +56,6 @@ public class UseThrow : Usable
 
         transform.SetParent(null, true);
         SetHolder(null);
-
     }
 
     private void ResetVisualPos()

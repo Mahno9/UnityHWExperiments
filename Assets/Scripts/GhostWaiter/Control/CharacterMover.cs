@@ -37,4 +37,9 @@ public class CharacterMover : MonoBehaviour
 
         _rotationModel.rotation = Quaternion.RotateTowards(_rotationModel.rotation, lookRotation, step);
     }
+
+    public void IncreaseMoveSpeedBy(float speedMultiplier)
+    {
+        _speed *= speedMultiplier;
+    }
 }

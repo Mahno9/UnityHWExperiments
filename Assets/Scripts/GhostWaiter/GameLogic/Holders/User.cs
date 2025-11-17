@@ -38,10 +38,7 @@ public class User : Holder
     {
         _heldUsable = usable;
 
-        if (_heldUsable == null)
-            return;
-
-        _heldUsable.SetHolder(this);
+        if (_heldUsable != null)
+            _heldUsable.SetHolder(this);
     }
-
 }
