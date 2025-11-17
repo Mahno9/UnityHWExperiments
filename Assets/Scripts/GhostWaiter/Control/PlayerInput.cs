@@ -5,6 +5,7 @@ public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private CharacterMover _characterMover;
     [SerializeField] private Camera _camera;
+    [SerializeField] private User _user;
 
     private const float _inputDeadZone = 0.1f;
     private const string HorizontalAxisName = "Horizontal";
@@ -13,6 +14,7 @@ public class PlayerInput : MonoBehaviour
     private void Update()
     {
         ProcessMoveInput();
+        ProcessUerInput();
     }
 
     private void ProcessMoveInput()
@@ -29,6 +31,15 @@ public class PlayerInput : MonoBehaviour
         _characterMover.ProcessMoveTo(inputNormalized);
         _characterMover.ProcessRotateTo(inputNormalized);
     }
+
+    private void ProcessUerInput()
+    {
+        Assert.IsNotNull(_user, "_user is not assigned in the inspector.");
+
+        if (Input.GetButtonDown("Use"))
+            _user.Use();
+    }
+
 
     private Vector3 CompensateCamera(Vector3 v)
     {

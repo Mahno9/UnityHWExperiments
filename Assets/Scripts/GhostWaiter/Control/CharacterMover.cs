@@ -9,6 +9,8 @@ public class CharacterMover : MonoBehaviour
     private Rigidbody _rigidbody;
     private Transform _rotationModel;
 
+    private Vector3 _moveShiftCumulative;
+
     private void Awake()
     {
         if (_rigidbody == null)
@@ -17,14 +19,15 @@ public class CharacterMover : MonoBehaviour
             _rotationModel = transform;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.velocity = _moveShiftCumulative * _speed * Time.fixedDeltaTime;
+        _moveShiftCumulative = Vector3.zero;
     }
 
     public void ProcessMoveTo(Vector3 normDirection)
     {
-        _rigidbody.velocity = normDirection * _speed;
+        _moveShiftCumulative = (_moveShiftCumulative + normDirection).normalized;
     }
 
     public void ProcessRotateTo(Vector3 direction)
