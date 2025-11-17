@@ -2,17 +2,42 @@ using UnityEngine;
 
 public abstract class Usable : MonoBehaviour
 {
-    private User _owner;
-    protected User Owner => _owner;
+    private const float TAKING_FLOAT_EPSILON = 0.01f;
+
+    [SerializeField] private float _takingFloatSpeed = 10f;
+
+    private Holder _holder;
+    protected Holder Holder => _holder;
 
     public abstract void Use();
 
-    public void SetOwner(User owner)
+    public void SetHolderInstant(Holder holder)
     {
-        _owner = owner;
-
-        transform.SetParent(_owner.transform);
-        transform.SetParent(owner.GetJointTransform());
+        _holder = holder;
+        transform.SetParent(holder.GetJointTransform());
         transform.localPosition = Vector3.zero;
     }
+
+    public void SetHolder(Holder holder)
+    {
+        _holder = holder;
+        if (_holder)
+            transform.SetParent(holder.GetJointTransform(), true);
+    }
+
+    private void Update()
+    {
+        UpdateTakingFloatAnimation();
+    }
+
+    private void UpdateTakingFloatAnimation()
+    {
+        if (Holder == null || transform.localPosition.Equals(Vector3.zero))
+            return;
+
+        transform.localPosition /= 1 + Time.deltaTime * _takingFloatSpeed;
+        if (transform.localPosition.magnitude < TAKING_FLOAT_EPSILON)
+            transform.localPosition = Vector3.zero;
+    }
+
 }

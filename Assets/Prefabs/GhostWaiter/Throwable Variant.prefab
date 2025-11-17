@@ -152,6 +152,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ad95691ecad2848a109a4a205826e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _takingFloatSpeed: 10
   _visualShift: {fileID: 1160971965320897131}
   _throwAngle: 45
-  _throwForce: 7
+  _throwForce: 10
+  _clearExplosionFx: {fileID: 0}
+  _dirtyExplosionFx: {fileID: 0}

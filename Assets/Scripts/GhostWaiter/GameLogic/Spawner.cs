@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Holder[] _spawnHolders;
+    [SerializeField] private SpawnPoint[] _spawnHolders;
     [SerializeField] private Usable[] _spawnItems;
     [SerializeField] private float _spawnInterval = 2f;
 
@@ -30,7 +30,7 @@ public class Spawner : MonoBehaviour
 
     private void SpawnItem()
     {
-        Holder emptyHolder = FindEmptyHolder();
+        SpawnPoint emptyHolder = FindEmptyHolder();
         if (emptyHolder == null)
             return;
 
@@ -41,10 +41,10 @@ public class Spawner : MonoBehaviour
         emptyHolder.InlayUsable(spawnedItem);
     }
 
-    private Holder FindEmptyHolder()
+    private SpawnPoint FindEmptyHolder()
     {
-        List<Holder> emptyHolders = new List<Holder>();
-        foreach (Holder holder in _spawnHolders)
+        List<SpawnPoint> emptyHolders = new List<SpawnPoint>();
+        foreach (SpawnPoint holder in _spawnHolders)
         {
             if (holder.IsEmpty)
                 emptyHolders.Add(holder);

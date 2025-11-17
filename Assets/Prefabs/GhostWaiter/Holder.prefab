@@ -13,7 +13,7 @@ GameObject:
   m_Layer: 0
   m_Name: Joint
   m_TagString: Untagged
-  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -114,5 +114,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 948ca7b80d9a6e44f8a40079cb1db4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _joint: {fileID: 8534840613334099040}
-  _currentUsable: {fileID: 0}
+  _jointTransform: {fileID: 8534840613334099040}

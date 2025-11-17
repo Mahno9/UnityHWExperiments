@@ -7,9 +7,9 @@ public class PlayerInput : MonoBehaviour
     [SerializeField] private Camera _camera;
     [SerializeField] private User _user;
 
-    private const float _inputDeadZone = 0.1f;
-    private const string HorizontalAxisName = "Horizontal";
-    private const string VerticalAxisName = "Vertical";
+    private const float INPUT_DEAD_ZONE = 0.1f;
+    private const string HOROZONTAL_AXIS_NAME = "Horizontal";
+    private const string VERTIAL_AXIS_NAME = "Vertical";
 
     private void Update()
     {
@@ -21,8 +21,8 @@ public class PlayerInput : MonoBehaviour
     {
         Assert.IsNotNull(_characterMover, "_characterMover is not assigned in the inspector.");
 
-        Vector3 input = new Vector3(Input.GetAxisRaw(HorizontalAxisName), 0, Input.GetAxisRaw(VerticalAxisName));
-        if (input.magnitude < _inputDeadZone)
+        Vector3 input = new Vector3(Input.GetAxisRaw(HOROZONTAL_AXIS_NAME), 0, Input.GetAxisRaw(VERTIAL_AXIS_NAME));
+        if (input.magnitude < INPUT_DEAD_ZONE)
             return;
 
         Vector3 inputNormalized = input.normalized;

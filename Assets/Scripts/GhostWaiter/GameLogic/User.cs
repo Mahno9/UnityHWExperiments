@@ -1,28 +1,16 @@
 using UnityEngine;
 using UnityEngine.Assertions;
 
-public class User : MonoBehaviour
+public class User : Holder
 {
     [SerializeField] private Transform _jointTransform;
 
     private Usable _heldUsable;
 
-    public Transform GetJointTransform()
+    public override Transform GetJointTransform()
     {
         Assert.IsNotNull(_jointTransform, "_jointTransform is not assigned in the inspector.");
         return _jointTransform;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (_heldUsable != null)
-            return;
-
-        Holder holder = other.GetComponent<Holder>();
-        if (holder == null || holder.IsEmpty)
-            return;
-
-        Hold(holder.ExtractUsable());
     }
 
     public void Use()
@@ -30,10 +18,20 @@ public class User : MonoBehaviour
         if (_heldUsable == null)
             return;
 
-        Debug.Log("Using " + _heldUsable.name);
-
         _heldUsable.Use();
         Hold(null);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (_heldUsable != null)
+            return;
+
+        SpawnPoint holder = other.GetComponent<SpawnPoint>();
+        if (holder == null || holder.IsEmpty)
+            return;
+
+        Hold(holder.ExtractUsable());
     }
 
     private void Hold(Usable usable)
@@ -43,7 +41,7 @@ public class User : MonoBehaviour
         if (_heldUsable == null)
             return;
 
-        Debug.Log("Captured " + usable.name);
-        _heldUsable.SetOwner(this);
+        _heldUsable.SetHolder(this);
     }
+
 }

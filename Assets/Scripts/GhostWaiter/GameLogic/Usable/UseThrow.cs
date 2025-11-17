@@ -48,11 +48,15 @@ public class UseThrow : Usable
 
     public override void Use()
     {
-        Assert.IsNotNull(Owner, "Owner is null in Throw.Use");
+        Assert.IsNotNull(Holder, "Owner is null in Throw.Use");
 
         ResetVisualPos();
         SetStartPos();
         Launch();
+
+        transform.SetParent(null, true);
+        SetHolder(null);
+
     }
 
     private void ResetVisualPos()
@@ -63,9 +67,7 @@ public class UseThrow : Usable
 
     private void SetStartPos()
     {
-        transform.SetParent(null, true);
-
-        Transform jointTransform = Owner.GetJointTransform();
+        Transform jointTransform = Holder.GetJointTransform();
         gameObject.transform.position = jointTransform.position;
         gameObject.transform.rotation = jointTransform.rotation;
     }
