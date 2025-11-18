@@ -65,7 +65,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8176794984024222397, guid: 4cb7531a414ce884f876e66e95cd5b46, type: 3}
-    m_RemovedGameObjects: []
+    - {fileID: 2023247270334805040, guid: 4cb7531a414ce884f876e66e95cd5b46, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 7035141345077856224, guid: 4cb7531a414ce884f876e66e95cd5b46, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 9099524218971982920, guid: 4cb7531a414ce884f876e66e95cd5b46,
@@ -92,6 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jointTransform: {fileID: 5700535326326462484}
+  _junkHolder: {fileID: 0}
   _usablePrefab: {fileID: 0}
 --- !u!4 &5700535326326462484 stripped
 Transform:

@@ -1,5 +1,7 @@
 using System;
 
+using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -31,17 +33,19 @@ public class User : Holder
             return;
 
         bool holdSome = _heldUsable != null;
+
         if (holdSome)
-        {
-            if (spawnPoint.CanReplaceWith(_heldUsable))
-            {
-                spawnPoint.Inlay(_heldUsable);
-                Hold(null);
-            }
-        }
+            ReplaceWithHeld(spawnPoint);
         else if (spawnPoint.NeedTakeAway())
-        {
             Hold(spawnPoint.TryExtract());
+    }
+
+    private void ReplaceWithHeld(SpawnPoint spawnPoint)
+    {
+        if (spawnPoint.CanReplaceWith(_heldUsable))
+        {
+            spawnPoint.Inlay(_heldUsable);
+            Hold(null);
         }
     }
 

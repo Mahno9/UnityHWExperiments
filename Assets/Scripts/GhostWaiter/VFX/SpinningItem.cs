@@ -25,6 +25,7 @@ public class Spinning : MonoBehaviour
     {
         transform.Rotate(Vector3.up, _rotationSpeed * Time.deltaTime, Space.World);
     }
+
     private void UpdatePosition()
     {
         const float SHIFT_TO_MINUS_ONE = -MathF.PI / 2; // To start from bottom position

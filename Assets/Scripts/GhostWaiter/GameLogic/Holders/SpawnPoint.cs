@@ -5,6 +5,8 @@ using UnityEngine;
 public class SpawnPoint : Holder
 {
     [SerializeField] private Transform _jointTransform;
+    [SerializeField] private JunkHolder _junkHolder;
+    [SerializeField] private float _destroyInterval = 2f;
 
     private Holdable _curHoldable;
     private SpawnPointState _state = SpawnPointState.Empty;
@@ -14,39 +16,44 @@ public class SpawnPoint : Holder
         Usable extractedUsable = (Usable)_curHoldable;
         _curHoldable = null;
 
-        UpdateState(false);
+        UpdateState();
 
         return extractedUsable;
     }
 
     public bool Inlay(Holdable holdable)
     {
-        bool canReplace = false;
-        if (!CanSpawn() && !(canReplace = CanReplaceWith(holdable)))
+        bool isReplacing = false;
+        if (!CanSpawn() && !(isReplacing = CanReplaceWith(holdable)))
             return false;
 
         if (_curHoldable)
+        {
             Destroy(_curHoldable.gameObject);
+            _curHoldable = null;
+        }
 
-        _curHoldable = holdable;
-        holdable.SetHolderInstant(this);
+        if (isReplacing)
+        {
+            holdable.SetHolder(_junkHolder);
+            Destroy(holdable.gameObject, _destroyInterval);
+        }
+        else
+        {
+            _curHoldable = holdable;
+            holdable.SetHolderInstant(this);
+        }
 
-        UpdateState(canReplace);
+        UpdateState();
 
         return true;
     }
 
-    private void UpdateState(bool wasReplaced)
+    private void UpdateState()
     {
         if (_curHoldable is null)
         {
             _state = SpawnPointState.Empty;
-            return;
-        }
-
-        if (wasReplaced)
-        {
-            _state = SpawnPointState.ReplaceDone;
             return;
         }
 
@@ -60,7 +67,7 @@ public class SpawnPoint : Holder
 
     private string RequiredTag => (_curHoldable as Replaceable)?.RequiredTag;
 
-    public bool CanSpawn() => _state is SpawnPointState.Empty or SpawnPointState.ReplaceDone;
+    public bool CanSpawn() => _state is SpawnPointState.Empty;
 
     public bool CanReplaceWith(Holdable holdable)
     {
