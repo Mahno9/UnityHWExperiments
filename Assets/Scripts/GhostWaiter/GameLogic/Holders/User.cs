@@ -1,3 +1,5 @@
+using System;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -15,7 +17,7 @@ public class User : Holder
 
     public void Use()
     {
-        if (_heldUsable == null)
+        if (_heldUsable is null)
             return;
 
         _heldUsable.Use();
@@ -24,21 +26,38 @@ public class User : Holder
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_heldUsable != null)
+        SpawnPoint spawnPoint = other.GetComponent<SpawnPoint>();
+        if (spawnPoint == null)
             return;
 
-        SpawnPoint holder = other.GetComponent<SpawnPoint>();
-        if (holder == null || holder.IsEmpty)
-            return;
-
-        Hold(holder.ExtractUsable());
+        bool holdSome = _heldUsable != null;
+        if (holdSome)
+        {
+            if (spawnPoint.CanReplaceWith(_heldUsable))
+            {
+                spawnPoint.Inlay(_heldUsable);
+                Hold(null);
+            }
+        }
+        else if (spawnPoint.NeedTakeAway())
+        {
+            Hold(spawnPoint.TryExtract());
+        }
     }
 
     private void Hold(Usable usable)
     {
         _heldUsable = usable;
 
-        if (_heldUsable != null)
-            _heldUsable.SetHolder(this);
+        if (_heldUsable is null)
+            return;
+
+        _heldUsable.SetHolder(this);
+        DisableHighlight(_heldUsable);
+    }
+
+    private void DisableHighlight(Usable heldUsable)
+    {
+        heldUsable.GetComponentInChildren<HighlightItem>()?.DisableHighlight();
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.Assertions;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private SpawnPoint[] _spawnHolders;
-    [SerializeField] private Usable[] _spawnItems;
+    [SerializeField] private Holdable[] _spawnItems;
     [SerializeField] private float _spawnInterval = 2f;
     [SerializeField] private WaiterGameState _gameState;
 
@@ -35,29 +35,30 @@ public class Spawner : MonoBehaviour
         if (emptyHolder == null)
             return;
 
-        Usable itemPrefab = GetRandomSpawnItem();
-        Usable spawnedItem = Instantiate(itemPrefab);
-        spawnedItem.Init(_gameState);
+        Holdable itemPrefab = GetRandomSpawnItem();
+        Holdable spawnedItem = Instantiate(itemPrefab);
 
-        emptyHolder.InlayUsable(spawnedItem);
+        (spawnedItem as Usable)?.Init(_gameState);
+
+        emptyHolder.Inlay(spawnedItem);
     }
 
     private SpawnPoint FindEmptyHolder()
     {
-        List<SpawnPoint> emptyHolders = new List<SpawnPoint>();
+        List<SpawnPoint> emptySpawnPoints = new List<SpawnPoint>();
         foreach (SpawnPoint holder in _spawnHolders)
         {
-            if (holder.IsEmpty)
-                emptyHolders.Add(holder);
+            if (holder.CanSpawn())
+                emptySpawnPoints.Add(holder);
         }
 
-        if (emptyHolders.Count == 0)
+        if (emptySpawnPoints.Count == 0)
             return null;
 
-        return emptyHolders[UnityEngine.Random.Range(0, emptyHolders.Count)];
+        return emptySpawnPoints[UnityEngine.Random.Range(0, emptySpawnPoints.Count)];
     }
 
-    private Usable GetRandomSpawnItem()
+    private Holdable GetRandomSpawnItem()
     {
         return _spawnItems[UnityEngine.Random.Range(0, _spawnItems.Length)];
     }

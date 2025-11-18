@@ -7,20 +7,20 @@ public class InfiniteSelfSpawnPoint : SpawnPoint
 
     private void Awake()
     {
-        SpawnUsable();
+        Spawn();
     }
 
-    public override Usable ExtractUsable()
+    public override Usable TryExtract()
     {
-        Usable oldUsable = base.ExtractUsable();
-        SpawnUsable();
+        Usable oldUsable = base.TryExtract();
+        Spawn();
         return oldUsable;
     }
 
-    private void SpawnUsable()
+    private void Spawn()
     {
         Assert.IsNotNull(_usablePrefab);
-        Assert.IsTrue(IsEmpty);
-        InlayUsable(Instantiate(_usablePrefab));
+        Assert.IsTrue(CanSpawn());
+        Inlay(Instantiate(_usablePrefab));
     }
 }

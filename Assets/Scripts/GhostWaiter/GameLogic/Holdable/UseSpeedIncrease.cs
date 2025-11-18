@@ -11,5 +11,4 @@ public class UseSpeedIncrease : Usable
 
         base.Use();
     }
-
 }
