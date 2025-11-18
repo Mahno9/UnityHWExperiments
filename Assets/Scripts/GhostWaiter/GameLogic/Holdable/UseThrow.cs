@@ -14,6 +14,7 @@ public class UseThrow : Usable
 
     [SerializeField] private GameObject _clearExplosionFx;
     [SerializeField] private GameObject _dirtyExplosionFx;
+    [SerializeField] private TrailRenderer _trail;
 
     private Rigidbody _body;
     private Collider _collider;
@@ -27,6 +28,9 @@ public class UseThrow : Usable
 
         _collider = GetComponent<Collider>();
         _collider.isTrigger = true;
+
+        if (_trail is not null)
+            _trail.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -55,7 +59,18 @@ public class UseThrow : Usable
         ResetVisualPos();
         SetStartPos();
         Launch();
+        UnbindFromHolder();
+        EnableTrail();
+    }
 
+    private void EnableTrail()
+    {
+        if (_trail is not null)
+            _trail.enabled = true;
+    }
+
+    private void UnbindFromHolder()
+    {
         transform.SetParent(null, true);
         SetHolder(null);
     }

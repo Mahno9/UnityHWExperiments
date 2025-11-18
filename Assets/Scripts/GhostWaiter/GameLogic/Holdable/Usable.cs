@@ -7,7 +7,7 @@ public abstract class Usable : Holdable
     public virtual void Use()
     {
         if (_useFx != null)
-            Instantiate(_useFx, transform.position, Quaternion.identity);
+            Instantiate(_useFx, transform.position, _useFx.transform.rotation);
 
         Destroy(gameObject);
     }
