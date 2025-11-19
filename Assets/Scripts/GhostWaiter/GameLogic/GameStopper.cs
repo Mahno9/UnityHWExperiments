@@ -6,7 +6,7 @@ public class GameStopper : MonoBehaviour
 
     private void Update()
     {
-        if (_gameState.GetValue() < 0 || _gameState.GetValue() >= _gameState.GetValueMax())
+        if (_gameState.GetValue() <= 0 || _gameState.GetValue() >= _gameState.GetValueMax())
         {
             Time.timeScale = 0;
         }

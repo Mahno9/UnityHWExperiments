@@ -7187,7 +7187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _startHealth: 2
-  _maxHealth: 10
+  _maxHealth: 7
 --- !u!4 &412711388
 Transform:
   m_ObjectHideFlags: 0

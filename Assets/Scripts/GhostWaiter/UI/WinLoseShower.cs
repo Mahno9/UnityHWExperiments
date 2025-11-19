@@ -9,7 +9,7 @@ public class WinLoseShower : MonoBehaviour
 
     private void Update()
     {
-        if (_gameState.GetValue() < 0)
+        if (_gameState.GetValue() <= 0)
         {
             _loseContainer.gameObject.SetActive(true);
             enabled = false;
