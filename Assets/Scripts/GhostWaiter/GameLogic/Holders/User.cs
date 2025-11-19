@@ -44,7 +44,7 @@ public class User : Holder
     {
         if (spawnPoint.CanReplaceWith(_heldUsable))
         {
-            spawnPoint.Inlay(_heldUsable);
+            spawnPoint.Put(_heldUsable);
             Hold(null);
         }
     }

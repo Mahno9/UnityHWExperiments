@@ -40,7 +40,7 @@ public class Spawner : MonoBehaviour
 
         (spawnedItem as Usable)?.Init(_gameState);
 
-        emptyHolder.Inlay(spawnedItem);
+        emptyHolder.Put(spawnedItem);
     }
 
     private SpawnPoint FindEmptyHolder()

@@ -6742,6 +6742,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 309273382}
+  - component: {fileID: 309273383}
   m_Layer: 5
   m_Name: SalaryBar
   m_TagString: Untagged
@@ -6771,6 +6772,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &309273383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 309273381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6b923b2a6674b808f6f6ca9eeadd9c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _container: {fileID: 412711387}
+  _progressbar: {fileID: 939010440}
 --- !u!1001 &319910158
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7011,6 +7026,52 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2db1d06f79fef94592fee4b86c679d8, type: 3}
+--- !u!1 &412711386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 412711388}
+  - component: {fileID: 412711387}
+  m_Layer: 0
+  m_Name: GameState
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &412711387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412711386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fab58934c8b4e5c42b999bd8012c0b34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startHealth: 10
+  _maxHealth: 100
+--- !u!4 &412711388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412711386}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 270.99338, y: 228.93398, z: 56.022987}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &423175600
 GameObject:
   m_ObjectHideFlags: 0
@@ -7483,8 +7544,11 @@ MonoBehaviour:
   - {fileID: 561918115}
   _spawnItems:
   - {fileID: 6630287504409825063, guid: c4fd85ee8cafaa94b9bfb9ddc8d42081, type: 3}
+  - {fileID: 6630287504409825063, guid: c4fd85ee8cafaa94b9bfb9ddc8d42081, type: 3}
   - {fileID: 4870372950748197525, guid: d2e5860a89215624298b98099c797a9e, type: 3}
   - {fileID: 4870372950748197525, guid: 9b8f6f744b79be24eaaed527d81bff99, type: 3}
+  - {fileID: 7264824496354023764, guid: 6c77d87105e4618418ae142ec8b2fa48, type: 3}
+  - {fileID: 4051166237003659555, guid: c089d0fde93cf7e4b8e164aaa2fdf724, type: 3}
   _spawnInterval: 4
   _gameState: {fileID: 0}
 --- !u!4 &534239402 stripped
@@ -7788,7 +7852,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.85660374, g: 0.68256235, b: 0.26991096, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8098,6 +8162,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 634693872}
+  - component: {fileID: 634693873}
   m_Layer: 5
   m_Name: MotivationBar
   m_TagString: Untagged
@@ -8127,6 +8192,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &634693873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 634693871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6b923b2a6674b808f6f6ca9eeadd9c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _container: {fileID: 5109801305580378689}
+  _progressbar: {fileID: 587001366}
 --- !u!1 &680021308
 GameObject:
   m_ObjectHideFlags: 0
@@ -11536,7 +11615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.85490197, g: 0.85490197, b: 0.85490197, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -12218,6 +12297,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 448525424}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1808867308
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1808867309}
+  m_Layer: 0
+  m_Name: --- UI ---
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1808867309
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808867308}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 270.99338, y: 228.93398, z: 56.022987}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1844871342 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5007544246034919480, guid: a85d74d78da4d334caf7d581691d2df7,
@@ -18201,6 +18311,11 @@ PrefabInstance:
       propertyPath: _speed
       value: 150
       objectReference: {fileID: 0}
+    - target: {fileID: 3279726534560551705, guid: c5d1c2f82ee6ae0498f0a202330e0b5b,
+        type: 3}
+      propertyPath: _maxSpeed
+      value: 400
+      objectReference: {fileID: 0}
     - target: {fileID: 7178023479619975748, guid: c5d1c2f82ee6ae0498f0a202330e0b5b,
         type: 3}
       propertyPath: m_Enabled
@@ -18318,6 +18433,8 @@ SceneRoots:
   - {fileID: 2078899444}
   - {fileID: 498407326}
   - {fileID: 238640730}
+  - {fileID: 412711388}
+  - {fileID: 1808867309}
   - {fileID: 43391871}
   - {fileID: 72850396}
   - {fileID: 1402373005}

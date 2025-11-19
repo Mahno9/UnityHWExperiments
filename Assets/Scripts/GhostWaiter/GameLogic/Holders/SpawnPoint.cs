@@ -21,7 +21,7 @@ public class SpawnPoint : Holder
         return extractedUsable;
     }
 
-    public bool Inlay(Holdable holdable)
+    public bool Put(Holdable holdable)
     {
         bool isReplacing = false;
         if (!CanSpawn() && !(isReplacing = CanReplaceWith(holdable)))

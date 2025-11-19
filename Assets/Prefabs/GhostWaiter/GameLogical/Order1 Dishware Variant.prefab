@@ -27,13 +27,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8438985622413951308}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0.80962294, w: 0.58695036}
+  m_LocalPosition: {x: -0.175, y: 0.154, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 631985869195447287}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -108.118}
 --- !u!33 &7430847946401220568
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -164,7 +164,47 @@ PrefabInstance:
     - target: {fileID: 3523214596345754390, guid: 211316d42c87f28468b115de3d03e565,
         type: 3}
       propertyPath: m_Name
-      value: Order1 Variant
+      value: Order1 Dishware Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 4240586673484781172, guid: 211316d42c87f28468b115de3d03e565,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.052
+      objectReference: {fileID: 0}
+    - target: {fileID: 4240586673484781172, guid: 211316d42c87f28468b115de3d03e565,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.116
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580362565393964320, guid: 211316d42c87f28468b115de3d03e565,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.4320153
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580362565393964320, guid: 211316d42c87f28468b115de3d03e565,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.2650017
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580362565393964320, guid: 211316d42c87f28468b115de3d03e565,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.24592215
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580362565393964320, guid: 211316d42c87f28468b115de3d03e565,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.033373028
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580362565393964320, guid: 211316d42c87f28468b115de3d03e565,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.12047699
+      objectReference: {fileID: 0}
+    - target: {fileID: 7580362565393964320, guid: 211316d42c87f28468b115de3d03e565,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.0010560453
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9216834249505110430, guid: 211316d42c87f28468b115de3d03e565, type: 3}
@@ -214,7 +254,7 @@ MonoBehaviour:
   _clearExplosionFx: {fileID: 0}
   _dirtyExplosionFx: {fileID: 0}
   _trail: {fileID: 3454529585037966349}
-  _tag: Order1
+  _tag: Order1 Dishware
 --- !u!96 &3454529585037966349 stripped
 TrailRenderer:
   m_CorrespondingSourceObject: {fileID: 3518299095743793399, guid: 211316d42c87f28468b115de3d03e565,

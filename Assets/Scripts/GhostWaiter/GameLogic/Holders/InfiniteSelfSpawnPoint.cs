@@ -21,6 +21,6 @@ public class InfiniteSelfSpawnPoint : SpawnPoint
     {
         Assert.IsNotNull(_usablePrefab);
         Assert.IsTrue(CanSpawn());
-        Inlay(Instantiate(_usablePrefab));
+        Put(Instantiate(_usablePrefab));
     }
 }
