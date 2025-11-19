@@ -6456,8 +6456,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.6390257, y: 5.8732247, z: 7.3399963}
-  m_Center: {x: -0.69839764, y: 1.8716457, z: 0.059003234}
+  m_Size: {x: 5.220217, y: 5.8732247, z: 6.8795366}
+  m_Center: {x: -0.90780187, y: 1.8716457, z: -0.1712265}
 --- !u!4 &238640730
 Transform:
   m_ObjectHideFlags: 0
@@ -7197,7 +7197,7 @@ Transform:
   m_GameObject: {fileID: 412711386}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 270.99338, y: 228.93398, z: 56.022987}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7695,6 +7695,51 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2006078095}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &494966142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 494966144}
+  - component: {fileID: 494966143}
+  m_Layer: 0
+  m_Name: ShowStopper
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &494966143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494966142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1bb0aa7c689d4a688f9c75ef0282fc37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _gameState: {fileID: 412711387}
+--- !u!4 &494966144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494966142}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 294.875, y: 184.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &498407325
 GameObject:
   m_ObjectHideFlags: 0
@@ -19260,6 +19305,7 @@ SceneRoots:
   - {fileID: 1386077970}
   - {fileID: 2078899444}
   - {fileID: 238640730}
+  - {fileID: 494966144}
   - {fileID: 412711388}
   - {fileID: 1808867309}
   - {fileID: 43391871}
