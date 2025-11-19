@@ -211,9 +211,12 @@ MonoBehaviour:
   _visualShift: {fileID: 5524337055841658755}
   _throwAngle: 45
   _throwForce: 10
-  _clearExplosionFx: {fileID: 0}
-  _dirtyExplosionFx: {fileID: 0}
+  _cleanExplosionFx: {fileID: 6458798314287997561, guid: 4d88140c0cee8534aaf530ee2d42b8eb,
+    type: 3}
+  _dirtyExplosionFx: {fileID: 6458798314287997561, guid: 000bf161770d7b04fa8f62e611f6f89c,
+    type: 3}
   _trail: {fileID: 3454529585037966349}
+  _damage: 1
   _tag: Order1
 --- !u!96 &3454529585037966349 stripped
 TrailRenderer:

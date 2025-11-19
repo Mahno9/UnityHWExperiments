@@ -228,6 +228,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3247919311581750584}
+    - targetCorrespondingSourceObject: {fileID: 903005516661937217, guid: 3d283aaeb70b0b344b665ec5897fa74a,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8395874772111682350}
   m_SourcePrefab: {fileID: 100100000, guid: 3d283aaeb70b0b344b665ec5897fa74a, type: 3}
 --- !u!4 &1160971965320897131 stripped
 Transform:
@@ -312,6 +316,21 @@ MonoBehaviour:
   _visualShift: {fileID: 1160971965320897131}
   _throwAngle: 45
   _throwForce: 10
-  _clearExplosionFx: {fileID: 0}
-  _dirtyExplosionFx: {fileID: 0}
   _trail: {fileID: 3518299095743793399}
+  _damage: 1
+--- !u!114 &8395874772111682350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3523214596345754390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04a1db275254810bb3017879f781948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cleanExplosionFx: {fileID: 6458798314287997561, guid: 4d88140c0cee8534aaf530ee2d42b8eb,
+    type: 3}
+  _dirtyExplosionFx: {fileID: 6458798314287997561, guid: 000bf161770d7b04fa8f62e611f6f89c,
+    type: 3}

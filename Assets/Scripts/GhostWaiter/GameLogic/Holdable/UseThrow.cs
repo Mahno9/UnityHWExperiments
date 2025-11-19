@@ -1,10 +1,9 @@
-using System;
-
 using UnityEngine;
 using UnityEngine.Assertions;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(DestroyerWithEffect))]
 public class UseThrow : Usable
 {
     [SerializeField] private Transform _visualShift;
@@ -12,13 +11,15 @@ public class UseThrow : Usable
     [SerializeField] private float _throwAngle = 30f;
     [SerializeField] private float _throwForce = 3f;
 
-    [SerializeField] private GameObject _clearExplosionFx;
-    [SerializeField] private GameObject _dirtyExplosionFx;
     [SerializeField] private TrailRenderer _trail;
+
+    [SerializeField] private float _damage = 1;
 
     private Rigidbody _body;
     private Collider _collider;
+    private DestroyerWithEffect _destroyer;
 
+    private WaiterGameState _gameState;
     private bool _isInWashArea = false;
 
     private void Awake()
@@ -29,8 +30,16 @@ public class UseThrow : Usable
         _collider = GetComponent<Collider>();
         _collider.isTrigger = true;
 
+        _destroyer = GetComponent<DestroyerWithEffect>();
+
         if (_trail is not null)
             _trail.enabled = false;
+    }
+
+    public override void Init(WaiterGameState gameState)
+    {
+        _gameState = gameState;
+        base.Init(gameState);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -47,9 +56,10 @@ public class UseThrow : Usable
 
     private void OnCollisionEnter(Collision collision)
     {
-        //GameObject explosionFx = _isInWashArea ? _clearExplosionFx : _dirtyExplosionFx;
-        //Instantiate(explosionFx, transform.position, Quaternion.identity);
-        Debug.Log($"Explosion clear: {_isInWashArea}");
+        if (_isInWashArea == false)
+            _gameState.AddHealth(-_damage);
+
+        _destroyer.DestroyWithEffect(_isInWashArea);
     }
 
     public override void Use()
@@ -92,6 +102,14 @@ public class UseThrow : Usable
     {
         _body.isKinematic = false;
         _body.velocity = gameObject.transform.rotation * Quaternion.Euler(-_throwAngle, 0, 0) * Vector3.forward * _throwForce;
+
+        // Мне очень нужен был этот костыль. Если знаешь как сделать лучше, подскажи, пожалуйста
+        StartCoroutine(SetColliderAsNonTriggerAfterDelay());
+    }
+
+    private System.Collections.IEnumerator SetColliderAsNonTriggerAfterDelay()
+    {
+        yield return new WaitForSeconds(0.1f);
         _collider.isTrigger = false;
     }
 }

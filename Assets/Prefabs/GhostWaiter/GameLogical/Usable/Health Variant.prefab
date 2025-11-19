@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 903005516661937217, guid: 3d283aaeb70b0b344b665ec5897fa74a,
         type: 3}
       propertyPath: m_Name
-      value: Change Variant
+      value: Health Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3137551318120683610, guid: 3d283aaeb70b0b344b665ec5897fa74a,
         type: 3}
@@ -91,5 +91,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _takingFloatSpeed: 10
-  _useFx: {fileID: 0}
+  _useFx: {fileID: 6160132193236585632, guid: 169291485e60fff4d90a0742c77cc7bb, type: 3}
   _healthIncreaseAmount: 1

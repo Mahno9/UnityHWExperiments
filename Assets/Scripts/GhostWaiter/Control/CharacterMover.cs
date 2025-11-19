@@ -6,6 +6,7 @@ public class CharacterMover : BaseValueContainer
     [SerializeField] private float _speed;
     [SerializeField] private float _maxSpeed;
     [SerializeField] private float _rotationSpeed;
+    [SerializeField] private float _rotationMaxSpeed;
 
     private Rigidbody _rigidbody;
     private Transform _rotationModel;
@@ -45,7 +46,8 @@ public class CharacterMover : BaseValueContainer
 
     public void IncreaseMoveSpeedBy(float speedMultiplier)
     {
-        _speed *= speedMultiplier;
+        _speed = Mathf.Min(_speed * speedMultiplier, _maxSpeed);
+        _rotationSpeed = Mathf.Min(_rotationSpeed * speedMultiplier, _rotationSpeed);
     }
 
     public override float GetValue()
