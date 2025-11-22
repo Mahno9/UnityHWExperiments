@@ -2,7 +2,7 @@ using System;
 
 using UnityEngine;
 
-public class Health : BaseValueContainer
+public class Health : Progressable
 {
     [SerializeField] private float _startHealth = 10f;
     [SerializeField] private float _maxHealth = 100f;
@@ -19,13 +19,8 @@ public class Health : BaseValueContainer
         _health += healthDelta;
     }
 
-    public override float GetValue()
+    public override float GetProgress()
     {
-        return _health;
-    }
-
-    public override float GetValueMax()
-    {
-        return _maxHealth;
+        return _health / _maxHealth;
     }
 }

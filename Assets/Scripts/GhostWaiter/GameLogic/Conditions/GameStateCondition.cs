@@ -6,15 +6,16 @@ public class GameStateCondition: MonoBehaviour
 
     public GameState GetState()
     {
-        float hp = _health.GetValue();
-        float maxHp = _health.GetValueMax();
+        float hpNormalized = _health.GetProgress();
+        const float maxNormalizedVal = 1f;
+        const float minNormalizedVal = 0f;
 
-        Debug.Log($"Current hp = {hp} and maxHp = {maxHp}");
+        Debug.Log($"Current hp progress = {hpNormalized}");
 
-        if (hp <= 0)
+        if (hpNormalized <= minNormalizedVal)
             return GameState.Lose;
 
-        if (hp >= maxHp)
+        if (hpNormalized >= maxNormalizedVal)
             return GameState.Win;
 
         return GameState.Playing;

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class CharacterMover : BaseValueContainer
+public class CharacterMover : Progressable
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _maxSpeed;
@@ -50,13 +50,8 @@ public class CharacterMover : BaseValueContainer
         _rotationSpeed = Mathf.Min(_rotationSpeed * speedMultiplier, _rotationSpeed);
     }
 
-    public override float GetValue()
+    public override float GetProgress()
     {
-        return _speed - _startSpeed;
-    }
-
-    public override float GetValueMax()
-    {
-        return _maxSpeed - _startSpeed;
+        return (_speed - _startSpeed) / (_maxSpeed - _startSpeed);
     }
 }
