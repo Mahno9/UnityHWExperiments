@@ -57,7 +57,7 @@ public class SpawnPoint : Holder
             return;
         }
 
-        _state = (_curHoldable as Replaceable is not null) ? SpawnPointState.NeedReplace : SpawnPointState.Possessed;
+        _state = (_curHoldable is Replaceable) ? SpawnPointState.NeedReplace : SpawnPointState.Possessed;
     }
 
     public override Transform GetJointTransform()

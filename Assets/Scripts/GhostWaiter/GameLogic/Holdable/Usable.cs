@@ -4,14 +4,11 @@ public abstract class Usable : Holdable
 {
     [SerializeField] private GameObject _useFx;
 
-    public virtual void Use()
+    public virtual void Use(GameObject targetObject)
     {
-        if (_useFx != null)
+        if (_useFx is not null)
             Instantiate(_useFx, transform.position, _useFx.transform.rotation);
 
         Destroy(gameObject);
     }
-
-    public virtual void Init(WaiterGameState gameState)
-    { }
 }

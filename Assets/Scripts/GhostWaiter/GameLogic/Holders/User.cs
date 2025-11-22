@@ -22,7 +22,7 @@ public class User : Holder
         if (_heldUsable is null)
             return;
 
-        _heldUsable.Use();
+        _heldUsable.Use(gameObject);
         Hold(null);
     }
 

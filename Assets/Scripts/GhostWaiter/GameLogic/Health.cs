@@ -2,9 +2,9 @@ using System;
 
 using UnityEngine;
 
-public class WaiterGameState : BaseValueContainer
+public class Health : BaseValueContainer
 {
-    [SerializeField] private float _startHealth = 100f;
+    [SerializeField] private float _startHealth = 10f;
     [SerializeField] private float _maxHealth = 100f;
 
     private float _health;

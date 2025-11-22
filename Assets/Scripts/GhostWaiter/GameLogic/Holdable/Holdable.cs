@@ -30,7 +30,7 @@ public abstract class Holdable : MonoBehaviour
 
     private void UpdateTakingFloatAnimation()
     {
-        if (Holder == null || transform.localPosition.Equals(Vector3.zero))
+        if (Holder is null || transform.localPosition.Equals(Vector3.zero))
             return;
 
         transform.localPosition /= 1 + Time.deltaTime * _takingFloatSpeed;

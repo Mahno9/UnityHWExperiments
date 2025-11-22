@@ -1,10 +1,12 @@
+using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(DestroyerWithEffect))]
-public class UseThrow : Usable
+public class ThrowUsable : Usable
 {
     [SerializeField] private Transform _visualShift;
 
@@ -19,8 +21,8 @@ public class UseThrow : Usable
     private Collider _collider;
     private DestroyerWithEffect _destroyer;
 
-    private WaiterGameState _gameState;
     private bool _isInWashArea = false;
+    private Health _targetHealth;
 
     private void Awake()
     {
@@ -34,12 +36,6 @@ public class UseThrow : Usable
 
         if (_trail is not null)
             _trail.enabled = false;
-    }
-
-    public override void Init(WaiterGameState gameState)
-    {
-        _gameState = gameState;
-        base.Init(gameState);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -57,20 +53,33 @@ public class UseThrow : Usable
     private void OnCollisionEnter(Collision collision)
     {
         if (_isInWashArea == false)
-            _gameState.AddHealth(-_damage);
+            _targetHealth?.AddHealth(-_damage);
 
         _destroyer.DestroyWithEffect(_isInWashArea);
     }
 
-    public override void Use()
+    public override void Use(GameObject targetObject)
+    {
+        ThrowSelf(targetObject);
+    }
+
+    private void ThrowSelf(GameObject targetObject)
     {
         Assert.IsNotNull(Holder, "Owner is null in Throw.Use");
 
+        StoreTargetHealth(targetObject);
         ResetVisualPos();
         SetStartPos();
         Launch();
         UnbindFromHolder();
         EnableTrail();
+    }
+
+    private void StoreTargetHealth(GameObject targetObject)
+    {
+        Health newTargetHealth = targetObject.GetComponent<Health>();
+        if (newTargetHealth is not null)
+            _targetHealth = newTargetHealth;
     }
 
     private void EnableTrail()

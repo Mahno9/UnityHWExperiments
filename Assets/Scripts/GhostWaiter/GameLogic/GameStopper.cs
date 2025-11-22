@@ -2,13 +2,11 @@ using UnityEngine;
 
 public class GameStopper : MonoBehaviour
 {
-    [SerializeField] private BaseValueContainer _gameState;
+    [SerializeField] private GameStateCondition _gameState;
 
     private void Update()
     {
-        if (_gameState.GetValue() <= 0 || _gameState.GetValue() >= _gameState.GetValueMax())
-        {
+        if (_gameState.GetState() != GameState.Playing)
             Time.timeScale = 0;
-        }
     }
 }

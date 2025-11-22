@@ -8,7 +8,6 @@ public class Spawner : MonoBehaviour
     [SerializeField] private SpawnPoint[] _spawnHolders;
     [SerializeField] private Holdable[] _spawnItems;
     [SerializeField] private float _spawnInterval = 2f;
-    [SerializeField] private WaiterGameState _gameState;
 
     private float _spawnRemainingTime;
 
@@ -32,13 +31,11 @@ public class Spawner : MonoBehaviour
     private void SpawnItem()
     {
         SpawnPoint emptyHolder = FindEmptyHolder();
-        if (emptyHolder == null)
+        if (emptyHolder is null)
             return;
 
         Holdable itemPrefab = GetRandomSpawnItem();
         Holdable spawnedItem = Instantiate(itemPrefab);
-
-        (spawnedItem as Usable)?.Init(_gameState);
 
         emptyHolder.Put(spawnedItem);
     }

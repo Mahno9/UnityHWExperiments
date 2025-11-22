@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Replacing : UseThrow
+public class Replacing : ThrowUsable
 {
     [SerializeField] private string _tag;
 
