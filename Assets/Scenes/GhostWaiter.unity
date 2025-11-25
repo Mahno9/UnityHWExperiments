@@ -6915,7 +6915,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b923b2a6674b808f6f6ca9eeadd9c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _container: {fileID: 5109801305580378689}
+  _data: {fileID: 8342396495263526723}
   _progressbar: {fileID: 939010440}
 --- !u!1001 &319910158
 PrefabInstance:
@@ -7756,7 +7756,7 @@ MonoBehaviour:
   - {fileID: 5524619185956070206, guid: 5566b71b37cc12c428741b562e83fa20, type: 3}
   - {fileID: 4870372950748197525, guid: d2e5860a89215624298b98099c797a9e, type: 3}
   - {fileID: 4870372950748197525, guid: 9b8f6f744b79be24eaaed527d81bff99, type: 3}
-  _spawnInterval: 4
+  _spawnInterval: 1
 --- !u!4 &534239402 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6603488554207994483, guid: 98f5378049f9b5745a77677f581b32b1,
@@ -8410,7 +8410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6b923b2a6674b808f6f6ca9eeadd9c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _container: {fileID: 5109801305580378689}
+  _data: {fileID: 5109801305580378689}
   _progressbar: {fileID: 587001366}
 --- !u!1 &680021308
 GameObject:
