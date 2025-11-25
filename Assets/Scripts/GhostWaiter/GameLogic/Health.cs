@@ -1,26 +1,29 @@
-using System;
+using GhostWaiter.UI;
 
 using UnityEngine;
 
-public class Health : Progressable
+namespace GhostWaiter.GameLogic
 {
-    [SerializeField] private float _startHealth = 10f;
-    [SerializeField] private float _maxHealth = 100f;
-
-    private float _health;
-
-    private void Awake()
+    public class Health : Progressable
     {
-        _health = _startHealth;
-    }
+        [SerializeField] private float _startHealth = 10f;
+        [SerializeField] private float _maxHealth = 100f;
 
-    internal void AddHealth(float healthDelta)
-    {
-        _health += healthDelta;
-    }
+        private float _health;
 
-    public override float GetProgress()
-    {
-        return _health / _maxHealth;
+        private void Awake()
+        {
+            _health = _startHealth;
+        }
+
+        internal void AddHealth(float healthDelta)
+        {
+            _health += healthDelta;
+        }
+
+        public override float GetProgress()
+        {
+            return _health / _maxHealth;
+        }
     }
 }

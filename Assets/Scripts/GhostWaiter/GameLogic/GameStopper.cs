@@ -1,12 +1,17 @@
+using GhostWaiter.GameLogic.Conditions;
+
 using UnityEngine;
 
-public class GameStopper : MonoBehaviour
+namespace GhostWaiter.GameLogic
 {
-    [SerializeField] private GameStateCondition _gameState;
-
-    private void Update()
+    public class GameStopper : MonoBehaviour
     {
-        if (_gameState.GetState() != GameState.Playing)
-            Time.timeScale = 0;
+        [SerializeField] private GameStateCondition _gameState;
+
+        private void Update()
+        {
+            if (_gameState.GetState() != GameState.Playing)
+                Time.timeScale = 0;
+        }
     }
 }

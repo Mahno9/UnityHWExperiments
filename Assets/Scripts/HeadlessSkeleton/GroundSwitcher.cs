@@ -1,97 +1,102 @@
+using HeadlessSkeleton.GravityUpdaters;
+
 using UnityEngine;
 
-[RequireComponent(typeof(SphereCollider))]
-public class GroundSwitcher : MonoBehaviour
+namespace HeadlessSkeleton
 {
-    private const float CHECK_ANGLE_BASE = 0f;
-    private const float CHECK_ANGLE_LEFT = -40f;
-    private const float CHECK_ANGLE_RIGHT = 40f;
-
-    [SerializeField] private float _groundCheckDistanceTail = 1.1f;
-
-    private float _objectRadius;
-    private Vector3 _objectCenterShift;
-
-    private GravityUpdaterStrategy _gravityUpdater;
-
-    public Vector3 GravityNormal => Physics.gravity.normalized;
-
-    private Vector3 ObjectCenter => _objectCenterShift + transform.position;
-
-    private float GroundCheckDistance => _objectRadius * _groundCheckDistanceTail;
-
-    public bool IsGrounded
+    [RequireComponent(typeof(SphereCollider))]
+    public class GroundSwitcher : MonoBehaviour
     {
-        get
+        private const float CHECK_ANGLE_BASE = 0f;
+        private const float CHECK_ANGLE_LEFT = -40f;
+        private const float CHECK_ANGLE_RIGHT = 40f;
+
+        [SerializeField] private float _groundCheckDistanceTail = 1.1f;
+
+        private float _objectRadius;
+        private Vector3 _objectCenterShift;
+
+        private GravityUpdaterStrategy _gravityUpdater;
+
+        public Vector3 GravityNormal => Physics.gravity.normalized;
+
+        private Vector3 ObjectCenter => _objectCenterShift + transform.position;
+
+        private float GroundCheckDistance => _objectRadius * _groundCheckDistanceTail;
+
+        public bool IsGrounded
         {
-            return
-                CheckIsGrounded(CHECK_ANGLE_BASE) ||
-                CheckIsGrounded(CHECK_ANGLE_LEFT) ||
-                CheckIsGrounded(CHECK_ANGLE_RIGHT);
+            get
+            {
+                return
+                    CheckIsGrounded(CHECK_ANGLE_BASE) ||
+                    CheckIsGrounded(CHECK_ANGLE_LEFT) ||
+                    CheckIsGrounded(CHECK_ANGLE_RIGHT);
+            }
         }
-    }
 
-    public Vector3 WorldForwardNormal
-    {
-        get
+        public Vector3 WorldForwardNormal
         {
-            return Vector3.Cross(GravityNormal, Vector3.back).normalized;
+            get
+            {
+                return Vector3.Cross(GravityNormal, Vector3.back).normalized;
+            }
         }
-    }
 
-    private void Awake()
-    {
-        SphereCollider collider = GetComponent<SphereCollider>();
-        _objectCenterShift = collider.bounds.center - transform.position;
-        _objectRadius = collider.radius * transform.localScale.y;
-    }
-
-    private void Update()
-    {
-        if (_gravityUpdater == null)
-            return;
-        _gravityUpdater.OnUpdate(ObjectCenter);
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        if (_gravityUpdater == null)
-            return;
-
-        foreach (ContactPoint contact in collision.contacts)
+        private void Awake()
         {
-            if (contact.otherCollider.gameObject.GetComponent<GravityUpdaterStrategy>() == null)
-                continue;
-
-            _gravityUpdater.OnGrounding(-contact.normal);
-            return;
+            SphereCollider collider = GetComponent<SphereCollider>();
+            _objectCenterShift = collider.bounds.center - transform.position;
+            _objectRadius = collider.radius * transform.localScale.y;
         }
-    }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        _gravityUpdater = null;
-
-        foreach (ContactPoint contact in collision.contacts)
+        private void Update()
         {
-            if (contact.otherCollider.gameObject.GetComponent<GravityUpdaterStrategy>() == null)
-                continue;
-
-            GravityUpdaterStrategy gravityUpdater = collision.collider.gameObject.GetComponent<GravityUpdaterStrategy>();
-            _gravityUpdater = gravityUpdater;
-
-            _gravityUpdater.OnGrounding(-collision.contacts[0].normal);
-            return;
+            if (_gravityUpdater == null)
+                return;
+            _gravityUpdater.OnUpdate(ObjectCenter);
         }
-    }
 
-    private bool CheckIsGrounded(float degreeToCheck)
-    {
-        Quaternion rotation = Quaternion.Euler(0, 0, degreeToCheck);
+        private void OnCollisionStay(Collision collision)
+        {
+            if (_gravityUpdater == null)
+                return;
 
-        //RuntimeDebugLine.DrawLine(ObjectCenter, ObjectCenter + GravityNormal * GroundCheckDistance, Color.red, 1);
+            foreach (ContactPoint contact in collision.contacts)
+            {
+                if (contact.otherCollider.gameObject.GetComponent<GravityUpdaterStrategy>() == null)
+                    continue;
 
-        Physics.Raycast(ObjectCenter, rotation * GravityNormal, out RaycastHit hitInfo, GroundCheckDistance);
-        return hitInfo.collider != null && hitInfo.collider.isTrigger == false;
+                _gravityUpdater.OnGrounding(-contact.normal);
+                return;
+            }
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            _gravityUpdater = null;
+
+            foreach (ContactPoint contact in collision.contacts)
+            {
+                if (contact.otherCollider.gameObject.GetComponent<GravityUpdaterStrategy>() == null)
+                    continue;
+
+                GravityUpdaterStrategy gravityUpdater = collision.collider.gameObject.GetComponent<GravityUpdaterStrategy>();
+                _gravityUpdater = gravityUpdater;
+
+                _gravityUpdater.OnGrounding(-collision.contacts[0].normal);
+                return;
+            }
+        }
+
+        private bool CheckIsGrounded(float degreeToCheck)
+        {
+            Quaternion rotation = Quaternion.Euler(0, 0, degreeToCheck);
+
+            //RuntimeDebugLine.DrawLine(ObjectCenter, ObjectCenter + GravityNormal * GroundCheckDistance, Color.red, 1);
+
+            Physics.Raycast(ObjectCenter, rotation * GravityNormal, out RaycastHit hitInfo, GroundCheckDistance);
+            return hitInfo.collider != null && hitInfo.collider.isTrigger == false;
+        }
     }
 }

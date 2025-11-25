@@ -1,23 +1,26 @@
 using UnityEngine;
 
-public class GameStateCondition: MonoBehaviour
+namespace GhostWaiter.GameLogic.Conditions
 {
-    [SerializeField] private Health _health;
-
-    public GameState GetState()
+    public class GameStateCondition: MonoBehaviour
     {
-        float hpNormalized = _health.GetProgress();
-        const float maxNormalizedVal = 1f;
-        const float minNormalizedVal = 0f;
+        [SerializeField] private Health _health;
 
-        Debug.Log($"Current hp progress = {hpNormalized}");
+        public GameState GetState()
+        {
+            float hpNormalized = _health.GetProgress();
+            const float maxNormalizedVal = 1f;
+            const float minNormalizedVal = 0f;
 
-        if (hpNormalized <= minNormalizedVal)
-            return GameState.Lose;
+            Debug.Log($"Current hp progress = {hpNormalized}");
 
-        if (hpNormalized >= maxNormalizedVal)
-            return GameState.Win;
+            if (hpNormalized <= minNormalizedVal)
+                return GameState.Lose;
 
-        return GameState.Playing;
+            if (hpNormalized >= maxNormalizedVal)
+                return GameState.Win;
+
+            return GameState.Playing;
+        }
     }
 }

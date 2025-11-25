@@ -1,6 +1,9 @@
-public enum SpawnPointState
+namespace GhostWaiter.GameLogic.Holders
 {
-    Empty,
-    NeedReplace,
-    Possessed
+    public enum SpawnPointState
+    {
+        Empty,
+        NeedReplace,
+        Possessed
+    }
 }

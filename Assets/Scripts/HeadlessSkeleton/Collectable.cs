@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public class Collectable : MonoBehaviour
+namespace HeadlessSkeleton
 {
-    [SerializeField] private Object _effectOnCollect;
-
-    public void OnCollect()
+    public class Collectable : MonoBehaviour
     {
-        if (_effectOnCollect != null)
-            Instantiate(_effectOnCollect, transform.position, Quaternion.identity);
+        [SerializeField] private Object _effectOnCollect;
 
-        gameObject.SetActive(false);
+        public void OnCollect()
+        {
+            if (_effectOnCollect != null)
+                Instantiate(_effectOnCollect, transform.position, Quaternion.identity);
+
+            gameObject.SetActive(false);
+        }
     }
 }

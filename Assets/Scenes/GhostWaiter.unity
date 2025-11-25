@@ -13879,6 +13879,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2078899444}
   - component: {fileID: 2078899443}
+  - component: {fileID: 2078899445}
   m_Layer: 0
   m_Name: PlayerInput
   m_TagString: Untagged
@@ -13900,7 +13901,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterMover: {fileID: 5109801305580378689}
   _camera: {fileID: 305611032}
-  _user: {fileID: 8342396495263526719}
 --- !u!4 &2078899444
 Transform:
   m_ObjectHideFlags: 0
@@ -13916,6 +13916,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2078899445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078899442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0082672d0b494a4086b6c14f11999095, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _user: {fileID: 8342396495263526719}
 --- !u!4 &2085545273 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1733956489275345536, guid: f3def409086553c45b7ce30cf33960ca,

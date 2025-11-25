@@ -1,62 +1,65 @@
 using UnityEngine;
 
-public class CollectGame : MonoBehaviour
+namespace HeadlessSkeleton
 {
-    [SerializeField] private Collector _collector;
-    [SerializeField] private CollectGameStatusUpdater _statusUpdater;
-    [SerializeField] private float _gameTime = 60f;
-
-    private int _totalCollectablesCount;
-
-    private int UncollectedCount => _collector.GetUncollected().Length;
-
-    private void Start()
+    public class CollectGame : MonoBehaviour
     {
-        _totalCollectablesCount = UncollectedCount;
-    }
+        [SerializeField] private Collector _collector;
+        [SerializeField] private CollectGameStatusUpdater _statusUpdater;
+        [SerializeField] private float _gameTime = 60f;
 
-    private void Update()
-    {
-        CountdownTimer();
-        UpdateTimer();
-        UpdateStatus();
-    }
+        private int _totalCollectablesCount;
 
-    private void CountdownTimer()
-    {
-        _gameTime -= Time.deltaTime;
-    }
+        private int UncollectedCount => _collector.GetUncollected().Length;
 
-    private void UpdateTimer()
-    {
-        _statusUpdater.UpdateTimer(_gameTime);
-    }
-
-    private void UpdateStatus()
-    {
-        if (IsLose())
+        private void Start()
         {
-            _statusUpdater.UpdateStatusLose();
-            return;
+            _totalCollectablesCount = UncollectedCount;
         }
 
-        if (IsWin())
+        private void Update()
         {
-            _statusUpdater.UpdateStatusWin();
-            _statusUpdater.UpdateTimer(0);
-            return;
+            CountdownTimer();
+            UpdateTimer();
+            UpdateStatus();
         }
 
-        _statusUpdater.UpdateStatusWithCount(UncollectedCount, _totalCollectablesCount);
-    }
+        private void CountdownTimer()
+        {
+            _gameTime -= Time.deltaTime;
+        }
 
-    private bool IsWin()
-    {
-        return UncollectedCount == 0;
-    }
+        private void UpdateTimer()
+        {
+            _statusUpdater.UpdateTimer(_gameTime);
+        }
 
-    private bool IsLose()
-    {
-        return _gameTime <= 0;
+        private void UpdateStatus()
+        {
+            if (IsLose())
+            {
+                _statusUpdater.UpdateStatusLose();
+                return;
+            }
+
+            if (IsWin())
+            {
+                _statusUpdater.UpdateStatusWin();
+                _statusUpdater.UpdateTimer(0);
+                return;
+            }
+
+            _statusUpdater.UpdateStatusWithCount(UncollectedCount, _totalCollectablesCount);
+        }
+
+        private bool IsWin()
+        {
+            return UncollectedCount == 0;
+        }
+
+        private bool IsLose()
+        {
+            return _gameTime <= 0;
+        }
     }
 }

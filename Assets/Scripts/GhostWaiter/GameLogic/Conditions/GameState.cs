@@ -1,6 +1,9 @@
-public enum GameState
+namespace GhostWaiter.GameLogic.Conditions
 {
-    Playing,
-    Win,
-    Lose
+    public enum GameState
+    {
+        Playing,
+        Win,
+        Lose
+    }
 }

@@ -1,14 +1,17 @@
 using UnityEngine;
 
-public abstract class Usable : Holdable
+namespace GhostWaiter.GameLogic.Holdable
 {
-    [SerializeField] private GameObject _useFx;
-
-    public virtual void Use(GameObject targetObject)
+    public abstract class Usable : Holdable
     {
-        if (_useFx is not null)
-            Instantiate(_useFx, transform.position, _useFx.transform.rotation);
+        [SerializeField] private GameObject _useFx;
 
-        Destroy(gameObject);
+        public virtual void Use(GameObject targetObject)
+        {
+            if (_useFx is not null)
+                Instantiate(_useFx, transform.position, _useFx.transform.rotation);
+
+            Destroy(gameObject);
+        }
     }
 }
