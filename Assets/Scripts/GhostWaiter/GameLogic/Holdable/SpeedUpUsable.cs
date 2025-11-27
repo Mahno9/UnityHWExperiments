@@ -6,7 +6,7 @@ public class SpeedUpUsable : Usable
 
     public override void Use(GameObject targetObject)
     {
-        if (Holder.TryGetComponent<CharacterMover>(out CharacterMover mover))
+        if (targetObject.TryGetComponent<CharacterMover>(out CharacterMover mover))
             mover.IncreaseMoveSpeedBy(_speedMultiplier);
 
         base.Use(targetObject);
