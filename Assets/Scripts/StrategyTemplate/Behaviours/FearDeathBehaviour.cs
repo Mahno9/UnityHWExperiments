@@ -6,22 +6,22 @@ using UnityEngine;
 
 namespace StrategyTemplate.Behaviours
 {
-    public class FearDeathBehaviour : IUpdatableBehaviour
+    public class FearDeathBehaviour : UpdatableBehaviourBase
     {
         private readonly Effect _postMortemEffectPrefab;
 
-        public FearDeathBehaviour(Effect postMortemEffectPrefab)
+        public FearDeathBehaviour(Transform owner, Effect postMortemEffectPrefab) : base(owner)
         {
             _postMortemEffectPrefab = postMortemEffectPrefab;
         }
 
-        public void Update(float deltaTime, Transform owner)
+        public override void Update(float deltaTime)
         {
-            if (owner.IsDestroyed())
+            if (Owner.IsDestroyed())
                 return;
 
-            Object.Instantiate(_postMortemEffectPrefab, owner.transform.position, owner.rotation);
-            Object.Destroy(owner.gameObject);
+            Object.Instantiate(_postMortemEffectPrefab, Owner.transform.position, Owner.rotation);
+            Object.Destroy(Owner.gameObject);
         }
     }
 }

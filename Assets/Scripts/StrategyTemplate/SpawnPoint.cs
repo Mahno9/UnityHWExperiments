@@ -17,7 +17,6 @@ namespace StrategyTemplate
         [SerializeField] private AggroBehaviourTypes _aggroBehaviourTypes;
 
         [SerializeField] private Player _player;
-        [SerializeField] private float _moveSpeed;
         [SerializeField] private List<Transform> _patrolPoints;
         [SerializeField] private Effect _postMortemEffectPrefab;
 
@@ -26,27 +25,30 @@ namespace StrategyTemplate
             Assert.IsNotNull(_enemyPrefab);
 
             var behPicker = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
-            behPicker.Initialize(GetBehaviour(_idleBehaviourTypes), GetBehaviour(_aggroBehaviourTypes));
+            behPicker.Initialize(
+                GetBehaviour(behPicker.transform, _idleBehaviourTypes),
+                GetBehaviour(behPicker.transform, _aggroBehaviourTypes)
+            );
         }
 
-        private IUpdatableBehaviour GetBehaviour(IdleBehaviourTypes idleBehaviourTypesType)
+        private UpdatableBehaviourBase GetBehaviour(Transform owner, IdleBehaviourTypes idleBehaviourTypesType)
         {
             return idleBehaviourTypesType switch
             {
-                IdleBehaviourTypes.Hold => new HoldBehaviour(),
-                IdleBehaviourTypes.PatrolPoints => new PatrolPointsBehaviour(_patrolPoints, _moveSpeed),
-                IdleBehaviourTypes.PatrolBrownian => new PatrolBrownianBehaviour(_moveSpeed),
+                IdleBehaviourTypes.Hold => new HoldBehaviour(owner),
+                IdleBehaviourTypes.PatrolPoints => new PatrolPointsBehaviour(owner, _patrolPoints),
+                IdleBehaviourTypes.PatrolBrownian => new PatrolBrownianBehaviour(owner),
                 _ => throw new ArgumentOutOfRangeException(nameof(idleBehaviourTypesType), idleBehaviourTypesType, null)
             };
         }
 
-        private IUpdatableBehaviour GetBehaviour(AggroBehaviourTypes aggroBehaviourTypeType)
+        private UpdatableBehaviourBase GetBehaviour(Transform owner, AggroBehaviourTypes aggroBehaviourTypeType)
         {
             return aggroBehaviourTypeType switch
             {
-                AggroBehaviourTypes.RunAwayPlayer => new RunAwayBehaviour(_player, _moveSpeed),
-                AggroBehaviourTypes.RunToPlayer => new RunToPlayerBehaviour(_player, _moveSpeed),
-                AggroBehaviourTypes.FearDeath => new FearDeathBehaviour(_postMortemEffectPrefab),
+                AggroBehaviourTypes.RunAwayPlayer => new RunAwayBehaviourRunBehaviour(owner, _player),
+                AggroBehaviourTypes.RunToPlayer => new RunToPlayerBehaviourRunBehaviour(owner, _player),
+                AggroBehaviourTypes.FearDeath => new FearDeathBehaviour(owner, _postMortemEffectPrefab),
                 _ => throw new ArgumentOutOfRangeException(nameof(aggroBehaviourTypeType), aggroBehaviourTypeType, null)
             };
         }

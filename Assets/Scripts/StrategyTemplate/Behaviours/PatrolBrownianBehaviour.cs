@@ -2,24 +2,23 @@ using UnityEngine;
 
 namespace StrategyTemplate.Behaviours
 {
-    public class PatrolBrownianBehaviour : IUpdatableBehaviour
+    public class PatrolBrownianBehaviour : MovableBehaviourBase
     {
         private const float DIRECTION_PICK_INTERVAL = 1f;
-        private readonly float _moveSpeed;
-        private Vector3 _currentDirection;
+        private Vector3 _currentDirectionNorm;
 
         private float _timeUntilNextPick;
 
-        public PatrolBrownianBehaviour(float moveSpeed)
+        public PatrolBrownianBehaviour(Transform owner) : base(owner)
         {
-            _moveSpeed = moveSpeed;
         }
 
-        public void Update(float deltaTime, Transform owner)
+        public override void Update(float deltaTime)
         {
             _timeUntilNextPick -= deltaTime;
             TryUpdateDirection();
-            owner.position += _currentDirection * (_moveSpeed * deltaTime);
+
+            MoveTo(_currentDirectionNorm);
         }
 
         private void TryUpdateDirection()
@@ -27,15 +26,15 @@ namespace StrategyTemplate.Behaviours
             if (_timeUntilNextPick > 0)
                 return;
 
-            _currentDirection = PickNewDirection();
+            _currentDirectionNorm = PickNewDirectionNorm();
             _timeUntilNextPick = DIRECTION_PICK_INTERVAL;
         }
 
-        private static Vector3 PickNewDirection()
+        private static Vector3 PickNewDirectionNorm()
         {
             var newDirection = Random.insideUnitSphere;
             newDirection.y = 0;
-            return newDirection;
+            return newDirection.normalized;
         }
     }
 }

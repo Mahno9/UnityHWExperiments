@@ -1,18 +1,22 @@
 using System;
 
+using GhostWaiter.Control;
+
 using StrategyTemplate.Behaviours;
 using StrategyTemplate.Markers;
 
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace StrategyTemplate
 {
     [RequireComponent(typeof(BehaviourUpdater))]
     [RequireComponent(typeof(SphereCollider))]
+    [RequireComponent(typeof(CharacterMover))] // Required by behaviours
     public class BehaviourPicker : MonoBehaviour
     {
-        private IUpdatableBehaviour _aggroBehaviour;
-        private IUpdatableBehaviour _idleBehaviour;
+        private UpdatableBehaviourBase _aggroBehaviourBase;
+        private UpdatableBehaviourBase _idleBehaviourBase;
 
         private BehaviourUpdater _behaviourUpdater;
 
@@ -23,20 +27,23 @@ namespace StrategyTemplate
             _behaviourUpdater = GetComponent<BehaviourUpdater>();
         }
 
-        public void Initialize(IUpdatableBehaviour idleBehaviour, IUpdatableBehaviour aggroBehaviour)
+        public void Initialize(UpdatableBehaviourBase idleBehaviourBase, UpdatableBehaviourBase aggroBehaviourBase)
         {
-            _idleBehaviour = idleBehaviour;
-            _aggroBehaviour = aggroBehaviour;
+            CharacterMover mover = GetComponent<CharacterMover>();
+            Assert.IsNotNull(mover);
 
-            _behaviourUpdater.SetBehaviour(_idleBehaviour);
+            _idleBehaviourBase = idleBehaviourBase;
+            _aggroBehaviourBase = aggroBehaviourBase;
+
+            _behaviourUpdater.SetBehaviour(_idleBehaviourBase);
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.GetComponent<Player>() is not null)
             {
-                _behaviourUpdater.SetBehaviour(_aggroBehaviour);
-                Debug.Log("Switch to aggro: " + _aggroBehaviour);
+                _behaviourUpdater.SetBehaviour(_aggroBehaviourBase);
+                Debug.Log("Switch to aggro: " + _aggroBehaviourBase);
             }
         }
 
@@ -45,8 +52,8 @@ namespace StrategyTemplate
         {
             if (other.gameObject.GetComponent<Player>() is not null)
             {
-                _behaviourUpdater.SetBehaviour(_idleBehaviour);
-                Debug.Log("Switch to idle: " + _aggroBehaviour);
+                _behaviourUpdater.SetBehaviour(_idleBehaviourBase);
+                Debug.Log("Switch to idle: " + _aggroBehaviourBase);
             }
         }
     }

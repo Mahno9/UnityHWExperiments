@@ -5,32 +5,29 @@ using UnityEngine.Assertions;
 
 namespace StrategyTemplate.Behaviours
 {
-    public class PatrolPointsBehaviour : IUpdatableBehaviour
+    public class PatrolPointsBehaviour : MovableBehaviourBase
     {
         private const float EPSILON = 0.1f;
         private const int MIN_POINTS_COUNT = 2;
-        private readonly float _moveSpeed;
 
         private readonly List<Transform> _patrolPoints;
 
         private int _currentPointIdx;
 
-        public PatrolPointsBehaviour(List<Transform> patrolPoints, float moveSpeed)
+        public PatrolPointsBehaviour(Transform owner, List<Transform> patrolPoints) : base(owner)
         {
             Assert.IsTrue(patrolPoints is { Count: >= MIN_POINTS_COUNT }, "PatrolPointsBehaviour requires at least 2 patrol points");
 
             _patrolPoints = patrolPoints;
             _currentPointIdx = Random.Range(0, _patrolPoints.Count);
-
-            _moveSpeed = moveSpeed;
         }
 
-        public void Update(float deltaTime, Transform owner)
+        public override void Update(float deltaTime)
         {
-            if (HasReachedCurrentPoint(owner))
+            if (HasReachedCurrentPoint(Owner))
                 PickNextPoint();
 
-            MoveTowardsCurrentPoint(deltaTime, owner);
+            MoveTowardsCurrentPoint(deltaTime, Owner);
         }
 
         private bool HasReachedCurrentPoint(Transform owner)
@@ -43,9 +40,9 @@ namespace StrategyTemplate.Behaviours
         private void MoveTowardsCurrentPoint(float deltaTime, Transform owner)
         {
             var targetPosition = _patrolPoints[_currentPointIdx].position;
-            var direction = (targetPosition - owner.position).normalized;
+            var directionNorm = (targetPosition - owner.position).normalized;
 
-            owner.position += direction * (_moveSpeed * deltaTime);
+            MoveTo(directionNorm);
         }
 
         private void PickNextPoint()

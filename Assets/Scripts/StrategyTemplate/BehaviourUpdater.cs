@@ -7,18 +7,18 @@ namespace StrategyTemplate
 {
     public class BehaviourUpdater : MonoBehaviour
     {
-        [SerializeField] private IUpdatableBehaviour _behaviour;
+        [SerializeField] private UpdatableBehaviourBase _behaviourBase;
 
         private void Update()
         {
-            Assert.IsNotNull(_behaviour);
+            Assert.IsNotNull(_behaviourBase);
 
-            _behaviour.Update(Time.deltaTime, transform);
+            _behaviourBase.Update(Time.deltaTime);
         }
 
-        public void SetBehaviour(IUpdatableBehaviour newBehaviour)
+        public void SetBehaviour(UpdatableBehaviourBase newBehaviourBase)
         {
-            _behaviour = newBehaviour;
+            _behaviourBase = newBehaviourBase;
         }
     }
 }

@@ -2,9 +2,13 @@ using UnityEngine;
 
 namespace StrategyTemplate.Behaviours
 {
-    public class HoldBehaviour : IUpdatableBehaviour
+    public class HoldBehaviour : UpdatableBehaviourBase
     {
-        public void Update(float deltaTime, Transform owner)
+        public HoldBehaviour(Transform owner) : base(owner)
+        {
+        }
+
+        public override void Update(float deltaTime)
         {
             // Do nothing (defend area ofc)
         }
