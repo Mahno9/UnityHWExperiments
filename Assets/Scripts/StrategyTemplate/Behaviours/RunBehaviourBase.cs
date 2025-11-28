@@ -6,16 +6,16 @@ namespace StrategyTemplate.Behaviours
 {
     public abstract class RunBehaviourBase : MovableBehaviourBase
     {
-        private readonly Player _player;
+        private readonly Transform _target;
 
-        protected RunBehaviourBase(Transform owner, Player player) : base(owner)
+        protected RunBehaviourBase(Transform owner, Transform target) : base(owner)
         {
-            _player = player;
+            _target = target;
         }
 
         public override void Update(float deltaTime)
         {
-            var playerPosition = _player.transform.position;
+            var playerPosition = _target.transform.position;
             var directionNorm = CalcDirectionNorm(Owner, playerPosition);
 
             MoveTo(directionNorm);

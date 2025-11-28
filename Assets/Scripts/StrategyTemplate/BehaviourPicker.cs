@@ -21,13 +21,14 @@ namespace StrategyTemplate
         private BehaviourUpdater _behaviourUpdater;
 
         private SphereCollider _collider;
+        private Transform _triggerTransform;
 
         private void Awake()
         {
             _behaviourUpdater = GetComponent<BehaviourUpdater>();
         }
 
-        public void Initialize(UpdatableBehaviourBase idleBehaviourBase, UpdatableBehaviourBase aggroBehaviourBase)
+        public void Initialize(UpdatableBehaviourBase idleBehaviourBase, UpdatableBehaviourBase aggroBehaviourBase, Transform triggerTransform)
         {
             CharacterMover mover = GetComponent<CharacterMover>();
             Assert.IsNotNull(mover);
@@ -36,25 +37,27 @@ namespace StrategyTemplate
             _aggroBehaviourBase = aggroBehaviourBase;
 
             _behaviourUpdater.SetBehaviour(_idleBehaviourBase);
+
+            _triggerTransform = triggerTransform;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.GetComponent<Player>() is not null)
-            {
-                _behaviourUpdater.SetBehaviour(_aggroBehaviourBase);
-                Debug.Log("Switch to aggro: " + _aggroBehaviourBase);
-            }
+            if (other.transform != _triggerTransform)
+                return;
+
+            _behaviourUpdater.SetBehaviour(_aggroBehaviourBase);
+            Debug.Log("Switch to aggro: " + _aggroBehaviourBase);
         }
 
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.GetComponent<Player>() is not null)
-            {
-                _behaviourUpdater.SetBehaviour(_idleBehaviourBase);
-                Debug.Log("Switch to idle: " + _aggroBehaviourBase);
-            }
+            if (other.transform != _triggerTransform)
+                return;
+
+            _behaviourUpdater.SetBehaviour(_idleBehaviourBase);
+            Debug.Log("Switch to idle: " + _aggroBehaviourBase);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace StrategyTemplate.Behaviours
 {
     public class RunToPlayerBehaviourRunBehaviour : RunBehaviourBase
     {
-        public RunToPlayerBehaviourRunBehaviour(Transform owner, Player player) : base(owner, player)
+        public RunToPlayerBehaviourRunBehaviour(Transform owner, Transform target) : base(owner, target)
         {
         }
 

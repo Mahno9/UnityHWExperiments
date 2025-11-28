@@ -16,7 +16,7 @@ namespace StrategyTemplate
         [SerializeField] private IdleBehaviourTypes _idleBehaviourTypes;
         [SerializeField] private AggroBehaviourTypes _aggroBehaviourTypes;
 
-        [SerializeField] private Player _player;
+        [SerializeField] private Transform _player;
         [SerializeField] private List<Transform> _patrolPoints;
         [SerializeField] private Effect _postMortemEffectPrefab;
 
@@ -27,7 +27,8 @@ namespace StrategyTemplate
             var behPicker = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
             behPicker.Initialize(
                 GetBehaviour(behPicker.transform, _idleBehaviourTypes),
-                GetBehaviour(behPicker.transform, _aggroBehaviourTypes)
+                GetBehaviour(behPicker.transform, _aggroBehaviourTypes),
+                _player
             );
         }
 
