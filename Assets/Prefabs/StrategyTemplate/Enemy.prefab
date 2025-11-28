@@ -119,6 +119,7 @@ GameObject:
   - component: {fileID: 3304673978939947254}
   - component: {fileID: 6834120669858531414}
   - component: {fileID: 764534938486966431}
+  - component: {fileID: 7013998969531110391}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -230,3 +231,17 @@ MonoBehaviour:
   _maxSpeed: 3000
   _rotationSpeed: 800
   _rotationMaxSpeed: 2000
+--- !u!114 &7013998969531110391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5609336550199569707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5e0de92391f448f8f765a09d78e6539, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _postMortemEffectPrefab: {fileID: 1562011243898426719, guid: 139f86f533973b743a9009d2871befa9,
+    type: 3}

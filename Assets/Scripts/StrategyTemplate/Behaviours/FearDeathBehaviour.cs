@@ -1,27 +1,24 @@
+using StrategyTemplate.Actions;
 using StrategyTemplate.Markers;
 
-using Unity.VisualScripting;
-
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace StrategyTemplate.Behaviours
 {
     public class FearDeathBehaviour : UpdatableBehaviourBase
     {
-        private readonly Effect _postMortemEffectPrefab;
+        private readonly IKillable _killable;
 
-        public FearDeathBehaviour(Transform owner, Effect postMortemEffectPrefab) : base(owner)
+        public FearDeathBehaviour(Transform owner) : base(owner)
         {
-            _postMortemEffectPrefab = postMortemEffectPrefab;
+            _killable = owner.GetComponent<IKillable>();
+            Assert.IsNotNull(_killable);
         }
 
         public override void Update(float deltaTime)
         {
-            if (Owner.IsDestroyed())
-                return;
-
-            Object.Instantiate(_postMortemEffectPrefab, Owner.transform.position, Owner.rotation);
-            Object.Destroy(Owner.gameObject);
+            _killable.Kill();
         }
     }
 }

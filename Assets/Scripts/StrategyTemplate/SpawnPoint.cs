@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 using StrategyTemplate.Behaviours;
 using StrategyTemplate.Enums;
-using StrategyTemplate.Markers;
 
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -18,7 +17,6 @@ namespace StrategyTemplate
 
         [SerializeField] private Transform _player;
         [SerializeField] private List<Transform> _patrolPoints;
-        [SerializeField] private Effect _postMortemEffectPrefab;
 
         private void Start()
         {
@@ -49,7 +47,7 @@ namespace StrategyTemplate
             {
                 AggroBehaviourTypes.RunAwayPlayer => new RunAwayBehaviourRunBehaviour(owner, _player),
                 AggroBehaviourTypes.RunToPlayer => new RunToPlayerBehaviourRunBehaviour(owner, _player),
-                AggroBehaviourTypes.FearDeath => new FearDeathBehaviour(owner, _postMortemEffectPrefab),
+                AggroBehaviourTypes.FearDeath => new FearDeathBehaviour(owner),
                 _ => throw new ArgumentOutOfRangeException(nameof(aggroBehaviourTypeType), aggroBehaviourTypeType, null)
             };
         }
