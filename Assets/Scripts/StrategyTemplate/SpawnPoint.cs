@@ -45,8 +45,8 @@ namespace StrategyTemplate
         {
             return aggroBehaviourTypeType switch
             {
-                AggroBehaviourTypes.RunAwayPlayer => new RunAwayBehaviourRunBehaviour(owner, _player),
-                AggroBehaviourTypes.RunToPlayer => new RunToPlayerBehaviourRunBehaviour(owner, _player),
+                AggroBehaviourTypes.RunAwayPlayer => new RunAwayBehaviour(owner, _player),
+                AggroBehaviourTypes.RunToPlayer => new RunToPlayerBehaviour(owner, _player),
                 AggroBehaviourTypes.FearDeath => new FearDeathBehaviour(owner),
                 _ => throw new ArgumentOutOfRangeException(nameof(aggroBehaviourTypeType), aggroBehaviourTypeType, null)
             };
