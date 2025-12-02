@@ -2,14 +2,14 @@ using UnityEngine;
 
 namespace StrategyTemplate.Behaviours
 {
-    public class PatrolBrownianBehaviour : MovableBehaviourBase
+    public class PatrolBrownianBehaviourBase : MovableBehaviourBase
     {
         private const float DIRECTION_PICK_INTERVAL = 1f;
         private Vector3 _currentDirectionNorm;
 
         private float _timeUntilNextPick;
 
-        public PatrolBrownianBehaviour(Transform owner) : base(owner)
+        public PatrolBrownianBehaviourBase(Transform owner) : base(owner)
         {
         }
 

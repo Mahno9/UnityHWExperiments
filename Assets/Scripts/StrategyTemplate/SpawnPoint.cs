@@ -30,23 +30,23 @@ namespace StrategyTemplate
             );
         }
 
-        private UpdatableBehaviourBase GetBehaviour(Transform owner, IdleBehaviourTypes idleBehaviourTypesType)
+        private IUpdatableBehaviour GetBehaviour(Transform owner, IdleBehaviourTypes idleBehaviourTypesType)
         {
             return idleBehaviourTypesType switch
             {
                 IdleBehaviourTypes.Hold => new HoldBehaviour(owner),
-                IdleBehaviourTypes.PatrolPoints => new PatrolPointsBehaviour(owner, _patrolPoints),
-                IdleBehaviourTypes.PatrolBrownian => new PatrolBrownianBehaviour(owner),
+                IdleBehaviourTypes.PatrolPoints => new PatrolPointsBehaviourBase(owner, _patrolPoints),
+                IdleBehaviourTypes.PatrolBrownian => new PatrolBrownianBehaviourBase(owner),
                 _ => throw new ArgumentOutOfRangeException(nameof(idleBehaviourTypesType), idleBehaviourTypesType, null)
             };
         }
 
-        private UpdatableBehaviourBase GetBehaviour(Transform owner, AggroBehaviourTypes aggroBehaviourTypeType)
+        private IUpdatableBehaviour GetBehaviour(Transform owner, AggroBehaviourTypes aggroBehaviourTypeType)
         {
             return aggroBehaviourTypeType switch
             {
-                AggroBehaviourTypes.RunAwayPlayer => new RunAwayBehaviour(owner, _player),
-                AggroBehaviourTypes.RunToPlayer => new RunToPlayerBehaviour(owner, _player),
+                AggroBehaviourTypes.RunAwayPlayer => new RunAwayBehaviourBase(owner, _player),
+                AggroBehaviourTypes.RunToPlayer => new RunToPlayerBehaviourBase(owner, _player),
                 AggroBehaviourTypes.FearDeath => new FearDeathBehaviour(owner),
                 _ => throw new ArgumentOutOfRangeException(nameof(aggroBehaviourTypeType), aggroBehaviourTypeType, null)
             };

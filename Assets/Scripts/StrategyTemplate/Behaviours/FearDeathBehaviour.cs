@@ -6,17 +6,17 @@ using UnityEngine.Assertions;
 
 namespace StrategyTemplate.Behaviours
 {
-    public class FearDeathBehaviour : UpdatableBehaviourBase
+    public class FearDeathBehaviour : IUpdatableBehaviour
     {
         private readonly IKillable _killable;
 
-        public FearDeathBehaviour(Transform owner) : base(owner)
+        public FearDeathBehaviour(Transform owner)
         {
             _killable = owner.GetComponent<IKillable>();
             Assert.IsNotNull(_killable);
         }
 
-        public override void Update(float deltaTime)
+        public void Update(float deltaTime)
         {
             _killable.Kill();
         }

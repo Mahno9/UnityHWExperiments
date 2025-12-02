@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 
 namespace StrategyTemplate.Behaviours
 {
-    public class PatrolPointsBehaviour : MovableBehaviourBase
+    public class PatrolPointsBehaviourBase : MovableBehaviourBase
     {
         private const float EPSILON = 0.1f;
         private const int MIN_POINTS_COUNT = 2;
@@ -14,7 +14,7 @@ namespace StrategyTemplate.Behaviours
 
         private int _currentPointIdx;
 
-        public PatrolPointsBehaviour(Transform owner, List<Transform> patrolPoints) : base(owner)
+        public PatrolPointsBehaviourBase(Transform owner, List<Transform> patrolPoints) : base(owner)
         {
             Assert.IsTrue(patrolPoints is { Count: >= MIN_POINTS_COUNT }, "PatrolPointsBehaviour requires at least 2 patrol points");
 

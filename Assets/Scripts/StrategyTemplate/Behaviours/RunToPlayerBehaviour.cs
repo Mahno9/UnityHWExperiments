@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace StrategyTemplate.Behaviours
 {
-    public class RunToPlayerBehaviour : RunBehaviourBase
+    public class RunToPlayerBehaviourBase : RunBehaviourBase
     {
-        public RunToPlayerBehaviour(Transform owner, Transform target) : base(owner, target)
+        public RunToPlayerBehaviourBase(Transform owner, Transform target) : base(owner, target)
         {
         }
 

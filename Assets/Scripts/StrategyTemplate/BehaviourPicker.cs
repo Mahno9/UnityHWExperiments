@@ -15,8 +15,8 @@ namespace StrategyTemplate
     [RequireComponent(typeof(CharacterMover))] // Required by behaviours
     public class BehaviourPicker : MonoBehaviour
     {
-        private UpdatableBehaviourBase _aggroBehaviourBase;
-        private UpdatableBehaviourBase _idleBehaviourBase;
+        private IUpdatableBehaviour _aggroBehaviour;
+        private IUpdatableBehaviour _idleBehaviour;
 
         private BehaviourUpdater _behaviourUpdater;
 
@@ -28,15 +28,15 @@ namespace StrategyTemplate
             _behaviourUpdater = GetComponent<BehaviourUpdater>();
         }
 
-        public void Initialize(UpdatableBehaviourBase idleBehaviourBase, UpdatableBehaviourBase aggroBehaviourBase, Transform triggerTransform)
+        public void Initialize(IUpdatableBehaviour idleBehaviour, IUpdatableBehaviour aggroBehaviour, Transform triggerTransform)
         {
             CharacterMover mover = GetComponent<CharacterMover>();
             Assert.IsNotNull(mover);
 
-            _idleBehaviourBase = idleBehaviourBase;
-            _aggroBehaviourBase = aggroBehaviourBase;
+            _idleBehaviour = idleBehaviour;
+            _aggroBehaviour = aggroBehaviour;
 
-            _behaviourUpdater.SetBehaviour(_idleBehaviourBase);
+            _behaviourUpdater.SetBehaviour(_idleBehaviour);
 
             _triggerTransform = triggerTransform;
         }
@@ -46,8 +46,8 @@ namespace StrategyTemplate
             if (other.transform != _triggerTransform)
                 return;
 
-            _behaviourUpdater.SetBehaviour(_aggroBehaviourBase);
-            Debug.Log("Switch to aggro: " + _aggroBehaviourBase);
+            _behaviourUpdater.SetBehaviour(_aggroBehaviour);
+            Debug.Log("Switch to aggro: " + _aggroBehaviour);
         }
 
 
@@ -56,8 +56,8 @@ namespace StrategyTemplate
             if (other.transform != _triggerTransform)
                 return;
 
-            _behaviourUpdater.SetBehaviour(_idleBehaviourBase);
-            Debug.Log("Switch to idle: " + _aggroBehaviourBase);
+            _behaviourUpdater.SetBehaviour(_idleBehaviour);
+            Debug.Log("Switch to idle: " + _aggroBehaviour);
         }
     }
 }
