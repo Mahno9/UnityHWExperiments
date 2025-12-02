@@ -24,5 +24,7 @@ public class SceneLoader : MonoBehaviour
     {
         if (Application.CanStreamedLevelBeLoaded(_sceneNameToLoad))
             SceneManager.LoadScene(_sceneNameToLoad);
+        else
+            Debug.LogWarning("Unable to load scene: " + _sceneNameToLoad);
     }
 }
