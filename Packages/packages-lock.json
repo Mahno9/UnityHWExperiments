@@ -1,11 +1,27 @@
 {
   "dependencies": {
+    "com.handzlikchris.fastscriptreload": {
+      "version": "https://github.com/handzlikchris/FastScriptReload.git?path=Assets",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "2018c7615df46777b03b9a87304b65d14e9d0823"
+    },
     "com.unity.burst": {
       "version": "1.8.11",
       "depth": 1,
       "source": "registry",
       "dependencies": {
         "com.unity.mathematics": "1.2.1"
+      },
+      "url": "https://packages.unity.com"
+    },
+    "com.unity.cinemachine": {
+      "version": "2.9.7",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.test-framework": "1.1.31"
       },
       "url": "https://packages.unity.com"
     },
