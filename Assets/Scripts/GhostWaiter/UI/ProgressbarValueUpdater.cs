@@ -1,19 +1,20 @@
-using System;
-
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class ProgressbarValueUpdater : MonoBehaviour
+namespace GhostWaiter.UI
 {
-    [FormerlySerializedAs("_container")] [SerializeField] private Progressable _data;
-    [SerializeField] private Image _progressbar;
-
-    private void Update()
+    public class ProgressbarValueUpdater : MonoBehaviour
     {
-        Assert.IsNotNull(_data);
+        [FormerlySerializedAs("_container")] [SerializeField] private Progressable _data;
+        [SerializeField] private Image _progressbar;
 
-        _progressbar.fillAmount = _data.GetProgress();
+        private void Update()
+        {
+            Assert.IsNotNull(_data);
+
+            _progressbar.fillAmount = _data.GetProgress();
+        }
     }
 }

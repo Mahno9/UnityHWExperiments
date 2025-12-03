@@ -1,82 +1,85 @@
-using System;
+using GhostWaiter.GameLogic.Holdable;
 
 using UnityEngine;
 
-public class SpawnPoint : Holder
+namespace GhostWaiter.GameLogic.Holders
 {
-    [SerializeField] private Transform _jointTransform;
-    [SerializeField] private JunkHolder _junkHolder;
-    [SerializeField] private float _destroyInterval = 2f;
-
-    private Holdable _curHoldable;
-    private SpawnPointState _state = SpawnPointState.Empty;
-
-    public virtual Usable TryExtract()
+    public class SpawnPoint : Holder
     {
-        Usable extractedUsable = (Usable)_curHoldable;
-        _curHoldable = null;
+        [SerializeField] private Transform _jointTransform;
+        [SerializeField] private JunkHolder _junkHolder;
+        [SerializeField] private float _destroyInterval = 2f;
 
-        UpdateState();
+        private Holdable.Holdable _curHoldable;
+        private SpawnPointState _state = SpawnPointState.Empty;
 
-        return extractedUsable;
-    }
-
-    public bool Put(Holdable holdable)
-    {
-        bool isReplacing = false;
-        if (!CanSpawn() && !(isReplacing = CanReplaceWith(holdable)))
-            return false;
-
-        if (_curHoldable)
+        public virtual Usable TryExtract()
         {
-            Destroy(_curHoldable.gameObject);
+            Usable extractedUsable = (Usable)_curHoldable;
             _curHoldable = null;
+
+            UpdateState();
+
+            return extractedUsable;
         }
 
-        if (isReplacing)
+        public bool Put(Holdable.Holdable holdable)
         {
-            holdable.SetHolder(_junkHolder);
-            Destroy(holdable.gameObject, _destroyInterval);
+            bool isReplacing = false;
+            if (!CanSpawn() && !(isReplacing = CanReplaceWith(holdable)))
+                return false;
+
+            if (_curHoldable)
+            {
+                Destroy(_curHoldable.gameObject);
+                _curHoldable = null;
+            }
+
+            if (isReplacing)
+            {
+                holdable.SetHolder(_junkHolder);
+                Destroy(holdable.gameObject, _destroyInterval);
+            }
+            else
+            {
+                _curHoldable = holdable;
+                holdable.SetHolderInstant(this);
+            }
+
+            UpdateState();
+
+            return true;
         }
-        else
+
+        private void UpdateState()
         {
-            _curHoldable = holdable;
-            holdable.SetHolderInstant(this);
+            if (_curHoldable is null)
+            {
+                _state = SpawnPointState.Empty;
+                return;
+            }
+
+            _state = (_curHoldable is Replaceable) ? SpawnPointState.NeedReplace : SpawnPointState.Possessed;
         }
 
-        UpdateState();
-
-        return true;
-    }
-
-    private void UpdateState()
-    {
-        if (_curHoldable is null)
+        public override Transform GetJointTransform()
         {
-            _state = SpawnPointState.Empty;
-            return;
+            return _jointTransform;
         }
 
-        _state = (_curHoldable is Replaceable) ? SpawnPointState.NeedReplace : SpawnPointState.Possessed;
+        private string RequiredTag => (_curHoldable as Replaceable)?.RequiredTag;
+
+        public bool CanSpawn() => _state is SpawnPointState.Empty;
+
+        public bool CanReplaceWith(Holdable.Holdable holdable)
+        {
+            Replacing other = holdable as Replacing;
+            return other is not null
+                   && _state == SpawnPointState.NeedReplace
+                   && other.Tag != string.Empty
+                   && other.Tag == RequiredTag;
+        }
+
+        public bool NeedTakeAway() => _state == SpawnPointState.Possessed;
     }
-
-    public override Transform GetJointTransform()
-    {
-        return _jointTransform;
-    }
-
-    private string RequiredTag => (_curHoldable as Replaceable)?.RequiredTag;
-
-    public bool CanSpawn() => _state is SpawnPointState.Empty;
-
-    public bool CanReplaceWith(Holdable holdable)
-    {
-        Replacing other = holdable as Replacing;
-        return other is not null
-               && _state == SpawnPointState.NeedReplace
-               && other.Tag != string.Empty
-               && other.Tag == RequiredTag;
-    }
-
-    public bool NeedTakeAway() => _state == SpawnPointState.Possessed;
 }

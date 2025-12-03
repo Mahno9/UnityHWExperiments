@@ -1,48 +1,51 @@
 using UnityEngine;
 
-[RequireComponent(typeof(MeshFilter))]
-[RequireComponent(typeof(MeshRenderer))]
-public class HighlightItem : MonoBehaviour
+namespace GhostWaiter.VFX
 {
-    private const string HIGHLIGHT_CHILD_NAME = "Highlight";
-
-    [SerializeField] private Material _highlightMaterial;
-    [SerializeField] private float _highlightSize = 0.2f;
-
-    private GameObject _highlightCopy;
-
-    private void Start()
+    [RequireComponent(typeof(MeshFilter))]
+    [RequireComponent(typeof(MeshRenderer))]
+    public class HighlightItem : MonoBehaviour
     {
-        EnableHighlight();
-    }
+        private const string HIGHLIGHT_CHILD_NAME = "Highlight";
 
-    public void DisableHighlight()
-    {
-        _highlightCopy.SetActive(false);
-    }
+        [SerializeField] private Material _highlightMaterial;
+        [SerializeField] private float _highlightSize = 0.2f;
 
-    public void EnableHighlight()
-    {
-        if (_highlightMaterial != null)
-            CreateHighlightCopy();
-        else
-            _highlightCopy.SetActive(true);
-    }
+        private GameObject _highlightCopy;
 
-    private void CreateHighlightCopy()
-    {
-        _highlightCopy = new GameObject(HIGHLIGHT_CHILD_NAME);
-        _highlightCopy.transform.SetParent(transform);
-        _highlightCopy.transform.localPosition = Vector3.zero;
-        _highlightCopy.transform.localRotation = Quaternion.identity;
-        _highlightCopy.transform.localScale = Vector3.one * (1 + _highlightSize);
+        private void Start()
+        {
+            EnableHighlight();
+        }
 
-        MeshFilter originalMeshFilter = GetComponent<MeshFilter>();
+        public void DisableHighlight()
+        {
+            _highlightCopy.SetActive(false);
+        }
 
-        MeshFilter copyMeshFilter = _highlightCopy.AddComponent<MeshFilter>();
-        copyMeshFilter.sharedMesh = originalMeshFilter.sharedMesh;
+        public void EnableHighlight()
+        {
+            if (_highlightMaterial != null)
+                CreateHighlightCopy();
+            else
+                _highlightCopy.SetActive(true);
+        }
 
-        MeshRenderer copyMeshRenderer = _highlightCopy.AddComponent<MeshRenderer>();
-        copyMeshRenderer.materials = new Material[] { _highlightMaterial };
+        private void CreateHighlightCopy()
+        {
+            _highlightCopy = new GameObject(HIGHLIGHT_CHILD_NAME);
+            _highlightCopy.transform.SetParent(transform);
+            _highlightCopy.transform.localPosition = Vector3.zero;
+            _highlightCopy.transform.localRotation = Quaternion.identity;
+            _highlightCopy.transform.localScale = Vector3.one * (1 + _highlightSize);
+
+            MeshFilter originalMeshFilter = GetComponent<MeshFilter>();
+
+            MeshFilter copyMeshFilter = _highlightCopy.AddComponent<MeshFilter>();
+            copyMeshFilter.sharedMesh = originalMeshFilter.sharedMesh;
+
+            MeshRenderer copyMeshRenderer = _highlightCopy.AddComponent<MeshRenderer>();
+            copyMeshRenderer.materials = new Material[] { _highlightMaterial };
+        }
     }
 }

@@ -1,11 +1,14 @@
 using UnityEngine;
 
-public class GravityUpdaterFlat : GravityUpdaterStrategy
+namespace HeadlessSkeleton.GravityUpdaters
 {
-    public override void OnGrounding(Vector3 normal)
+    public class GravityUpdaterFlat : GravityUpdaterStrategy
     {
-        Vector3 newGravity = normal.normalized * _gravityValue;
-        Physics.gravity = newGravity;
+        public override void OnGrounding(Vector3 normal)
+        {
+            Vector3 newGravity = normal.normalized * _gravityValue;
+            Physics.gravity = newGravity;
+        }
     }
 }
 

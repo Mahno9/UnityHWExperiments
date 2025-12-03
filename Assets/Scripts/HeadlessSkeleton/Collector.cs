@@ -3,37 +3,40 @@ using System.Linq;
 
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
-public class Collector : MonoBehaviour
+namespace HeadlessSkeleton
 {
-    private HashSet<Collectable> _knownCollectables;
-
-    private void Awake()
+    [RequireComponent(typeof(Collider))]
+    public class Collector : MonoBehaviour
     {
-        _knownCollectables = new();
-        Collectable[] collectables = FindObjectsOfType<Collectable>();
-        foreach (Collectable obj in collectables)
-            _knownCollectables.Add(obj);
+        private HashSet<Collectable> _knownCollectables;
 
-        Debug.Log("Collectables: " + string.Join("\n", collectables.Select((c, i) => $"{i}: {c.name}").ToArray()));
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent<Collectable>(out Collectable collectable))
+        private void Awake()
         {
-            collectable.OnCollect();
-            _knownCollectables.Remove(collectable);
-            Debug.Log("Collecting: " + other.name);
-        }
-        else
-        {
-            Debug.LogWarning("Collector collided with non-collectable object: " + other.name);
-        }
-    }
+            _knownCollectables = new();
+            Collectable[] collectables = FindObjectsOfType<Collectable>();
+            foreach (Collectable obj in collectables)
+                _knownCollectables.Add(obj);
 
-    public Collectable[] GetUncollected()
-    {
-        return _knownCollectables.ToArray();
+            Debug.Log("Collectables: " + string.Join("\n", collectables.Select((c, i) => $"{i}: {c.name}").ToArray()));
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent<Collectable>(out Collectable collectable))
+            {
+                collectable.OnCollect();
+                _knownCollectables.Remove(collectable);
+                Debug.Log("Collecting: " + other.name);
+            }
+            else
+            {
+                Debug.LogWarning("Collector collided with non-collectable object: " + other.name);
+            }
+        }
+
+        public Collectable[] GetUncollected()
+        {
+            return _knownCollectables.ToArray();
+        }
     }
 }

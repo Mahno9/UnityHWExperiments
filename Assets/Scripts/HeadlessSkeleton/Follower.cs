@@ -1,12 +1,15 @@
 using UnityEngine;
 
-public class Follower : MonoBehaviour
+namespace HeadlessSkeleton
 {
-    [SerializeField] private Transform _followItem;
-    [SerializeField] private Vector3 _offset;
-
-    private void LateUpdate()
+    public class Follower : MonoBehaviour
     {
-        gameObject.transform.position = _followItem.position + _offset;
+        [SerializeField] private Transform _followItem;
+        [SerializeField] private Vector3 _offset;
+
+        private void LateUpdate()
+        {
+            gameObject.transform.position = _followItem.position + _offset;
+        }
     }
 }

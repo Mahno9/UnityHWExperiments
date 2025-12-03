@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public abstract class Holder : MonoBehaviour
+namespace GhostWaiter.GameLogic.Holders
 {
-    public abstract Transform GetJointTransform();
+    public abstract class Holder : MonoBehaviour
+    {
+        public abstract Transform GetJointTransform();
+    }
 }

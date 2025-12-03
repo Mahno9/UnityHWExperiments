@@ -1,15 +1,17 @@
 using UnityEngine;
-using UnityEngine.Assertions;
 
-public class HealUsable : Usable
+namespace GhostWaiter.GameLogic.Holdable
 {
-    [SerializeField] private int _healthIncreaseAmount = 20;
-
-    public override void Use(GameObject targetObject)
+    public class HealUsable : Usable
     {
-        if (targetObject.TryGetComponent(out Health health))
-            health.AddHealth(_healthIncreaseAmount);
+        [SerializeField] private int _healthIncreaseAmount = 20;
 
-        base.Use(targetObject);
+        public override void Use(GameObject targetObject)
+        {
+			if (targetObject.TryGetComponent(out Health health))
+				health.AddHealth(_healthIncreaseAmount);
+
+            base.Use(targetObject);
+        }
     }
 }

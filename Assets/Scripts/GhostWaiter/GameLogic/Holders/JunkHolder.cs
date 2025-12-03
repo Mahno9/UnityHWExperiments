@@ -1,9 +1,12 @@
 using UnityEngine;
 
-public class JunkHolder : Holder
+namespace GhostWaiter.GameLogic.Holders
 {
-    public override Transform GetJointTransform()
+    public class JunkHolder : Holder
     {
-        return transform;
+        public override Transform GetJointTransform()
+        {
+            return transform;
+        }
     }
 }

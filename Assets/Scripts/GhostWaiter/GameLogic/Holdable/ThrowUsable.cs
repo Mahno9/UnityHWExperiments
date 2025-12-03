@@ -1,124 +1,127 @@
-using Unity.VisualScripting;
+using GhostWaiter.VFX;
 
 using UnityEngine;
 using UnityEngine.Assertions;
 
-[RequireComponent(typeof(Rigidbody))]
-[RequireComponent(typeof(Collider))]
-[RequireComponent(typeof(DestroyerWithEffect))]
-public class ThrowUsable : Usable
+namespace GhostWaiter.GameLogic.Holdable
 {
-    [SerializeField] private Transform _visualShift;
-
-    [SerializeField] private float _throwAngle = 30f;
-    [SerializeField] private float _throwForce = 3f;
-
-    [SerializeField] private TrailRenderer _trail;
-
-    [SerializeField] private float _damage = 1;
-
-    private Rigidbody _body;
-    private Collider _collider;
-    private DestroyerWithEffect _destroyer;
-
-    private bool _isInWashArea = false;
-    private Health _targetHealth;
-
-    private void Awake()
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(DestroyerWithEffect))]
+    public class ThrowUsable : Usable
     {
-        _body = GetComponent<Rigidbody>();
-        _body.isKinematic = true;
+        [SerializeField] private Transform _visualShift;
 
-        _collider = GetComponent<Collider>();
-        _collider.isTrigger = true;
+        [SerializeField] private float _throwAngle = 30f;
+        [SerializeField] private float _throwForce = 3f;
 
-        _destroyer = GetComponent<DestroyerWithEffect>();
+        [SerializeField] private TrailRenderer _trail;
 
-        if (_trail is not null)
-            _trail.enabled = false;
-    }
+        [SerializeField] private float _damage = 1;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<WashArea>())
-            _isInWashArea = true;
-    }
+        private Rigidbody _body;
+        private Collider _collider;
+        private DestroyerWithEffect _destroyer;
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponent<WashArea>())
-            _isInWashArea = false;
-    }
+        private bool _isInWashArea = false;
+        private Health _targetHealth;
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (_isInWashArea == false)
-            _targetHealth?.AddHealth(-_damage);
+        private void Awake()
+        {
+            _body = GetComponent<Rigidbody>();
+            _body.isKinematic = true;
 
-        _destroyer.DestroyWithEffect(_isInWashArea);
-    }
+            _collider = GetComponent<Collider>();
+            _collider.isTrigger = true;
 
-    public override void Use(GameObject targetObject)
-    {
-        ThrowSelf(targetObject);
-    }
+            _destroyer = GetComponent<DestroyerWithEffect>();
 
-    private void ThrowSelf(GameObject targetObject)
-    {
-        Assert.IsNotNull(Holder, "Owner is null in Throw.Use");
+            if (_trail is not null)
+                _trail.enabled = false;
+        }
 
-        StoreTargetHealth(targetObject);
-        ResetVisualPos();
-        SetStartPos();
-        Launch();
-        UnbindFromHolder();
-        EnableTrail();
-    }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.GetComponent<WashArea>())
+                _isInWashArea = true;
+        }
 
-    private void StoreTargetHealth(GameObject targetObject)
-    {
-        Health newTargetHealth = targetObject.GetComponent<Health>();
-        if (newTargetHealth is not null)
-            _targetHealth = newTargetHealth;
-    }
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.GetComponent<WashArea>())
+                _isInWashArea = false;
+        }
 
-    private void EnableTrail()
-    {
-        if (_trail is not null)
-            _trail.enabled = true;
-    }
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (_isInWashArea == false)
+                _targetHealth?.AddHealth(-_damage);
 
-    private void UnbindFromHolder()
-    {
-        transform.SetParent(null, true);
-        SetHolder(null);
-    }
+            _destroyer.DestroyWithEffect(_isInWashArea);
+        }
 
-    private void ResetVisualPos()
-    {
-        if (_visualShift != null)
-            _visualShift.transform.localPosition = Vector3.zero;
-    }
+        public override void Use(GameObject targetObject)
+        {
+            ThrowSelf(targetObject);
+        }
 
-    private void SetStartPos()
-    {
-        Transform jointTransform = Holder.GetJointTransform();
-        gameObject.transform.position = jointTransform.position;
-        gameObject.transform.rotation = jointTransform.rotation;
-    }
+        private void ThrowSelf(GameObject targetObject)
+        {
+            Assert.IsNotNull(Holder, "Owner is null in Throw.Use");
 
-    private void Launch()
-    {
-        _body.isKinematic = false;
-        _body.velocity = gameObject.transform.rotation * Quaternion.Euler(-_throwAngle, 0, 0) * Vector3.forward * _throwForce;
+            StoreTargetHealth(targetObject);
+            ResetVisualPos();
+            SetStartPos();
+            Launch();
+            UnbindFromHolder();
+            EnableTrail();
+        }
 
-        // Мне очень нужен был этот костыль. Если знаешь как сделать лучше, подскажи, пожалуйста
-        StartCoroutine(SetColliderAsNonTriggerAfterDelay());
-    }
+        private void StoreTargetHealth(GameObject targetObject)
+        {
+            Health newTargetHealth = targetObject.GetComponent<Health>();
+            if (newTargetHealth is not null)
+                _targetHealth = newTargetHealth;
+        }
 
-    private System.Collections.IEnumerator SetColliderAsNonTriggerAfterDelay()
-    {
-        yield return new WaitForSeconds(0.1f);
-        _collider.isTrigger = false;
+        private void EnableTrail()
+        {
+            if (_trail is not null)
+                _trail.enabled = true;
+        }
+
+        private void UnbindFromHolder()
+        {
+            transform.SetParent(null, true);
+            SetHolder(null);
+        }
+
+        private void ResetVisualPos()
+        {
+            if (_visualShift != null)
+                _visualShift.transform.localPosition = Vector3.zero;
+        }
+
+        private void SetStartPos()
+        {
+            Transform jointTransform = Holder.GetJointTransform();
+            gameObject.transform.position = jointTransform.position;
+            gameObject.transform.rotation = jointTransform.rotation;
+        }
+
+        private void Launch()
+        {
+            _body.isKinematic = false;
+            _body.velocity = gameObject.transform.rotation * Quaternion.Euler(-_throwAngle, 0, 0) * Vector3.forward * _throwForce;
+
+            // Мне очень нужен был этот костыль. Если знаешь как сделать лучше, подскажи, пожалуйста
+            StartCoroutine(SetColliderAsNonTriggerAfterDelay());
+        }
+
+        private System.Collections.IEnumerator SetColliderAsNonTriggerAfterDelay()
+        {
+            yield return new WaitForSeconds(0.1f);
+            _collider.isTrigger = false;
+        }
     }
 }

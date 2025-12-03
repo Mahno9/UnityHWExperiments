@@ -1,5 +1,8 @@
 using UnityEngine;
 
-public class WashArea : MonoBehaviour
+namespace GhostWaiter
 {
+    public class WashArea : MonoBehaviour
+    {
+    }
 }
