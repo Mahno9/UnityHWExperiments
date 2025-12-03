@@ -4,6 +4,7 @@ namespace InteractionExample
 {
     public class DragNDropLogic
     {
+        private const float DragVelocity = 10;
         private readonly Vector3 PickUpShift = Vector3.up * 0.1f;
 
         private Transform _heldItem;
@@ -21,9 +22,6 @@ namespace InteractionExample
 
             _heldItem = pickedItem;
             _heldShift = pickedItem.position - groundIntersect;
-
-            if (!_heldItem.TryGetComponent(out Rigidbody rb))
-                return;
         }
 
         public void ReleasePointedItem()
@@ -47,14 +45,18 @@ namespace InteractionExample
                     continue;
 
                 Vector3 newItemPosition = hit.point + _heldShift + PickUpShift;
-
-                if (_heldItem.TryGetComponent(out Rigidbody rb))
-                    rb.velocity =((newItemPosition - _heldItem.position) * 10);
-                else
-                    _heldItem.position = newItemPosition;
+                ApplyPosition(newItemPosition);
 
                 break;
             }
+        }
+
+        private void ApplyPosition(Vector3 newItemPosition)
+        {
+            if (_heldItem.TryGetComponent(out Rigidbody rb))
+                rb.velocity =((newItemPosition - _heldItem.position) * DragVelocity);
+            else
+                _heldItem.position = newItemPosition;
         }
     }
 }
