@@ -1,10 +1,8 @@
-using System;
-
 using Cinemachine;
 
 using UnityEngine;
 
-namespace InteractionExample
+namespace InteractionExample.Cinemachine.Behaviours
 {
     [RequireComponent(typeof(CinemachineTargetGroup))]
     public class CinemachineTargetAutoGroup : MonoBehaviour

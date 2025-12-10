@@ -2,9 +2,9 @@ using System;
 
 using UnityEngine;
 
-namespace InteractionExample
+namespace InteractionExample.Common
 {
-    public static class HitsCommon
+    public static class DraggableHits
     {
         public static RaycastHit[] GetHitsByRaySorted(Ray ray)
         {

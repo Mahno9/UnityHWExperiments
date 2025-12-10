@@ -1,6 +1,8 @@
+using InteractionExample.Common;
+
 using UnityEngine;
 
-namespace InteractionExample
+namespace InteractionExample.PointerInteractions.Logic
 {
     public class DragNDropLogic
     {
@@ -12,7 +14,7 @@ namespace InteractionExample
 
         public void HoldItemOnRay(Ray ray)
         {
-            RaycastHit[] hits = HitsCommon.GetHitsByRaySorted(ray);
+            RaycastHit[] hits = DraggableHits.GetHitsByRaySorted(ray);
 
             if (hits.Length < 2)
                 return;
@@ -37,7 +39,7 @@ namespace InteractionExample
             if (_heldItem is null)
                 return;
 
-            RaycastHit[] hits = HitsCommon.GetHitsByRaySorted(ray);
+            RaycastHit[] hits = DraggableHits.GetHitsByRaySorted(ray);
 
             foreach (RaycastHit hit in hits)
             {

@@ -1,6 +1,8 @@
+using InteractionExample.Common;
+
 using UnityEngine;
 
-namespace InteractionExample
+namespace InteractionExample.PointerInteractions.Logic
 {
     public class ExplosionShooterLogic
     {
@@ -15,7 +17,7 @@ namespace InteractionExample
 
         public bool Shoot(Ray ray, out Vector3 explosionPoint)
         {
-            RaycastHit[] hits = HitsCommon.GetHitsByRaySorted(ray);
+            RaycastHit[] hits = DraggableHits.GetHitsByRaySorted(ray);
 
             if (hits.Length == 0)
             {

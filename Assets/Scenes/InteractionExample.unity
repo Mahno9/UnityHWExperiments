@@ -340,12 +340,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameras:
-  - Key: 51
-    Camera: {fileID: 1093993101}
   - Key: 49
     Camera: {fileID: 1861329458}
   - Key: 50
     Camera: {fileID: 1047553225}
+  - Key: 51
+    Camera: {fileID: 1093993101}
 --- !u!1001 &138151355
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,11 +1,11 @@
-using System;
+using InteractionExample.PointerInteractions.Logic;
 
 using StrategyTemplate.Markers;
 
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace InteractionExample
+namespace InteractionExample.PointerInteractions.Behaviours
 {
     public class ExplosionShooterBehaviour : MonoBehaviour
     {

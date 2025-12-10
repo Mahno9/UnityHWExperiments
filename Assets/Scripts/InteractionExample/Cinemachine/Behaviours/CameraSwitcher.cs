@@ -1,11 +1,9 @@
-using System;
-
 using Cinemachine;
 
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace InteractionExample
+namespace InteractionExample.Cinemachine.Behaviours
 {
     [System.Serializable]
     public struct KeyCameraPair

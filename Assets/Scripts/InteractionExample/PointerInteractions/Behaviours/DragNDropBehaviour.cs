@@ -1,7 +1,9 @@
+using InteractionExample.PointerInteractions.Logic;
+
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace InteractionExample
+namespace InteractionExample.PointerInteractions.Behaviours
 {
     public class DragNDropBehaviour : MonoBehaviour
     {
