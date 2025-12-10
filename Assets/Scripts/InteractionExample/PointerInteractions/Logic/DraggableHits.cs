@@ -8,7 +8,7 @@ namespace InteractionExample.Common
     {
         public static RaycastHit[] GetHitsByRaySorted(Ray ray)
         {
-            RaycastHit[] hits = Physics.RaycastAll(ray);
+            RaycastHit[] hits = Physics.RaycastAll(ray, float.PositiveInfinity);
 
             SortHits(hits);
 
