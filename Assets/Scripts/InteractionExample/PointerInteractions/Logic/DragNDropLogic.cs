@@ -1,4 +1,4 @@
-using InteractionExample.Common;
+using InteractionExample.PointerInteractions.Interfaces;
 
 using UnityEngine;
 

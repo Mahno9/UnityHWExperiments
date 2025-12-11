@@ -1,7 +1,10 @@
 using UnityEngine;
 
-public interface IDraggable
+namespace InteractionExample.PointerInteractions.Interfaces
 {
-    void StoreHold(Ray intersectRay);
-    void MoveTo(Ray    movedRay);
+    public interface IDraggable
+    {
+        void StoreHold(Ray intersectRay);
+        void MoveTo(Ray    movedRay);
+    }
 }

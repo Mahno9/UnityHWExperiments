@@ -2,7 +2,7 @@ using System;
 
 using UnityEngine;
 
-namespace InteractionExample.Common
+namespace InteractionExample.PointerInteractions.Logic
 {
     public static class DraggableHits
     {

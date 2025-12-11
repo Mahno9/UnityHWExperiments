@@ -1,18 +1,16 @@
-using InteractionExample.Common;
-
 using UnityEngine;
 
 namespace InteractionExample.PointerInteractions.Logic
 {
     public class ExplosionShooterLogic
     {
-        private readonly float ExplosionRadius;
-        private readonly float ExplosionForce;
+        private readonly float _explosionRadius;
+        private readonly float _explosionForce;
 
         public ExplosionShooterLogic(float explosionRadius, float explosionForce)
         {
-            ExplosionRadius = explosionRadius;
-            ExplosionForce = explosionForce;
+            _explosionRadius = explosionRadius;
+            _explosionForce = explosionForce;
         }
 
         public bool Shoot(Ray ray, out Vector3 explosionPoint)
@@ -27,13 +25,13 @@ namespace InteractionExample.PointerInteractions.Logic
 
             explosionPoint = hits[0].point;
 
-            Collider[] exploidItems = Physics.OverlapSphere(explosionPoint, ExplosionRadius);
+            Collider[] exploidItems = Physics.OverlapSphere(explosionPoint, _explosionRadius);
             Debug.Log($"Explosion pos: {explosionPoint}, items: {exploidItems.Length}");
 
             foreach (Collider item in exploidItems)
             {
                 if (item.TryGetComponent(out Rigidbody rb))
-                    rb.AddExplosionForce(ExplosionForce, explosionPoint, ExplosionRadius);
+                    rb.AddExplosionForce(_explosionForce, explosionPoint, _explosionRadius);
             }
 
             return true;

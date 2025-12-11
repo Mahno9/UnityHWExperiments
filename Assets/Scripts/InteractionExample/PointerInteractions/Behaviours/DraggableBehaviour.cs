@@ -1,55 +1,55 @@
-using System;
-
-using HeadlessSkeleton;
-
-using InteractionExample.Common;
+using InteractionExample.PointerInteractions.Interfaces;
+using InteractionExample.PointerInteractions.Logic;
 
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody))]
-public class DraggableBehaviour : MonoBehaviour, IDraggable
+namespace InteractionExample.PointerInteractions.Behaviours
 {
-    [SerializeField] private Vector3 _pickUpShift  = Vector3.up * 0.1f;
-    [SerializeField] private float   _dragVelocity = 10;
-
-    private Vector3 _heldShift;
-
-    public void StoreHold(Ray intersectRay)
+    [RequireComponent(typeof(Rigidbody))]
+    public class DraggableBehaviour : MonoBehaviour, IDraggable
     {
-        RaycastHit[] hits = DraggableHits.GetHitsByRaySorted(intersectRay);
+        [SerializeField] private Vector3 _pickUpShift  = Vector3.up * 0.1f;
+        [SerializeField] private float   _dragVelocity = 10;
 
-        foreach (RaycastHit hit in hits)
+        private Vector3 _heldShift;
+
+        public void StoreHold(Ray intersectRay)
         {
-            if (hit.transform == transform)
-                continue;
+            RaycastHit[] hits = DraggableHits.GetHitsByRaySorted(intersectRay);
 
-            _heldShift = ObjectPos - hit.point;
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.transform == transform)
+                    continue;
 
-            break;
+                _heldShift = ObjectPos - hit.point;
+
+                break;
+            }
         }
-    }
 
-    public void MoveTo(Ray movedRay)
-    {
-        RaycastHit[] hits = DraggableHits.GetHitsByRaySorted(movedRay);
-
-        foreach (RaycastHit hit in hits)
+        public void MoveTo(Ray movedRay)
         {
-            if (hit.transform == transform)
-                continue;
+            RaycastHit[] hits = DraggableHits.GetHitsByRaySorted(movedRay);
 
-            Vector3 newItemPosition = hit.point + _heldShift + _pickUpShift;
-            ApplyPosition(newItemPosition);
+            foreach (RaycastHit hit in hits)
+            {
+                if (hit.transform == transform)
+                    continue;
 
-            break;
+                Vector3 newItemPosition = hit.point + _heldShift + _pickUpShift;
+                ApplyPosition(newItemPosition);
+
+                break;
+            }
         }
-    }
 
-    private void ApplyPosition(Vector3 newItemPosition)
-    {
-        if (TryGetComponent(out Rigidbody rb))
-            rb.velocity = ((newItemPosition - ObjectPos) * _dragVelocity);
-    }
+        private void ApplyPosition(Vector3 newItemPosition)
+        {
+            if (TryGetComponent(out Rigidbody rb))
+                rb.velocity = ((newItemPosition - ObjectPos) * _dragVelocity);
+        }
 
-    private Vector3 ObjectPos => TryGetComponent(out Rigidbody rb) ? rb.centerOfMass + transform.position : transform.position;
+        private Vector3 ObjectPos => TryGetComponent(out Rigidbody rb) ? rb.centerOfMass + transform.position : transform.position;
+    }
 }

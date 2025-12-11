@@ -473,7 +473,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d6b62c0cb47e8b99d62cfebd86fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpShift: {x: 0, y: 0.4, z: 0}
+  _pickUpShift: {x: 0, y: 0.1, z: 0}
   _dragVelocity: 10
 --- !u!1001 &197350919
 PrefabInstance:
@@ -603,7 +603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d6b62c0cb47e8b99d62cfebd86fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpShift: {x: 0, y: 0.4, z: 0}
+  _pickUpShift: {x: 0, y: 0.1, z: 0}
   _dragVelocity: 10
 --- !u!1001 &229053523
 PrefabInstance:
@@ -732,7 +732,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d6b62c0cb47e8b99d62cfebd86fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpShift: {x: 0, y: 0.4, z: 0}
+  _pickUpShift: {x: 0, y: 0.1, z: 0}
   _dragVelocity: 10
 --- !u!1 &558376608
 GameObject:
@@ -1056,7 +1056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d6b62c0cb47e8b99d62cfebd86fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpShift: {x: 0, y: 0.4, z: 0}
+  _pickUpShift: {x: 0, y: 0.1, z: 0}
   _dragVelocity: 10
 --- !u!1001 &800285299
 PrefabInstance:
@@ -1185,7 +1185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d6b62c0cb47e8b99d62cfebd86fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpShift: {x: 0, y: 0.4, z: 0}
+  _pickUpShift: {x: 0, y: 0.1, z: 0}
   _dragVelocity: 10
 --- !u!1 &849095128
 GameObject:
@@ -1495,7 +1495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d6b62c0cb47e8b99d62cfebd86fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpShift: {x: 0, y: 0.4, z: 0}
+  _pickUpShift: {x: 0, y: 0.1, z: 0}
   _dragVelocity: 10
 --- !u!1 &1093993100
 GameObject:
@@ -1696,7 +1696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d6b62c0cb47e8b99d62cfebd86fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpShift: {x: 0, y: 0.4, z: 0}
+  _pickUpShift: {x: 0, y: 0.1, z: 0}
   _dragVelocity: 10
 --- !u!1001 &1135126849
 PrefabInstance:
@@ -1825,7 +1825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d6b62c0cb47e8b99d62cfebd86fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpShift: {x: 0, y: 0.4, z: 0}
+  _pickUpShift: {x: 0, y: 0.1, z: 0}
   _dragVelocity: 10
 --- !u!1 &1248648278
 GameObject:
@@ -2162,7 +2162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d6b62c0cb47e8b99d62cfebd86fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpShift: {x: 0, y: 0.4, z: 0}
+  _pickUpShift: {x: 0, y: 0.1, z: 0}
   _dragVelocity: 10
 --- !u!1 &1566523106
 GameObject:
@@ -2322,7 +2322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d6b62c0cb47e8b99d62cfebd86fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpShift: {x: 0, y: 0.4, z: 0}
+  _pickUpShift: {x: 0, y: 0.1, z: 0}
   _dragVelocity: 10
 --- !u!1001 &1708517744
 PrefabInstance:
@@ -2451,7 +2451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d6b62c0cb47e8b99d62cfebd86fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpShift: {x: 0, y: 0.4, z: 0}
+  _pickUpShift: {x: 0, y: 0.1, z: 0}
   _dragVelocity: 10
 --- !u!1001 &1709674652
 PrefabInstance:
@@ -2580,7 +2580,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d6b62c0cb47e8b99d62cfebd86fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpShift: {x: 0, y: 0.4, z: 0}
+  _pickUpShift: {x: 0, y: 0.1, z: 0}
   _dragVelocity: 10
 --- !u!1001 &1711637277
 PrefabInstance:
@@ -2709,7 +2709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d6b62c0cb47e8b99d62cfebd86fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpShift: {x: 0, y: 0.4, z: 0}
+  _pickUpShift: {x: 0, y: 0.1, z: 0}
   _dragVelocity: 10
 --- !u!1001 &1750259201
 PrefabInstance:
@@ -2838,7 +2838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d6b62c0cb47e8b99d62cfebd86fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpShift: {x: 0, y: 0.4, z: 0}
+  _pickUpShift: {x: 0, y: 0.1, z: 0}
   _dragVelocity: 10
 --- !u!1 &1829930779
 GameObject:
@@ -3154,7 +3154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a51d6b62c0cb47e8b99d62cfebd86fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickUpShift: {x: 0, y: 0.4, z: 0}
+  _pickUpShift: {x: 0, y: 0.1, z: 0}
   _dragVelocity: 10
 --- !u!1 &2092922899
 GameObject:
