@@ -8,14 +8,14 @@ namespace InteractionExample.PointerInteractions.DragNDrop
         private const int LeftMouseButton = 0;
 
         private Camera         _camera;
-        private DragNDropLogic _logic;
+        private DragNDropService _service;
 
         private void Start()
         {
             _camera = Camera.main;
             Assert.IsNotNull(_camera);
 
-            _logic = new DragNDropLogic();
+            _service = new DragNDropService();
         }
 
         private void Update()
@@ -23,17 +23,17 @@ namespace InteractionExample.PointerInteractions.DragNDrop
             Ray pointerRay = _camera.ScreenPointToRay(Input.mousePosition);
 
             if (Input.GetMouseButtonDown(LeftMouseButton))
-                _logic.HoldItemOnRay(pointerRay);
+                _service.GrabItemOnRay(pointerRay);
 
             if (Input.GetMouseButtonUp(LeftMouseButton))
-                _logic.ReleasePointedItem();
+                _service.ReleaseItem();
         }
 
         private void FixedUpdate()
         {
             Ray pointerRay = _camera.ScreenPointToRay(Input.mousePosition);
 
-            _logic.SetItemPositionByRay(pointerRay);
+            _service.SetItemPositionByRay(pointerRay);
         }
     }
 }

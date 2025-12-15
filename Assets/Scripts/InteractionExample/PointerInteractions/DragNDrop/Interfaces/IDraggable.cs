@@ -4,7 +4,8 @@ namespace InteractionExample.PointerInteractions.DragNDrop.Interfaces
 {
     public interface IDraggable
     {
-        void StoreHold(Ray intersectRay);
+        void OnGrab(Ray intersectRay);
         void MoveTo(Ray    movedRay);
+        void OnRelease();
     }
 }

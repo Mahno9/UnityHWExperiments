@@ -16,14 +16,14 @@ namespace InteractionExample.PointerInteractions.Behaviours
         [SerializeField] private Effect _explosionEffect;
 
         private Camera                _camera;
-        private ExplosionShooterLogic _shooter;
+        private ExplosionShooterService _shooter;
 
         private void Awake()
         {
             _camera = Camera.main;
             Assert.IsNotNull(_camera);
 
-            _shooter = new ExplosionShooterLogic(_explosionRadius, _explosionForce);
+            _shooter = new ExplosionShooterService(_explosionRadius, _explosionForce);
         }
 
         private void Update()

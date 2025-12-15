@@ -4,22 +4,23 @@ using UnityEngine;
 
 namespace InteractionExample.PointerInteractions.DragNDrop
 {
-    public class DragNDropLogic
+    public class DragNDropService
     {
         private IDraggable _heldItem;
 
-        public void HoldItemOnRay(Ray ray)
+        public void GrabItemOnRay(Ray ray)
         {
             if (Physics.Raycast(ray, out RaycastHit hit)
                 && hit.transform.TryGetComponent(out IDraggable draggableItem))
             {
                 _heldItem = draggableItem;
-                _heldItem.StoreHold(ray);
+                _heldItem.OnGrab(ray);
             }
         }
 
-        public void ReleasePointedItem()
+        public void ReleaseItem()
         {
+            _heldItem?.OnRelease();
             _heldItem = null;
         }
 
