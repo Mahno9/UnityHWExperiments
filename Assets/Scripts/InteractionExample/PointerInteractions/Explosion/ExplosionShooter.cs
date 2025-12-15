@@ -7,7 +7,7 @@ using UnityEngine.Assertions;
 
 namespace InteractionExample.PointerInteractions.Behaviours
 {
-    public class ExplosionShooterBehaviour : MonoBehaviour
+    public class ExplosionShooter : MonoBehaviour
     {
         private const int RightMouseButton = 1;
 

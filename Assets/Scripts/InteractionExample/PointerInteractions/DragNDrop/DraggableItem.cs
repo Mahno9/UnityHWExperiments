@@ -1,12 +1,11 @@
-using InteractionExample.PointerInteractions.Interfaces;
-using InteractionExample.PointerInteractions.Logic;
+using InteractionExample.PointerInteractions.DragNDrop.Interfaces;
 
 using UnityEngine;
 
-namespace InteractionExample.PointerInteractions.Behaviours
+namespace InteractionExample.PointerInteractions.DragNDrop
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class DraggableBehaviour : MonoBehaviour, IDraggable
+    public class DraggableItem : MonoBehaviour, IDraggable
     {
         [SerializeField] private Vector3 _pickUpShift  = Vector3.up * 0.1f;
         [SerializeField] private float   _dragVelocity = 10;

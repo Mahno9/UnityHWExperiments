@@ -1,11 +1,9 @@
-using InteractionExample.PointerInteractions.Logic;
-
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace InteractionExample.PointerInteractions.Behaviours
+namespace InteractionExample.PointerInteractions.DragNDrop
 {
-    public class DragNDropBehaviour : MonoBehaviour
+    public class DragNDrop : MonoBehaviour
     {
         private const int LeftMouseButton = 0;
 

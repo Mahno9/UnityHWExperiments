@@ -1,8 +1,8 @@
-using InteractionExample.PointerInteractions.Interfaces;
+using InteractionExample.PointerInteractions.DragNDrop.Interfaces;
 
 using UnityEngine;
 
-namespace InteractionExample.PointerInteractions.Logic
+namespace InteractionExample.PointerInteractions.DragNDrop
 {
     public class DragNDropLogic
     {

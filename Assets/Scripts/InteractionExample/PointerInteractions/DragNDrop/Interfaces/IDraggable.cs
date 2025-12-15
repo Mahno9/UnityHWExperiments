@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace InteractionExample.PointerInteractions.Interfaces
+namespace InteractionExample.PointerInteractions.DragNDrop.Interfaces
 {
     public interface IDraggable
     {
