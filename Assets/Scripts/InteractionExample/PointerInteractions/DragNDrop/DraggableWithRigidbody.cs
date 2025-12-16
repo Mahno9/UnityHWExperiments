@@ -1,5 +1,7 @@
 using System;
 
+using HeadlessSkeleton;
+
 using InteractionExample.PointerInteractions.DragNDrop.Interfaces;
 
 using UnityEngine;
@@ -11,37 +13,45 @@ namespace InteractionExample.PointerInteractions.DragNDrop
     [RequireComponent(typeof(Rigidbody))]
     public class DraggableWithRigidbody : MonoBehaviour, IDraggable
     {
-        [SerializeField] private Vector3   _pickUpShift  = Vector3.up * 0.1f;
-        [SerializeField] private float     _dragVelocity = 10;
-        [SerializeField] private LayerMask _transparentLayerMask;
+        [SerializeField] private Vector3 _pickUpShift          = Vector3.up * 0.1f;
+        [SerializeField] private float   _dragVelocity         = 10;
+        [SerializeField] private string  _transparentLayerName = "GrabTransparent";
 
-        private Vector3   _heldShift;
-        private LayerMask _baseLayerMask;
+        private Vector3 _heldShift;
+
+        private int _baseLayer;
+        private int _transparentLayer;
 
         private void Awake()
         {
-            _baseLayerMask = gameObject.layer;
+            _baseLayer = gameObject.layer;
+            _transparentLayer = 1 << LayerMask.NameToLayer(_transparentLayerName);
         }
 
         public void OnGrab(Ray intersectRay)
         {
-            SwitchToGrabLayer();
-
-            Debug.Log($"Call with mask: not {Convert.ToString(_transparentLayerMask, 2)}b => {Convert.ToString(~_transparentLayerMask, 2)}b");
-            Debug.Log($"This item layer: {gameObject.layer}d = {Convert.ToString(gameObject.layer, 2)}b");
-
-            if (Physics.Raycast(intersectRay, out RaycastHit hit, float.PositiveInfinity, ~_transparentLayerMask) == false)
+            SwitchToTransparentLayer();
+            if (Physics.Raycast(intersectRay, out RaycastHit hit, float.PositiveInfinity, ~_transparentLayer) == false)
                 return;
 
-            Debug.Log($"This item: {transform.name}, Raycast item: {hit.transform.name}; {(transform == hit.transform ? "FAIL" : "SUCCESS")}");
+            Debug.Log($"This item: {transform.name}, behind item: {hit.transform.name}; {(transform == hit.transform ? "FAIL" : "SUCCESS")}");
+            if (transform == hit.transform)
+            {
+                Debug.LogWarning($"Tried: {Convert.ToString(~_transparentLayer, 2)}b; " +
+                                 $"Want: {Convert.ToString(1 << LayerMask.NameToLayer("Default"), 2)}b; " +
+                                 $"Transparent: {Convert.ToString(_transparentLayer, 2)}b; " +
+                                 $"Hit obj: {Convert.ToString(hit.transform.gameObject.layer, 2)}b; "
+                );
+            }
+
             _heldShift = ObjectPos - hit.point;
         }
 
         public void MoveTo(Ray movedRay)
         {
-            if (Physics.Raycast(movedRay, out RaycastHit hit, float.PositiveInfinity, ~_transparentLayerMask) == false)
+            if (Physics.Raycast(movedRay, out RaycastHit hit, float.PositiveInfinity, ~_transparentLayer) == false)
             {
-                Assert.IsTrue(false, "No item behind this. WTF?");
+                Debug.LogWarning($"No item with mask: {Convert.ToString(~_transparentLayer, 2)}b");
                 return;
             }
 
@@ -57,12 +67,15 @@ namespace InteractionExample.PointerInteractions.DragNDrop
         private void ApplyPosition(Vector3 newItemPosition)
         {
             if (TryGetComponent(out Rigidbody rb))
+            {
                 rb.velocity = ((newItemPosition - ObjectPos) * _dragVelocity);
+                RuntimeDebugLine.DrawLine(ObjectPos, newItemPosition, Color.red, 1);
+            }
         }
 
         private Vector3 ObjectPos => TryGetComponent(out Rigidbody rb) ? rb.centerOfMass + transform.position : transform.position;
 
-        private void SwitchToGrabLayer() => gameObject.layer = _transparentLayerMask;
-        private void SwitchToBaseLayer() => gameObject.layer = _baseLayerMask.value;
+        private void SwitchToTransparentLayer() => gameObject.layer = _transparentLayer;
+        private void SwitchToBaseLayer() => gameObject.layer = _baseLayer;
     }
 }

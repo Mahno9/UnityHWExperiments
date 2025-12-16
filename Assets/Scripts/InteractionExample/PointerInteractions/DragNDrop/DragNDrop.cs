@@ -27,11 +27,6 @@ namespace InteractionExample.PointerInteractions.DragNDrop
 
             if (Input.GetMouseButtonUp(LeftMouseButton))
                 _service.ReleaseItem();
-        }
-
-        private void FixedUpdate()
-        {
-            Ray pointerRay = _camera.ScreenPointToRay(Input.mousePosition);
 
             _service.SetItemPositionByRay(pointerRay);
         }
