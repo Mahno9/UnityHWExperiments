@@ -2,12 +2,12 @@ using InteractionExample.PointerInteractions.Explosion.Interfaces;
 
 using UnityEngine;
 
-namespace InteractionExample.PointerInteractions.Logic
+namespace InteractionExample.PointerInteractions.Explosion
 {
     public class ExplosionShooterService
     {
-        private readonly float _explosionRadius;
         private readonly float _explosionForce;
+        private readonly float _explosionRadius;
 
         public ExplosionShooterService(float explosionRadius, float explosionForce)
         {
@@ -29,10 +29,8 @@ namespace InteractionExample.PointerInteractions.Logic
             Debug.Log($"Explosion pos: {explosionPoint}, items: {exploidItems.Length}");
 
             foreach (Collider item in exploidItems)
-            {
                 if (item.TryGetComponent(out IForceable fItem))
                     fItem.AddExplosionForce(explosionPoint, _explosionForce, _explosionRadius);
-            }
 
             return true;
         }

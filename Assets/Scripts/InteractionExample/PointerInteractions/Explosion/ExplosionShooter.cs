@@ -1,11 +1,9 @@
-using InteractionExample.PointerInteractions.Logic;
-
 using StrategyTemplate.Markers;
 
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace InteractionExample.PointerInteractions.Behaviours
+namespace InteractionExample.PointerInteractions.Explosion
 {
     public class ExplosionShooter : MonoBehaviour
     {
@@ -15,7 +13,7 @@ namespace InteractionExample.PointerInteractions.Behaviours
         [SerializeField] private float  _explosionForce  = 2000;
         [SerializeField] private Effect _explosionEffect;
 
-        private Camera                _camera;
+        private Camera                  _camera;
         private ExplosionShooterService _shooter;
 
         private void Awake()

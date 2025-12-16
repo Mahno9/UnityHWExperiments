@@ -1,12 +1,8 @@
 using System;
 
-using HeadlessSkeleton;
-
 using InteractionExample.PointerInteractions.DragNDrop.Interfaces;
 
 using UnityEngine;
-using UnityEngine.Assertions;
-using UnityEngine.Serialization;
 
 namespace InteractionExample.PointerInteractions.DragNDrop
 {
@@ -17,41 +13,36 @@ namespace InteractionExample.PointerInteractions.DragNDrop
         [SerializeField] private float   _dragVelocity         = 10;
         [SerializeField] private string  _transparentLayerName = "GrabTransparent";
 
-        private Vector3 _heldShift;
+        private int _baseLayerIdx;
 
-        private int _baseLayer;
-        private int _transparentLayer;
+        private Vector3 _heldShift;
+        private int     _transparentLayerIdx;
+
+        private int TransparentLayerMask => 1 << _transparentLayerIdx;
+
+        private Vector3 ObjectPos => TryGetComponent(out Rigidbody rb) ? rb.centerOfMass + transform.position : transform.position;
 
         private void Awake()
         {
-            _baseLayer = gameObject.layer;
-            _transparentLayer = 1 << LayerMask.NameToLayer(_transparentLayerName);
+            _baseLayerIdx = gameObject.layer;
+            _transparentLayerIdx = LayerMask.NameToLayer(_transparentLayerName);
         }
 
         public void OnGrab(Ray intersectRay)
         {
             SwitchToTransparentLayer();
-            if (Physics.Raycast(intersectRay, out RaycastHit hit, float.PositiveInfinity, ~_transparentLayer) == false)
+            if (Physics.Raycast(intersectRay, out RaycastHit hit, float.PositiveInfinity, ~TransparentLayerMask) == false)
                 return;
-
-            Debug.Log($"This item: {transform.name}, behind item: {hit.transform.name}; {(transform == hit.transform ? "FAIL" : "SUCCESS")}");
-            if (transform == hit.transform)
-            {
-                Debug.LogWarning($"Tried: {Convert.ToString(~_transparentLayer, 2)}b; " +
-                                 $"Want: {Convert.ToString(1 << LayerMask.NameToLayer("Default"), 2)}b; " +
-                                 $"Transparent: {Convert.ToString(_transparentLayer, 2)}b; " +
-                                 $"Hit obj: {Convert.ToString(hit.transform.gameObject.layer, 2)}b; "
-                );
-            }
 
             _heldShift = ObjectPos - hit.point;
         }
 
+
         public void MoveTo(Ray movedRay)
         {
-            if (Physics.Raycast(movedRay, out RaycastHit hit, float.PositiveInfinity, ~_transparentLayer) == false)
+            if (Physics.Raycast(movedRay, out RaycastHit hit, float.PositiveInfinity, ~TransparentLayerMask) == false)
             {
-                Debug.LogWarning($"No item with mask: {Convert.ToString(~_transparentLayer, 2)}b");
+                Debug.LogWarning($"No item with mask: {Convert.ToString(~TransparentLayerMask, 2)}b");
                 return;
             }
 
@@ -67,15 +58,17 @@ namespace InteractionExample.PointerInteractions.DragNDrop
         private void ApplyPosition(Vector3 newItemPosition)
         {
             if (TryGetComponent(out Rigidbody rb))
-            {
-                rb.velocity = ((newItemPosition - ObjectPos) * _dragVelocity);
-                RuntimeDebugLine.DrawLine(ObjectPos, newItemPosition, Color.red, 1);
-            }
+                rb.velocity = (newItemPosition - ObjectPos) * _dragVelocity;
         }
 
-        private Vector3 ObjectPos => TryGetComponent(out Rigidbody rb) ? rb.centerOfMass + transform.position : transform.position;
+        private void SwitchToTransparentLayer()
+        {
+            gameObject.layer = _transparentLayerIdx;
+        }
 
-        private void SwitchToTransparentLayer() => gameObject.layer = _transparentLayer;
-        private void SwitchToBaseLayer() => gameObject.layer = _baseLayer;
+        private void SwitchToBaseLayer()
+        {
+            gameObject.layer = _baseLayerIdx;
+        }
     }
 }

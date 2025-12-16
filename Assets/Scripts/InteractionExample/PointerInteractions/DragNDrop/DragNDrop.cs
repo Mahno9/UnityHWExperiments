@@ -7,7 +7,7 @@ namespace InteractionExample.PointerInteractions.DragNDrop
     {
         private const int LeftMouseButton = 0;
 
-        private Camera         _camera;
+        private Camera           _camera;
         private DragNDropService _service;
 
         private void Start()
