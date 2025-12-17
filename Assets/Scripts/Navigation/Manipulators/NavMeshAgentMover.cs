@@ -7,13 +7,17 @@ namespace Navigation.Manipulators
 {
     public class NavMeshAgentMover : IMovable
     {
-        private readonly NavMeshAgent       _agent;
+        private readonly NavMeshAgent _agent;
 
-        private          Vector3            _currentTargetPos;
+        private Vector3 _currentTargetPos;
 
         public float   MoveSpeed     => _agent.velocity.magnitude;
+
         public Vector3 MoveDirection => _agent.velocity.normalized;
+
         public Vector3 Position      => _agent.transform.position;
+
+        public Vector3 CurrentTarget => _currentTargetPos;
 
 
         public NavMeshAgentMover(NavMeshAgent agent)
@@ -27,9 +31,9 @@ namespace Navigation.Manipulators
             _agent.SetDestination(_currentTargetPos);
         }
 
-        public void SetTargetPosition(Vector3 position)
+        public void SetMovePoint(Vector3 point)
         {
-            _currentTargetPos = position;
+            _currentTargetPos = point;
         }
     }
 }

@@ -22,13 +22,13 @@ namespace Navigation.Manipulators
             _mover.Update(deltaTime);
         }
 
-        public float   MoveSpeed     => _mover.MoveSpeed;
-        public Vector3 MoveDirection => _mover.MoveDirection;
-        public Vector3 Position      => _mover.Position;
+        public     float   MoveSpeed     => _mover.MoveSpeed;
+        public     Vector3 MoveDirection => _mover.MoveDirection;
+        public     Vector3 Position      => _mover.Position;
 
-        public void SetTargetPosition(Vector3 position)
+        public void SetMovePoint(Vector3 point)
         {
-            _mover.SetTargetPosition(position);
+            _mover.SetMovePoint(point);
         }
     }
 }

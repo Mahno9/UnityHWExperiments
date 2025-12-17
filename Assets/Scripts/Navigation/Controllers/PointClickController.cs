@@ -1,35 +1,41 @@
+using System.Collections.Generic;
+
 using HeadlessSkeleton;
 
 using Navigation.Interfaces;
 using Navigation.Manipulators;
+using Navigation.Utils;
 
 using UnityEngine;
 
 namespace Navigation.Controllers
 {
-    public class PointClickController : ControllerBase
+    public class PointClickController : MoveController
     {
         private const int RightMouseButton = 1;
 
-        private readonly IMovable  _movable;
-        private readonly Camera    _camera;
-        private readonly LayerMask _groundLayerMask;
+        private readonly IMovable             _movable;
+        private readonly Camera               _camera;
+        private readonly LayerMask            _groundLayerMask;
+        private readonly IMovePointSubscriber _movePointSubscriber;
 
-        public float MoveSpeed => _movable.MoveSpeed;
+        public override float MoveSpeed => _movable.MoveSpeed;
 
-        public PointClickController(IMovable movable, Camera camera, LayerMask groundLayerMask)
+        public PointClickController(IMovable movable, Camera camera, LayerMask groundLayerMask, IMovePointSubscriber movePointSubscriber)
         {
             _movable = movable;
             _camera = camera;
             _groundLayerMask = groundLayerMask;
+            _movePointSubscriber = movePointSubscriber;
         }
 
         protected override void UpdateLogic(float deltaTime)
         {
-            if (TryGetMoveTarget(out Vector3 newTargetPosition))
+            if (TryGetMoveTarget(out Vector3 newMovePoint))
             {
-                _movable.SetTargetPosition(newTargetPosition);
-                Debug.Log($"New targetPos: {newTargetPosition}");
+                _movable.SetMovePoint(newMovePoint);
+
+                _movePointSubscriber.OnNewMovePoint(newMovePoint);
             }
 
             _movable.Update(deltaTime);

@@ -10,6 +10,6 @@ namespace Navigation.Interfaces
 
         public Vector3 Position { get; }
 
-        void SetTargetPosition(Vector3 position);
+        void SetMovePoint(Vector3 point);
     }
 }

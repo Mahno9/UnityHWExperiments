@@ -6,7 +6,7 @@ namespace Navigation.Controllers
 {
     public abstract class ControllerBase : IUpdatable
     {
-        private bool _isEnabled;
+        private         bool  _isEnabled;
 
         public virtual void Enable() => _isEnabled = true;
         public virtual void Disabled() => _isEnabled = false;

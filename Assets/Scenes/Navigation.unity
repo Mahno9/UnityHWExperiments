@@ -2455,7 +2455,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 191594623}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 67.15
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -4832,6 +4832,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6603488554207994483, guid: 98f5378049f9b5745a77677f581b32b1,
     type: 3}
   m_PrefabInstance: {fileID: 1130511246}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1034855775 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1116371902028168016, guid: 4a46e821c58b5cd42b14eaab6d197266,
+    type: 3}
+  m_PrefabInstance: {fileID: 1418149716}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1040341675 stripped
 Transform:
@@ -9928,6 +9934,7 @@ GameObject:
   - component: {fileID: 1797642726}
   - component: {fileID: 1797642728}
   - component: {fileID: 1797642729}
+  - component: {fileID: 1797642730}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -9986,7 +9993,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 6
-  m_Acceleration: 8
+  m_Acceleration: 999
   avoidancePriority: 50
   m_AngularSpeed: 999
   m_StoppingDistance: 0
@@ -10011,6 +10018,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _navMeshAgent: {fileID: 1797642728}
   _rotationSpeed: 800
+--- !u!114 &1797642730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797642725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0dc6e00edea4f269099b29e155e7c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 1034855775}
 --- !u!4 &1806199437 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9051238300485817969, guid: 2f6c4572e07a60b43b00e1c4f489a806,
@@ -10492,7 +10512,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 40
+  field of view: 67.15
   orthographic: 0
   orthographic size: 10
   m_Depth: -1

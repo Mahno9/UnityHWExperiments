@@ -16,7 +16,12 @@ namespace Navigation.Behaviours
 
         [SerializeField] private Animator _animator;
 
-        private PointClickController _controller;
+        private MoveController _controller;
+
+        public void SetController(MoveController controller)
+        {
+            _controller = controller;
+        }
 
         private void Update()
         {
