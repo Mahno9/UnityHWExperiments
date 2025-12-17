@@ -9,7 +9,7 @@ namespace Navigation.Controllers
         private         bool  _isEnabled;
 
         public virtual void Enable() => _isEnabled = true;
-        public virtual void Disabled() => _isEnabled = false;
+        public virtual void Disable() => _isEnabled = false;
 
         public void Update(float deltaTime)
         {
