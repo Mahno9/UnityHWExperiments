@@ -34,7 +34,6 @@ namespace Navigation.Controllers
             if (TryGetMoveTarget(out Vector3 newMovePoint))
             {
                 _movable.SetMovePoint(newMovePoint);
-
                 _movePointSubscriber.OnNewMovePoint(newMovePoint);
             }
 

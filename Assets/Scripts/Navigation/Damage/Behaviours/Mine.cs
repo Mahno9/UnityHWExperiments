@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Navigation.Damage.Behaviours
 {
-    [RequireComponent(typeof(Collider))]
+    [RequireComponent(typeof(SphereCollider))]
     public class Mine : MonoBehaviour
     {
         [SerializeField] private GameObject _explosionEffectPrefab;
@@ -16,9 +16,21 @@ namespace Navigation.Damage.Behaviours
         [SerializeField] private float _detonationTime;
         [SerializeField] private float _damage;
 
-
         private readonly List<IDamageable> _targets    = new();
         private          float             _remainTime = float.PositiveInfinity;
+
+        private void Awake()
+        {
+            if (TryGetComponent(out SphereCollider mineCollider) == false)
+                return;
+
+            Collider[] colliders = Physics.OverlapSphere(transform.position + mineCollider.center, mineCollider.radius);
+            foreach (Collider foundCollider in colliders)
+            {
+                if (foundCollider.transform.TryGetComponent(out IDamageable target))
+                    _targets.Add(target);
+            }
+        }
 
         private void Update()
         {

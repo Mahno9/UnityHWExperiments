@@ -30,6 +30,7 @@ namespace Navigation.Behaviours
         private void Awake()
         {
             _health = GetComponent<IDamageable>();
+            _health.SubscribeOnDamage(this);
         }
 
         public void SetMoveController(MoveController moveController)
