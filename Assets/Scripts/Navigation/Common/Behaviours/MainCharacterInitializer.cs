@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Navigation.Common.Controllers;
 using Navigation.Controllers;
+using Navigation.Damage.Interfaces;
 using Navigation.Interfaces;
 using Navigation.Manipulators;
 
@@ -41,7 +42,7 @@ namespace Navigation.Behaviours
 
         private DeathController InitializeDeathController(params ControllerBase[] controllers)
         {
-            return new DeathController(GetComponent<IDamageable>(), controllers);
+            return new DeathController(GetComponent<IHealth>(), controllers);
         }
 
         private NavigationEffectSpawner InitializeEffectSpawner()

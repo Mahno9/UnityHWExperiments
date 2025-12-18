@@ -12,7 +12,7 @@ using UnityEngine.Serialization;
 namespace Navigation.Damage.Behaviours
 {
     [RequireComponent(typeof(SphereCollider))]
-    public class Mine : MonoBehaviour
+    public class Mine : MonoBehaviour, IDamageable
     {
         [SerializeField] private GameObject _explosionEffectPrefab;
         [SerializeField] private GameObject _countDownVisualNode;
@@ -62,6 +62,11 @@ namespace Navigation.Damage.Behaviours
         {
             Instantiate(_explosionEffectPrefab, transform.position, _explosionEffectPrefab.transform.rotation);
             Destroy(gameObject);
+        }
+
+        public void TakeDamage(float damage)
+        {
+            StartCountDown();
         }
     }
 }

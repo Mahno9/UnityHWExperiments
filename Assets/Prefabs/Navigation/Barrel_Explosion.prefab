@@ -237,7 +237,7 @@ MonoBehaviour:
   _countDownVisualNode: {fileID: 7878665908810647329}
   _detonationTime: 1.5
   _damage: 25
-  _explosionRadius: 4
+  _explosionRadius: 3.5
 --- !u!208 &5938427714679117324
 NavMeshObstacle:
   m_ObjectHideFlags: 0

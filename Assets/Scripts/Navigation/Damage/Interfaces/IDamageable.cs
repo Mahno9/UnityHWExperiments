@@ -4,11 +4,7 @@ namespace Navigation.Interfaces
 {
     public interface IDamageable
     {
-        float RemainHealth { get; }
         void TakeDamage(float damage);
 
-        bool IsDead();
-
-        void SubscribeOnHealthChange(IHealthChangeSubscriber subscriber);
     }
 }

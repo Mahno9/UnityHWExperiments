@@ -10,7 +10,7 @@ using UnityEngine.Assertions;
 
 namespace Navigation.Behaviours
 {
-    [RequireComponent(typeof(IDamageable))]
+    [RequireComponent(typeof(Health))]
     public class CharacterView : MonoBehaviour, IHealthChangeSubscriber, IExplosionTrigger
     {
         private const float Epsilon = 0.05f;
@@ -26,11 +26,11 @@ namespace Navigation.Behaviours
         [SerializeField] private float    _injureHealth = 30;
 
         private MoveController _moveController;
-        private IDamageable    _health;
+        private Health    _health;
 
         private void Awake()
         {
-            _health = GetComponent<IDamageable>();
+            _health = GetComponent<Health>();
             _health.SubscribeOnHealthChange(this);
         }
 

@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 
+using Navigation.Damage.Interfaces;
 using Navigation.Interfaces;
 
 using UnityEngine;
 
 namespace Navigation.Damage.Behaviours
 {
-    public class Health : MonoBehaviour, IDamageable
+    public class Health : MonoBehaviour, IHealth
     {
         private const float MinHealthEpsilon = 0.001f;
 
