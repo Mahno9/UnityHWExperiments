@@ -24,18 +24,19 @@ dotnet_naming_rule.private_locals_camel_case.severity = suggestion
 
 dotnet_naming_symbols.private_locals.applicable_kinds = parameter, local
 
-# Приватные поля начинаются с _ и camelCase
+# Приватные поля начинаются с _ и camelCase (но не константы)
 dotnet_naming_rule.private_fields_with_underscore.symbols = private_fields
 dotnet_naming_rule.private_fields_with_underscore.style = underscore_camel_case_style
 dotnet_naming_rule.private_fields_with_underscore.severity = suggestion
 
 dotnet_naming_symbols.private_fields.applicable_kinds = field
 dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+dotnet_naming_symbols.private_fields.required_modifiers = !const
 
-# Константы в UPPER_CASE_WITH_UNDERSCORE
-dotnet_naming_rule.constants_upper_case.symbols = constants
-dotnet_naming_rule.constants_upper_case.style = upper_case_style
-dotnet_naming_rule.constants_upper_case.severity = suggestion
+## Константы в PascalCase
+dotnet_naming_rule.constants_pascal_case.symbols = constants
+dotnet_naming_rule.constants_pascal_case.style = pascal_case
+dotnet_naming_rule.constants_pascal_case.severity = suggestion
 
 dotnet_naming_symbols.constants.applicable_kinds = field
 dotnet_naming_symbols.constants.required_modifiers = const
