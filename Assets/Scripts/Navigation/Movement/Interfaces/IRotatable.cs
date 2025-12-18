@@ -6,6 +6,6 @@ namespace Navigation.Interfaces
     {
         float RotationSpeed { get; }
 
-        void SetLookPoint(Vector3 direction);
+        void SetLookDirection(Vector3 direction);
     }
 }

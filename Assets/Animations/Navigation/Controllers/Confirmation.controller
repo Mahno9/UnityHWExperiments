@@ -19,7 +19,7 @@ AnimatorState:
   m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 1
+  m_TimeParameterActive: 0
   m_Motion: {fileID: 9150686684125865913, guid: 2c0c1eb320405eb49a25b81ea028781a,
     type: 3}
   m_Tag: 
@@ -35,13 +35,7 @@ AnimatorController:
   m_PrefabAsset: {fileID: 0}
   m_Name: Confirmation
   serializedVersion: 5
-  m_AnimatorParameters:
-  - m_Name: Duration
-    m_Type: 1
-    m_DefaultFloat: 1
-    m_DefaultInt: 0
-    m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+  m_AnimatorParameters: []
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer

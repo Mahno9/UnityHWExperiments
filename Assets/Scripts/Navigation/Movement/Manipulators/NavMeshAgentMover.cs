@@ -9,31 +9,29 @@ namespace Navigation.Manipulators
     {
         private readonly NavMeshAgent _agent;
 
-        private Vector3 _currentTargetPos;
+        public float MoveSpeed => _agent.velocity.magnitude;
 
-        public float   MoveSpeed     => _agent.velocity.magnitude;
+        public Vector3 MovePoint => _agent.steeringTarget;
 
-        public Vector3 MoveDirection => _agent.velocity.normalized;
+        public Vector3 Position => _agent.transform.position;
 
-        public Vector3 Position      => _agent.transform.position;
-
-        public Vector3 CurrentTarget => _currentTargetPos;
+        public Vector3 CurrentTarget { get; private set; }
 
 
         public NavMeshAgentMover(NavMeshAgent agent)
         {
             _agent = agent;
-            _currentTargetPos = Position;
+            CurrentTarget = Position;
         }
 
         public void Update(float deltaTime)
         {
-            _agent.SetDestination(_currentTargetPos);
+            _agent.SetDestination(CurrentTarget);
         }
 
         public void SetMovePoint(Vector3 point)
         {
-            _currentTargetPos = point;
+            CurrentTarget = point;
         }
     }
 }

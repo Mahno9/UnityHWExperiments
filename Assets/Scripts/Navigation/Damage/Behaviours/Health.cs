@@ -13,13 +13,13 @@ namespace Navigation.Damage.Behaviours
 
         [SerializeField] private float _maxHealth = 100;
 
-        private List<IDamageSubscriber> _damageSubscribers;
+        private readonly List<IDamageSubscriber> _damageSubscribers = new();
 
         public float RemainHealth { get; private set; }
 
-        public void SubscribeOnDamage(IDamageSubscriber subscriber)
+        private void Awake()
         {
-            _damageSubscribers.Add(subscriber);
+            RemainHealth = _maxHealth;
         }
 
         public void TakeDamage(float damage)
@@ -33,6 +33,11 @@ namespace Navigation.Damage.Behaviours
         public bool IsDead()
         {
             return Mathf.Abs(RemainHealth) < MinHealthEpsilon;
+        }
+
+        public void SubscribeOnDamage(IDamageSubscriber subscriber)
+        {
+            _damageSubscribers.Add(subscriber);
         }
 
         private void NotifySubscribers(float damage)

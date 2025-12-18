@@ -56,7 +56,7 @@ namespace Navigation.Behaviours
             PointClickController controller = new(
                 new CompositeManipulator(
                     mover,
-                    new AlongMoverDirectionRotator(mover, new DirectionRotator(_rotationSpeed))
+                    new AlongMoverDirectionRotator(mover, new DirectionRotator(transform, _rotationSpeed))
                 ),
                 Camera.main,
                 LayerMask.GetMask(_groundLayerName),
