@@ -1,9 +1,11 @@
+using Navigation.Interfaces;
+
 using UnityEngine;
 
 namespace Navigation.Damage.Behaviours
 {
     [RequireComponent(typeof(Health))]
-    public class DestroyOnDie : MonoBehaviour, IDamageSubscriber
+    public class DestroyOnDie : MonoBehaviour, IHealthChangeSubscriber
     {
         private const            float      MinHealthEpsilon = 0.001f;
         [SerializeField] private float      _health;
@@ -12,7 +14,7 @@ namespace Navigation.Damage.Behaviours
         private void Awake()
         {
             Health healthComponent = GetComponent<Health>();
-            healthComponent.SubscribeOnDamage(this);
+            healthComponent.SubscribeOnHealthChange(this);
         }
 
         public void DamageTaken(float damage)

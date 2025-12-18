@@ -9,6 +9,6 @@ namespace Navigation.Interfaces
 
         bool IsDead();
 
-        void SubscribeOnDamage(IDamageSubscriber subscriber);
+        void SubscribeOnHealthChange(IHealthChangeSubscriber subscriber);
     }
 }

@@ -110,7 +110,7 @@ PrefabInstance:
     - target: {fileID: 2465079734990110219, guid: af0251662ce5880478fc4015a2c7df13,
         type: 3}
       propertyPath: m_Name
-      value: Barrel_Explosion Variant
+      value: Barrel_Explosion
       objectReference: {fileID: 0}
     - target: {fileID: 2989941937331053745, guid: af0251662ce5880478fc4015a2c7df13,
         type: 3}
@@ -234,9 +234,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _explosionEffectPrefab: {fileID: 1248331578108354, guid: 21f0af534e7b83841a35334632f4b43d,
     type: 3}
-  _countDownVisual: {fileID: 7878665908810647329}
+  _countDownVisualNode: {fileID: 7878665908810647329}
   _detonationTime: 1.5
   _damage: 25
+  _explosionRadius: 4
 --- !u!208 &5938427714679117324
 NavMeshObstacle:
   m_ObjectHideFlags: 0

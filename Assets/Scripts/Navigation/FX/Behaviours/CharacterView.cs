@@ -2,6 +2,7 @@ using System;
 
 using Navigation.Controllers;
 using Navigation.Damage.Behaviours;
+using Navigation.Damage.Interfaces;
 using Navigation.Interfaces;
 
 using UnityEngine;
@@ -10,7 +11,7 @@ using UnityEngine.Assertions;
 namespace Navigation.Behaviours
 {
     [RequireComponent(typeof(IDamageable))]
-    public class CharacterView : MonoBehaviour, IDamageSubscriber
+    public class CharacterView : MonoBehaviour, IHealthChangeSubscriber, IExplosionTrigger
     {
         private const float Epsilon = 0.05f;
 
@@ -30,7 +31,7 @@ namespace Navigation.Behaviours
         private void Awake()
         {
             _health = GetComponent<IDamageable>();
-            _health.SubscribeOnDamage(this);
+            _health.SubscribeOnHealthChange(this);
         }
 
         public void SetMoveController(MoveController moveController)

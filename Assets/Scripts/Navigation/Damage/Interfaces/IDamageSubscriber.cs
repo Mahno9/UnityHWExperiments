@@ -1,7 +1,9 @@
-namespace Navigation.Damage.Behaviours
+using Navigation.Interfaces;
+
+namespace Navigation.Damage.Interfaces
 {
     public interface IDamageSubscriber
     {
-        void DamageTaken(float damage);
+        void DamageTaken(IDamageable target, float damage);
     }
 }

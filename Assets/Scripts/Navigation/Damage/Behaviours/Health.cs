@@ -13,7 +13,7 @@ namespace Navigation.Damage.Behaviours
 
         [SerializeField] private float _maxHealth = 100;
 
-        private readonly List<IDamageSubscriber> _damageSubscribers = new();
+        private readonly List<IHealthChangeSubscriber> _damageSubscribers = new();
 
         public float RemainHealth { get; private set; }
 
@@ -35,14 +35,14 @@ namespace Navigation.Damage.Behaviours
             return Mathf.Abs(RemainHealth) < MinHealthEpsilon;
         }
 
-        public void SubscribeOnDamage(IDamageSubscriber subscriber)
+        public void SubscribeOnHealthChange(IHealthChangeSubscriber subscriber)
         {
             _damageSubscribers.Add(subscriber);
         }
 
         private void NotifySubscribers(float damage)
         {
-            foreach (IDamageSubscriber damageSubscriber in _damageSubscribers)
+            foreach (IHealthChangeSubscriber damageSubscriber in _damageSubscribers)
                 damageSubscriber.DamageTaken(damage);
         }
     }

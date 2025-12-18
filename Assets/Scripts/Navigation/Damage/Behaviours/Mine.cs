@@ -1,9 +1,13 @@
 using System;
 using System.Collections.Generic;
 
+using Navigation.Common;
+using Navigation.Damage.DamageDealers;
+using Navigation.Damage.Interfaces;
 using Navigation.Interfaces;
 
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Navigation.Damage.Behaviours
 {
@@ -11,64 +15,51 @@ namespace Navigation.Damage.Behaviours
     public class Mine : MonoBehaviour
     {
         [SerializeField] private GameObject _explosionEffectPrefab;
-        [SerializeField] private GameObject _countDownVisual;
+        [SerializeField] private GameObject _countDownVisualNode;
 
         [SerializeField] private float _detonationTime;
         [SerializeField] private float _damage;
+        [SerializeField] private float _explosionRadius;
 
-        private readonly List<IDamageable> _targets    = new();
-        private          float             _remainTime = float.PositiveInfinity;
+        private Timer        _countDownExplosionTimer;
+        private DamageDealer _explosion;
 
         private void Awake()
         {
-            if (TryGetComponent(out SphereCollider mineCollider) == false)
-                return;
-
-            Collider[] colliders = Physics.OverlapSphere(transform.position + mineCollider.center, mineCollider.radius);
-            foreach (Collider foundCollider in colliders)
-            {
-                if (foundCollider.transform.TryGetComponent(out IDamageable target))
-                    _targets.Add(target);
-            }
+            SphereCollider mineCollider = GetComponent<SphereCollider>();
+            _explosion = new DamageDealer(
+                _damage,
+                new SphereTargetsDetector(transform.position + mineCollider.center, _explosionRadius)
+            );
         }
 
         private void Update()
         {
-            _remainTime -= Time.deltaTime;
-            if (_remainTime <= 0)
-                Detonate();
+            _countDownExplosionTimer?.Update(Time.deltaTime);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            IDamageable target = other.transform.GetComponent<IDamageable>();
-            if (target is not null)
-                _targets.Add(target);
-
-            StartCountDown();
+            IExplosionTrigger explosionExplosionTrigger = other.transform.GetComponent<IExplosionTrigger>();
+            if (explosionExplosionTrigger is not null)
+                StartCountDown();
         }
 
         private void StartCountDown()
         {
-            if (float.IsPositiveInfinity(_remainTime) == false)
+            if (_countDownExplosionTimer is not null)
                 return;
 
-            _remainTime = _detonationTime;
-            _countDownVisual.SetActive(true);
+            _countDownExplosionTimer = new Timer(_detonationTime, () =>
+            {
+                _explosion.DealDamage();
+                DestroyWithEffect();
+            });
+            _countDownVisualNode.SetActive(true);
         }
 
-        private void OnTriggerExit(Collider other)
+        private void DestroyWithEffect()
         {
-            IDamageable target = other.transform.GetComponent<IDamageable>();
-            if (target is not null)
-                _targets.Remove(target);
-        }
-
-        private void Detonate()
-        {
-            foreach (IDamageable target in _targets)
-                target.TakeDamage(_damage);
-
             Instantiate(_explosionEffectPrefab, transform.position, _explosionEffectPrefab.transform.rotation);
             Destroy(gameObject);
         }

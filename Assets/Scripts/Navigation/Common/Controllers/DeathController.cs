@@ -6,7 +6,7 @@ using Navigation.Interfaces;
 
 namespace Navigation.Common.Controllers
 {
-    public class DeathController : IDamageSubscriber
+    public class DeathController : IHealthChangeSubscriber
     {
         private readonly ControllerBase[] _onlyAliveControllers;
         private readonly IDamageable      _health;
@@ -16,7 +16,7 @@ namespace Navigation.Common.Controllers
             _health = health;
             _onlyAliveControllers = onlyAliveControllers;
 
-            _health.SubscribeOnDamage(this);
+            _health.SubscribeOnHealthChange(this);
         }
 
         public void DamageTaken(float damage)
