@@ -6,7 +6,7 @@ namespace Navigation.Interfaces
     {
         public float   MoveSpeed { get; }
 
-        public Vector3 MovePoint { get; }
+        public Vector3 MoveDirection { get; }
 
         public Vector3 Position { get; }
 

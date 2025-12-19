@@ -17,7 +17,7 @@ public class AlongMoverDirectionRotator : IUpdatable
 
     public void Update(float deltaTime)
     {
-        Vector3 lookPoint = _mover.MovePoint - _mover.Position;
+        Vector3 lookPoint = _mover.MoveDirection;
 
         _rotator.SetLookDirection(lookPoint.normalized);
         _rotator.Update(deltaTime);

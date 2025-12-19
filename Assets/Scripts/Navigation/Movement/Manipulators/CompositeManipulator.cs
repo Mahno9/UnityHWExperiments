@@ -23,7 +23,7 @@ namespace Navigation.Manipulators
         }
 
         public float   MoveSpeed => _mover.MoveSpeed;
-        public Vector3 MovePoint => _mover.MovePoint;
+        public Vector3 MoveDirection => _mover.MoveDirection;
         public Vector3 Position  => _mover.Position;
 
         public void SetMovePoint(Vector3 point)

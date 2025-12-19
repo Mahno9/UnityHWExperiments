@@ -11,7 +11,7 @@ namespace Navigation.Manipulators
 
         public float MoveSpeed => _agent.velocity.magnitude;
 
-        public Vector3 MovePoint => _agent.steeringTarget;
+        public Vector3 MoveDirection => _agent.desiredVelocity.normalized;
 
         public Vector3 Position => _agent.transform.position;
 
