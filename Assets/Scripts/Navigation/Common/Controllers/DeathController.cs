@@ -1,16 +1,12 @@
-using System.Collections.Generic;
-
-using Navigation.Controllers;
-using Navigation.Damage.Behaviours;
 using Navigation.Damage.Interfaces;
-using Navigation.Interfaces;
+using Navigation.Movement.Controllers;
 
 namespace Navigation.Common.Controllers
 {
     public class DeathController : IHealthChangeSubscriber
     {
+        private readonly IHealth          _health;
         private readonly ControllerBase[] _onlyAliveControllers;
-        private readonly IHealth      _health;
 
         public DeathController(IHealth health, params ControllerBase[] onlyAliveControllers)
         {

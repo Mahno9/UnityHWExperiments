@@ -1,8 +1,6 @@
-using System;
-
 using UnityEngine;
 
-namespace Navigation.Behaviours
+namespace Navigation.Common.Behaviours
 {
     public class AutoDestroyer : MonoBehaviour
     {

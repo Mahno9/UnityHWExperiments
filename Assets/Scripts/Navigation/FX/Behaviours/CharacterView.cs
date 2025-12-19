@@ -1,14 +1,11 @@
-using System;
-
-using Navigation.Controllers;
 using Navigation.Damage.Behaviours;
 using Navigation.Damage.Interfaces;
-using Navigation.Interfaces;
+using Navigation.ObjectsFacades;
 
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Navigation.Behaviours
+namespace Navigation.FX.Behaviours
 {
     [RequireComponent(typeof(Health))]
     public class CharacterView : MonoBehaviour, IHealthChangeSubscriber, IExplosionTrigger
@@ -18,25 +15,20 @@ namespace Navigation.Behaviours
         private const string InjuredLayerName = "Injured";
         private const float  MaxLayerWeight   = 1;
 
-        private readonly int _isRunningKey = Animator.StringToHash("IsRunning");
-        private readonly int _damagedKey   = Animator.StringToHash("Damaged");
-        private readonly int _isDeadKey    = Animator.StringToHash("IsDead");
-
         [SerializeField] private Animator _animator;
         [SerializeField] private float    _injureHealth = 30;
+        private readonly         int      _damagedKey   = Animator.StringToHash("Damaged");
+        private readonly         int      _isDeadKey    = Animator.StringToHash("IsDead");
 
-        private MoveController _moveController;
+        private readonly int _isRunningKey = Animator.StringToHash("IsRunning");
+
+        private Character _character;
         private Health    _health;
 
         private void Awake()
         {
             _health = GetComponent<Health>();
             _health.SubscribeOnHealthChange(this);
-        }
-
-        public void SetMoveController(MoveController moveController)
-        {
-            _moveController = moveController;
         }
 
         private void Update()
@@ -47,9 +39,20 @@ namespace Navigation.Behaviours
             UpdateDamaged();
         }
 
+        public void DamageTaken(float damage)
+        {
+            _animator.SetTrigger(_damagedKey);
+            UpdateInjuredState();
+        }
+
+        public void SetCharacter(Character character)
+        {
+            _character = character;
+        }
+
         private void UpdateIsRunning()
         {
-            bool isRunning = _moveController.MoveSpeed > Epsilon;
+            bool isRunning = _character.MoveSpeed > Epsilon;
             _animator.SetBool(_isRunningKey, isRunning);
         }
 
@@ -57,12 +60,6 @@ namespace Navigation.Behaviours
         {
             if (_health.IsDead())
                 _animator.SetBool(_isDeadKey, true);
-        }
-
-        public void DamageTaken(float damage)
-        {
-            _animator.SetTrigger(_damagedKey);
-            UpdateInjuredState();
         }
 
         private void UpdateInjuredState()

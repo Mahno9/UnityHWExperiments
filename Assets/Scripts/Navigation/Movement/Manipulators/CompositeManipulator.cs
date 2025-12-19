@@ -1,8 +1,9 @@
-using Navigation.Interfaces;
+using Navigation.Common.Interfaces;
+using Navigation.Movement.Interfaces;
 
 using UnityEngine;
 
-namespace Navigation.Manipulators
+namespace Navigation.Movement.Manipulators
 {
     public class CompositeManipulator : IMovable
     {
@@ -22,9 +23,9 @@ namespace Navigation.Manipulators
             _mover.Update(deltaTime);
         }
 
-        public float   MoveSpeed => _mover.MoveSpeed;
+        public float   MoveSpeed     => _mover.MoveSpeed;
         public Vector3 MoveDirection => _mover.MoveDirection;
-        public Vector3 Position  => _mover.Position;
+        public Vector3 Position      => _mover.Position;
 
         public void SetMovePoint(Vector3 point)
         {

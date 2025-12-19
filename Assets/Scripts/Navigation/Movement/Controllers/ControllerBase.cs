@@ -1,15 +1,10 @@
-using Navigation.Interfaces;
+using Navigation.Common.Interfaces;
 
-using UnityEngine;
-
-namespace Navigation.Controllers
+namespace Navigation.Movement.Controllers
 {
     public abstract class ControllerBase : IUpdatable
     {
-        private         bool  _isEnabled;
-
-        public virtual void Enable() => _isEnabled = true;
-        public virtual void Disable() => _isEnabled = false;
+        private bool _isEnabled;
 
         public void Update(float deltaTime)
         {
@@ -17,6 +12,16 @@ namespace Navigation.Controllers
                 return;
 
             UpdateLogic(deltaTime);
+        }
+
+        public virtual void Enable()
+        {
+            _isEnabled = true;
+        }
+
+        public virtual void Disable()
+        {
+            _isEnabled = false;
         }
 
         protected abstract void UpdateLogic(float deltaTime);

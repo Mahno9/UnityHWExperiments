@@ -1,4 +1,4 @@
-namespace Navigation.Utils
+namespace Navigation.Common
 {
     public static class Constants
     {

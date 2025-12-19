@@ -1,9 +1,8 @@
-using Navigation.Interfaces;
+using Navigation.Movement.Interfaces;
 
 using UnityEngine;
-using UnityEngine.Rendering.Universal;
 
-namespace Navigation.Manipulators
+namespace Navigation.Movement.Manipulators
 {
     public class DirectionRotator : IRotatable
     {
@@ -12,15 +11,18 @@ namespace Navigation.Manipulators
         private readonly Transform _transform;
         private          Vector3   _currentLookDirection;
 
-        public float RotationSpeed { get; }
-
         public DirectionRotator(Transform transform, float rotationSpeed)
         {
             _transform = transform;
             RotationSpeed = rotationSpeed;
         }
 
-        public void SetLookDirection(Vector3 newDirection) => _currentLookDirection = newDirection;
+        public float RotationSpeed { get; }
+
+        public void SetLookDirection(Vector3 newDirection)
+        {
+            _currentLookDirection = newDirection;
+        }
 
         public void Update(float deltaTime)
         {
@@ -28,7 +30,7 @@ namespace Navigation.Manipulators
                 return;
 
             Quaternion toRotation = Quaternion.LookRotation(_currentLookDirection);
-            float step = RotationSpeed * deltaTime;
+            float      step       = RotationSpeed * deltaTime;
 
             _transform.rotation = Quaternion.RotateTowards(_transform.rotation, toRotation, step);
         }

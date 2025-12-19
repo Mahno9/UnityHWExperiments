@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-
-public static class NavMeshUtils
+namespace Navigation.Common
 {
-    public static bool TryGetPath(Vector3 sourcePosition, Vector3 targetPosition, NavMeshQueryFilter queryFilter, NavMeshPath outPath)
+    public static class NavMeshUtils
     {
-        return NavMesh.CalculatePath(sourcePosition, targetPosition, queryFilter, outPath) && outPath.status != NavMeshPathStatus.PathInvalid;
+        public static bool TryGetPath(Vector3 sourcePosition, Vector3 targetPosition, NavMeshQueryFilter queryFilter, NavMeshPath outPath)
+        {
+            return NavMesh.CalculatePath(sourcePosition, targetPosition, queryFilter, outPath) && outPath.status != NavMeshPathStatus.PathInvalid;
+        }
     }
 }

@@ -1,6 +1,4 @@
-using Navigation.Interfaces;
-
-namespace Navigation.Damage.Behaviours
+namespace Navigation.Damage.Interfaces
 {
     public interface IHealthChangeSubscriber
     {

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 
 using Navigation.Damage.Interfaces;
-using Navigation.Interfaces;
 
 using UnityEngine;
 
@@ -24,10 +23,8 @@ namespace Navigation.Damage.DamageDealers
 
             List<IDamageable> result = new();
             foreach (Collider foundCollider in colliders)
-            {
                 if (foundCollider.transform.TryGetComponent(out IDamageable target))
                     result.Add(target);
-            }
 
             return result.ToArray();
         }

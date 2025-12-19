@@ -1,13 +1,13 @@
 using System;
 
-using Navigation.Interfaces;
+using Navigation.Common.Interfaces;
 
 namespace Navigation.Common
 {
     public class Timer : IUpdatable
     {
-        private          float  _remainTime;
         private readonly Action _action;
+        private          float  _remainTime;
 
         public Timer(float time, Action action)
         {

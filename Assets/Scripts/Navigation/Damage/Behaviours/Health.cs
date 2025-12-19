@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 
 using Navigation.Damage.Interfaces;
-using Navigation.Interfaces;
 
 using UnityEngine;
 
@@ -16,12 +14,12 @@ namespace Navigation.Damage.Behaviours
 
         private readonly List<IHealthChangeSubscriber> _damageSubscribers = new();
 
-        public float RemainHealth { get; private set; }
-
         private void Awake()
         {
             RemainHealth = _maxHealth;
         }
+
+        public float RemainHealth { get; private set; }
 
         public void TakeDamage(float damage)
         {

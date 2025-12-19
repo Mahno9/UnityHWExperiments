@@ -1,40 +1,35 @@
 using System.Collections.Generic;
 
-using HeadlessSkeleton;
-
-using Navigation.Interfaces;
-using Navigation.Manipulators;
-using Navigation.Utils;
+using Navigation.Movement.Interfaces;
 
 using UnityEngine;
 
-namespace Navigation.Controllers
+namespace Navigation.Movement.Controllers
 {
     public class PointClickController : MoveController
     {
-        private const int RightMouseButton = 1;
+        private const    int       RightMouseButton = 1;
+        private readonly Camera    _camera;
+        private readonly LayerMask _groundLayerMask;
 
-        private readonly IMovable             _movable;
-        private readonly Camera               _camera;
-        private readonly LayerMask            _groundLayerMask;
-        private readonly IMovePointSubscriber _movePointSubscriber;
+        private readonly IMovable                   _movable;
+        private readonly List<IMovePointSubscriber> _subscribers = new();
 
-        public override float MoveSpeed => _movable.MoveSpeed;
-
-        public PointClickController(IMovable movable, Camera camera, LayerMask groundLayerMask, IMovePointSubscriber movePointSubscriber)
+        public PointClickController(IMovable movable, Camera camera, LayerMask groundLayerMask)
         {
             _movable = movable;
             _camera = camera;
             _groundLayerMask = groundLayerMask;
-            _movePointSubscriber = movePointSubscriber;
         }
+
+        public override float MoveSpeed => _movable.MoveSpeed;
 
         protected override void UpdateLogic(float deltaTime)
         {
             if (TryGetMoveTarget(out Vector3 newMovePoint))
             {
                 _movable.SetMovePoint(newMovePoint);
-                _movePointSubscriber.OnNewMovePoint(newMovePoint);
+                NotifyOnNewMovePoint(newMovePoint);
             }
 
             _movable.Update(deltaTime);
@@ -63,6 +58,17 @@ namespace Navigation.Controllers
 
             groundPos = Vector3.zero;
             return false;
+        }
+
+        public override void SubscribeOnMovePoints(IMovePointSubscriber subscriber)
+        {
+            _subscribers.Add(subscriber);
+        }
+
+        private void NotifyOnNewMovePoint(Vector3 movePoint)
+        {
+            foreach (IMovePointSubscriber subscriber in _subscribers)
+                subscriber.OnNewMovePoint(movePoint);
         }
     }
 }

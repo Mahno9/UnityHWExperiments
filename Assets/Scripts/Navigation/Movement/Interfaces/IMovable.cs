@@ -1,10 +1,12 @@
+using Navigation.Common.Interfaces;
+
 using UnityEngine;
 
-namespace Navigation.Interfaces
+namespace Navigation.Movement.Interfaces
 {
     public interface IMovable : IUpdatable
     {
-        public float   MoveSpeed { get; }
+        public float MoveSpeed { get; }
 
         public Vector3 MoveDirection { get; }
 

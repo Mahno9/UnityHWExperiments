@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-
 using Navigation.Common;
 using Navigation.Damage.DamageDealers;
 using Navigation.Damage.Interfaces;
-using Navigation.Interfaces;
 
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Navigation.Damage.Behaviours
 {
@@ -45,6 +40,11 @@ namespace Navigation.Damage.Behaviours
                 StartCountDown();
         }
 
+        public void TakeDamage(float damage)
+        {
+            StartCountDown();
+        }
+
         private void StartCountDown()
         {
             if (_countDownExplosionTimer is not null)
@@ -62,11 +62,6 @@ namespace Navigation.Damage.Behaviours
         {
             Instantiate(_explosionEffectPrefab, transform.position, _explosionEffectPrefab.transform.rotation);
             Destroy(gameObject);
-        }
-
-        public void TakeDamage(float damage)
-        {
-            StartCountDown();
         }
     }
 }

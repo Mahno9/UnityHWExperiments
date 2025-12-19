@@ -1,48 +1,46 @@
-using System;
-using System.Collections.Generic;
-
 using Navigation.Common.Controllers;
-using Navigation.Controllers;
 using Navigation.Damage.Interfaces;
-using Navigation.Interfaces;
-using Navigation.Manipulators;
+using Navigation.FX.Behaviours;
+using Navigation.ObjectsFacades;
 
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Navigation.Behaviours
+namespace Navigation.Common.Behaviours
 {
     [RequireComponent(typeof(CharacterView))]
     [RequireComponent(typeof(NavigationEffectSpawner))]
-    [RequireComponent(typeof(IDamageable))]
+    [RequireComponent(typeof(IHealth))]
     public class MainCharacterInitializer : MonoBehaviour
     {
         [SerializeField] private NavMeshAgent _navMeshAgent;
         [SerializeField] private float        _rotationSpeed;
         [SerializeField] private string       _groundLayerName = "Ground";
 
-        private MoveController          _moveController;
-        private CharacterView           _view;
-        private NavigationEffectSpawner _effectSpawner;
+        private Character               _character;
         private DeathController         _deathController;
+        private NavigationEffectSpawner _effectSpawner;
+
+        private CharacterView _view;
 
         private void Awake()
         {
             Initialize();
         }
 
-        private void Initialize()
+        private void Update()
         {
-            _effectSpawner = InitializeEffectSpawner();
-            _moveController = InitializeMoveController(_effectSpawner);
-            _view = InitializeView(_moveController);
-
-            _deathController = InitializeDeathController(_moveController);
+            _character.Update(Time.deltaTime);
         }
 
-        private DeathController InitializeDeathController(params ControllerBase[] controllers)
+        private void Initialize()
         {
-            return new DeathController(GetComponent<IHealth>(), controllers);
+            _character = new Character(transform, _navMeshAgent, _groundLayerName, _rotationSpeed, GetComponent<IHealth>());
+
+            _effectSpawner = InitializeEffectSpawner();
+            _character.SubscribeOnMovePoints(_effectSpawner);
+
+            _view = InitializeView(_character);
         }
 
         private NavigationEffectSpawner InitializeEffectSpawner()
@@ -50,34 +48,11 @@ namespace Navigation.Behaviours
             return GetComponent<NavigationEffectSpawner>();
         }
 
-        private PointClickController InitializeMoveController(NavigationEffectSpawner effectSpawner)
-        {
-            IMovable mover = new NavMeshAgentMover(_navMeshAgent);
-
-            PointClickController controller = new(
-                new CompositeManipulator(
-                    mover,
-                    new AlongMoverDirectionRotator(mover, new DirectionRotator(transform, _rotationSpeed))
-                ),
-                Camera.main,
-                LayerMask.GetMask(_groundLayerName),
-                effectSpawner
-            );
-
-            controller.Enable();
-            return controller;
-        }
-
-        private CharacterView InitializeView(MoveController moveController)
+        private CharacterView InitializeView(Character character)
         {
             CharacterView view = GetComponent<CharacterView>();
-            view.SetMoveController(moveController);
+            view.SetCharacter(character);
             return view;
-        }
-
-        private void Update()
-        {
-            _moveController.Update(Time.deltaTime);
         }
     }
 }

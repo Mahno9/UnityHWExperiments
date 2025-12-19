@@ -1,4 +1,4 @@
-namespace Navigation.Interfaces
+namespace Navigation.Common.Interfaces
 {
     public interface IEventSubscriber
     {

@@ -1,10 +1,7 @@
-using Navigation.Damage.Behaviours;
-
-namespace Navigation.Interfaces
+namespace Navigation.Damage.Interfaces
 {
     public interface IDamageable
     {
         void TakeDamage(float damage);
-
     }
 }

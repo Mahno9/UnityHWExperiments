@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Navigation.Interfaces
+namespace Navigation.Common.Interfaces
 {
     // Мне жалко это удалять, поэтому хочу оставить. Этот интрефейс и сабскрайбер пока не используются.
     public interface IEventBroadcaster

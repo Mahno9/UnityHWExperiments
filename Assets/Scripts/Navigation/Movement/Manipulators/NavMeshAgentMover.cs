@@ -1,21 +1,13 @@
-using Navigation.Interfaces;
+using Navigation.Movement.Interfaces;
 
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Navigation.Manipulators
+namespace Navigation.Movement.Manipulators
 {
     public class NavMeshAgentMover : IMovable
     {
         private readonly NavMeshAgent _agent;
-
-        public float MoveSpeed => _agent.velocity.magnitude;
-
-        public Vector3 MoveDirection => _agent.desiredVelocity.normalized;
-
-        public Vector3 Position => _agent.transform.position;
-
-        public Vector3 CurrentTarget { get; private set; }
 
 
         public NavMeshAgentMover(NavMeshAgent agent)
@@ -23,6 +15,14 @@ namespace Navigation.Manipulators
             _agent = agent;
             CurrentTarget = Position;
         }
+
+        public Vector3 CurrentTarget { get; private set; }
+
+        public float MoveSpeed => _agent.velocity.magnitude;
+
+        public Vector3 MoveDirection => _agent.desiredVelocity.normalized;
+
+        public Vector3 Position => _agent.transform.position;
 
         public void Update(float deltaTime)
         {

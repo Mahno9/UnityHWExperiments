@@ -1,4 +1,4 @@
-using Navigation.Interfaces;
+using Navigation.Damage.Interfaces;
 
 using UnityEngine;
 

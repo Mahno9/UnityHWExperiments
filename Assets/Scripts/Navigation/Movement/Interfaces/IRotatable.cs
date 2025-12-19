@@ -1,6 +1,8 @@
+using Navigation.Common.Interfaces;
+
 using UnityEngine;
 
-namespace Navigation.Interfaces
+namespace Navigation.Movement.Interfaces
 {
     public interface IRotatable : IUpdatable
     {
