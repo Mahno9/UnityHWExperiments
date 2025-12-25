@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 
-using Navigation.Damage.Interfaces;
+using Navigation.Characters.Interfaces;
+using Navigation.CoreMechanics.Damage.Interfaces;
 
 using UnityEngine;
 
-namespace Navigation.Damage.DamageDealers
+namespace Navigation.CoreMechanics.Damage
 {
     public class SphereTargetsDetector : ITargetsDetector
     {

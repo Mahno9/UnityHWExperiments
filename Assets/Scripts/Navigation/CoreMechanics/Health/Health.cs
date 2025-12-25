@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 
-using Navigation.Damage.Interfaces;
+using Navigation.CoreMechanics.Health.Interfaces;
 
 using UnityEngine;
 
-namespace Navigation.Damage.Behaviours
+namespace Navigation.CoreMechanics.Health
 {
     public class Health : IHealthChangeBroadcaster
     {

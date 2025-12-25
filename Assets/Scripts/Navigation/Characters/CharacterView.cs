@@ -1,13 +1,11 @@
-using Navigation.Damage.Behaviours;
-using Navigation.Damage.Interfaces;
-using Navigation.ObjectsFacades;
+using Navigation.CoreMechanics.Health;
+using Navigation.CoreMechanics.Health.Interfaces;
 
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace Navigation.FX.Behaviours
+namespace Navigation.Characters
 {
-    [RequireComponent(typeof(Health))]
     public class CharacterView : MonoBehaviour, IHealthChangeSubscriber
     {
         private const float Epsilon = 0.05f;
@@ -23,13 +21,6 @@ namespace Navigation.FX.Behaviours
         private readonly int _isRunningKey = Animator.StringToHash("IsRunning");
 
         private Character _character;
-        private Health    _health;
-
-        private void Awake()
-        {
-            _health = GetComponent<Health>();
-            _health.SubscribeOnHealthChange(this);
-        }
 
         private void Update()
         {
@@ -48,6 +39,7 @@ namespace Navigation.FX.Behaviours
         public void SetCharacter(Character character)
         {
             _character = character;
+            _character.SubscribeOnHealthChange(this);
         }
 
         private void UpdateIsRunning()
@@ -58,13 +50,13 @@ namespace Navigation.FX.Behaviours
 
         private void UpdateDamaged()
         {
-            if (_health.IsDead())
+            if (_character.IsDead())
                 _animator.SetBool(_isDeadKey, true);
         }
 
         private void UpdateInjuredState()
         {
-            if (_health.RemainHealth <= _injureHealth)
+            if (_character.RemainHealth <= _injureHealth)
                 _animator.SetLayerWeight(_animator.GetLayerIndex(InjuredLayerName), MaxLayerWeight);
         }
     }

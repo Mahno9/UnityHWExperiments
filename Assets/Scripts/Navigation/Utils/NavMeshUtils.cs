@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Navigation.Common
+namespace Navigation.Utils
 {
     public static class NavMeshUtils
     {

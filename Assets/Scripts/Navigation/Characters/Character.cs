@@ -1,17 +1,14 @@
 using Navigation.Characters.Interfaces;
-using Navigation.Common.Controllers;
-using Navigation.Damage.Behaviours;
-using Navigation.Damage.Interfaces;
-using Navigation.Movement.Controllers;
-using Navigation.Movement.Interfaces;
-using Navigation.Movement.Manipulators;
+using Navigation.CoreMechanics.Health;
+using Navigation.CoreMechanics.Health.Interfaces;
+using Navigation.CoreMechanics.Movement;
+using Navigation.CoreMechanics.Rotation;
 
 using UnityEngine;
-using UnityEngine.AI;
 
-namespace Navigation.ObjectsFacades
+namespace Navigation.Characters
 {
-    public class Character : IMovable, IDamageable, IDying
+    public class Character : IMovable, IDamageable, IDying, IHealthChangeBroadcaster
     {
         private readonly Health                     _health;
         private readonly NavMeshAgentMover          _mover;
@@ -36,9 +33,12 @@ namespace Navigation.ObjectsFacades
 
         public void SetMovePoint(Vector3 point) => _mover.SetMovePoint(point);
 
+        public void SubscribeOnHealthChange(IHealthChangeSubscriber subscriber) => _health.SubscribeOnHealthChange(subscriber);
+
         public void Update(float deltaTime)
         {
             _mover.Update(deltaTime);
+            _rotator.Update(deltaTime);
         }
     }
 }

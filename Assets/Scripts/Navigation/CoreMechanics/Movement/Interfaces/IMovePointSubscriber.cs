@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Navigation.Movement.Interfaces
+namespace Navigation.CoreMechanics.Movement.Interfaces
 {
     public interface IMovePointSubscriber
     {

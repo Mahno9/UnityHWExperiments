@@ -1,4 +1,4 @@
-namespace Navigation.Damage.Interfaces
+namespace Navigation.Characters.Interfaces
 {
     public interface IDamageable
     {

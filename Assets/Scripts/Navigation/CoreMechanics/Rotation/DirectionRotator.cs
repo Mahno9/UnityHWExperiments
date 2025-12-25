@@ -1,8 +1,8 @@
-using Navigation.Movement.Interfaces;
+using Navigation.CoreMechanics.Rotation.Interfaces;
 
 using UnityEngine;
 
-namespace Navigation.Movement.Manipulators
+namespace Navigation.CoreMechanics.Rotation
 {
     public class DirectionRotator : IRotatable
     {

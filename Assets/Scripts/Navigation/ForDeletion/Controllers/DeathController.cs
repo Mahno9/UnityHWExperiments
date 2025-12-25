@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 
 using Navigation.Characters.Interfaces;
-using Navigation.Common.Interfaces;
-using Navigation.Damage.Interfaces;
-using Navigation.Movement.Controllers;
+using Navigation.Controllers;
 
-namespace Navigation.Common.Controllers
+namespace Navigation.ForDeletion.Controllers
 {
     public class DeathController : ControllerBase
     {

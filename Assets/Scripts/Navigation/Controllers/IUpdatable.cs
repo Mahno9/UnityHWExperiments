@@ -1,4 +1,4 @@
-namespace Navigation.Common.Interfaces
+namespace Navigation.Controllers
 {
     public interface IUpdatable
     {

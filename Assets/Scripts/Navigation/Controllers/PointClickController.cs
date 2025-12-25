@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 
-using Navigation.Movement.Interfaces;
+using Navigation.Characters.Interfaces;
+using Navigation.CoreMechanics.Movement.Interfaces;
 
 using UnityEngine;
 
-namespace Navigation.Movement.Controllers
+namespace Navigation.Controllers
 {
     public class PointClickController : ControllerBase, IMovePointBroadcaster
     {

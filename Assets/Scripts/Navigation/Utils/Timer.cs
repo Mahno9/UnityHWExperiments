@@ -1,8 +1,8 @@
 using System;
 
-using Navigation.Common.Interfaces;
+using Navigation.Controllers;
 
-namespace Navigation.Common
+namespace Navigation.Utils
 {
     public class Timer : IUpdatable
     {

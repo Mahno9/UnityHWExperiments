@@ -1,4 +1,4 @@
-namespace Navigation.Damage.Interfaces
+namespace Navigation.CoreMechanics.Health.Interfaces
 {
     public interface IHealthChangeBroadcaster
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Navigation.Common.Behaviours
+namespace Navigation.Utils
 {
     public class AutoDestroyer : MonoBehaviour
     {

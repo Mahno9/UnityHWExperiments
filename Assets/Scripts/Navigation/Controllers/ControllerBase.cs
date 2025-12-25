@@ -1,6 +1,4 @@
-using Navigation.Common.Interfaces;
-
-namespace Navigation.Movement.Controllers
+namespace Navigation.Controllers
 {
     public abstract class ControllerBase : IUpdatable
     {

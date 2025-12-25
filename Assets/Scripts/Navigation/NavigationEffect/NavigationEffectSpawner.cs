@@ -1,8 +1,8 @@
-using Navigation.Movement.Interfaces;
+using Navigation.CoreMechanics.Movement.Interfaces;
 
 using UnityEngine;
 
-namespace Navigation.FX.Behaviours
+namespace Navigation.NavigationEffect
 {
     public class NavigationEffectSpawner : MonoBehaviour, IMovePointSubscriber
     {

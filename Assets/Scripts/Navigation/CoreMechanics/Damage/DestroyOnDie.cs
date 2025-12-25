@@ -1,34 +1,33 @@
-using Navigation.Damage.Interfaces;
+using Navigation.Characters.Interfaces;
 
 using UnityEngine;
 
-namespace Navigation.Damage.Behaviours
+namespace Navigation.CoreMechanics.Damage
 {
-    [RequireComponent(typeof(Health))]
-    public class DestroyOnDie : MonoBehaviour, IHealthChangeSubscriber
+    public class DestroyOnDie : MonoBehaviour, IDamageable
     {
-        private const            float      MinHealthEpsilon = 0.001f;
-        [SerializeField] private float      _health;
+        [SerializeField] private float      _maxHealth;
         [SerializeField] private GameObject _destructionEffectPrefab;
+
+        private Health.Health _health;
 
         private void Awake()
         {
-            Health healthComponent = GetComponent<Health>();
-            healthComponent.SubscribeOnHealthChange(this);
-        }
-
-        public void DamageTaken(float damage)
-        {
-            _health -= Mathf.Min(damage, _health);
-
-            if (_health <= MinHealthEpsilon)
-                DestroySelf();
+            _health = new Health.Health(_maxHealth);
         }
 
         private void DestroySelf()
         {
             Instantiate(_destructionEffectPrefab, transform.position, _destructionEffectPrefab.transform.rotation);
             Destroy(gameObject);
+        }
+
+        public virtual void TakeDamage(float damage)
+        {
+            _health.TakeDamage(damage);
+
+            if (_health.IsDead())
+                DestroySelf();
         }
     }
 }

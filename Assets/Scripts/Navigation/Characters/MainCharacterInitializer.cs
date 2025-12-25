@@ -1,15 +1,16 @@
-using Navigation.Common.Controllers;
-using Navigation.Damage.Behaviours;
-using Navigation.Damage.Interfaces;
-using Navigation.FX.Behaviours;
-using Navigation.Movement.Controllers;
-using Navigation.Movement.Manipulators;
-using Navigation.ObjectsFacades;
+using System.Collections.Generic;
+
+using Navigation.Controllers;
+using Navigation.CoreMechanics.Health;
+using Navigation.CoreMechanics.Movement;
+using Navigation.CoreMechanics.Rotation;
+using Navigation.ForDeletion.Controllers;
+using Navigation.NavigationEffect;
 
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Navigation.Common.Behaviours
+namespace Navigation.Characters
 {
     [RequireComponent(typeof(CharacterView))]
     [RequireComponent(typeof(NavigationEffectSpawner))]
@@ -27,6 +28,8 @@ namespace Navigation.Common.Behaviours
         private CharacterView        _view;
         private PointClickController _moveController;
 
+        private readonly List<IUpdatable> _updatables = new();
+
         private void Awake()
         {
             Initialize();
@@ -34,26 +37,29 @@ namespace Navigation.Common.Behaviours
 
         private void Update()
         {
-            _character.Update(Time.deltaTime);
+            foreach (IUpdatable updatable in _updatables)
+                updatable.Update(Time.deltaTime);
         }
 
         private void Initialize()
         {
-            NavMeshAgentMover mover = new(_navMeshAgent);
-            _character = new Character(
-                new Health(_maxHealth),
-                mover,
-                new AlongMoverDirectionRotator(new DirectionRotator(transform, _rotationSpeed), mover)
-            );
+            NavMeshAgentMover          mover   = new(_navMeshAgent);
+            AlongMoverDirectionRotator rotator = new(new DirectionRotator(transform, _rotationSpeed), mover);
+
+            _character = new Character(new Health(_maxHealth), mover, rotator);
+            AddUpdatable(_character);
 
             _moveController = new PointClickController(_character, Camera.main, LayerMask.GetMask(_groundLayerName));
             _moveController.Enable();
+            AddUpdatable(_moveController);
 
             _effectSpawner = InitializeEffectSpawner();
             _moveController.SubscribeOnMovePoints(_effectSpawner);
 
             _view = InitializeView(_character);
         }
+
+        private void AddUpdatable(IUpdatable updatable) => _updatables.Add(updatable);
 
         private NavigationEffectSpawner InitializeEffectSpawner()
         {

@@ -1,13 +1,11 @@
-using System.Collections.Generic;
+using Navigation.Characters.Interfaces;
+using Navigation.CoreMechanics.Damage.Interfaces;
 
-using Navigation.Damage.Interfaces;
-
-namespace Navigation.Damage.DamageDealers
+namespace Navigation.CoreMechanics.Damage
 {
-    public class DamageDealer : IDamageDealer
+    public class DamageDealer
     {
         private readonly float                   _damage;
-        private readonly List<IDamageSubscriber> _subscribers = new();
 
         private readonly ITargetsDetector _targetsDetector;
 
@@ -21,21 +19,7 @@ namespace Navigation.Damage.DamageDealers
         {
             IDamageable[] targets = _targetsDetector.GetTargets();
             foreach (IDamageable target in targets)
-            {
                 target.TakeDamage(_damage);
-                NotifySubscribers(target, _damage);
-            }
-        }
-
-        public void SubscribeOnDamage(IDamageSubscriber subscriber)
-        {
-            _subscribers.Add(subscriber);
-        }
-
-        private void NotifySubscribers(IDamageable target, float damage)
-        {
-            foreach (IDamageSubscriber subscriber in _subscribers)
-                subscriber.DamageTaken(target, damage);
         }
     }
 }

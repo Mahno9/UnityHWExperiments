@@ -1,14 +1,12 @@
-using Navigation.Common;
-using Navigation.Damage.DamageDealers;
-using Navigation.Damage.Interfaces;
-using Navigation.Mine;
+using Navigation.CoreMechanics.Damage;
+using Navigation.Utils;
 
 using UnityEngine;
 
-namespace Navigation.Damage.Behaviours
+namespace Navigation.Mine
 {
     [RequireComponent(typeof(SphereCollider))]
-    public class Mine : MonoBehaviour, IDamageable
+    public class Mine : DestroyOnDie
     {
         [SerializeField] private GameObject _explosionEffectPrefab;
         [SerializeField] private GameObject _countDownVisualNode;
@@ -41,7 +39,7 @@ namespace Navigation.Damage.Behaviours
                 StartCountDown();
         }
 
-        public void TakeDamage(float damage)
+        public override void TakeDamage(float damage)
         {
             StartCountDown();
         }
