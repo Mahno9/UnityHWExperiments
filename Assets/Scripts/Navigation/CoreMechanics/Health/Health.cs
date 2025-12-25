@@ -6,17 +6,18 @@ using UnityEngine;
 
 namespace Navigation.Damage.Behaviours
 {
-    public class Health : MonoBehaviour, IHealth // TODO: not a monobeh
+    public class Health : IHealthChangeBroadcaster
     {
         private const float MinHealthEpsilon = 0.001f;
 
-        [SerializeField] private float _maxHealth = 100;
+        public float MaxHealth { get; }
 
         private readonly List<IHealthChangeSubscriber> _damageSubscribers = new();
 
-        private void Awake()
+        public Health(float maxHealth)
         {
-            RemainHealth = _maxHealth;
+            MaxHealth = maxHealth;
+            RemainHealth = MaxHealth;
         }
 
         public float RemainHealth { get; private set; }

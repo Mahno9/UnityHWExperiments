@@ -1,3 +1,4 @@
+using Navigation.Common.Interfaces;
 using Navigation.Movement.Interfaces;
 
 using UnityEngine;
@@ -5,10 +6,9 @@ using UnityEngine.AI;
 
 namespace Navigation.Movement.Manipulators
 {
-    public class NavMeshAgentMover : IMovable
+    public class NavMeshAgentMover : IUpdatable, IMover
     {
         private readonly NavMeshAgent _agent;
-
 
         public NavMeshAgentMover(NavMeshAgent agent)
         {

@@ -1,4 +1,5 @@
 using Navigation.Common.Controllers;
+using Navigation.Damage.Behaviours;
 using Navigation.Damage.Interfaces;
 using Navigation.FX.Behaviours;
 using Navigation.Movement.Controllers;
@@ -12,18 +13,19 @@ namespace Navigation.Common.Behaviours
 {
     [RequireComponent(typeof(CharacterView))]
     [RequireComponent(typeof(NavigationEffectSpawner))]
-    [RequireComponent(typeof(IHealth))]
     public class MainCharacterInitializer : MonoBehaviour
     {
         [SerializeField] private NavMeshAgent _navMeshAgent;
         [SerializeField] private float        _rotationSpeed;
         [SerializeField] private string       _groundLayerName = "Ground";
+        [SerializeField] private float        _maxHealth       = 100;
 
         private Character               _character;
         private DeathController         _deathController;
         private NavigationEffectSpawner _effectSpawner;
 
-        private CharacterView _view;
+        private CharacterView        _view;
+        private PointClickController _moveController;
 
         private void Awake()
         {
@@ -37,20 +39,18 @@ namespace Navigation.Common.Behaviours
 
         private void Initialize()
         {
-            NavMeshAgentMover mover = new NavMeshAgentMover(_navMeshAgent);
-            PointClickController moveController = new PointClickController(
-                new CompositeManipulator(
-                    mover,
-                    new AlongMoverDirectionRotator(mover, new DirectionRotator(transform, _rotationSpeed))
-                ),
-                Camera.main, LayerMask.GetMask(_groundLayerName)
+            NavMeshAgentMover mover = new(_navMeshAgent);
+            _character = new Character(
+                new Health(_maxHealth),
+                mover,
+                new AlongMoverDirectionRotator(new DirectionRotator(transform, _rotationSpeed), mover)
             );
-            moveController.Enable();
 
-            _character = new Character(moveController, GetComponent<IHealth>());
+            _moveController = new PointClickController(_character, Camera.main, LayerMask.GetMask(_groundLayerName));
+            _moveController.Enable();
 
             _effectSpawner = InitializeEffectSpawner();
-            _character.SubscribeOnMovePoints(_effectSpawner);
+            _moveController.SubscribeOnMovePoints(_effectSpawner);
 
             _view = InitializeView(_character);
         }

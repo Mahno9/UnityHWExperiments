@@ -7,10 +7,10 @@ namespace Navigation.Movement.Manipulators
 {
     public class AlongMoverDirectionRotator : IUpdatable
     {
-        private readonly IMovable   _mover;
+        private readonly IMover     _mover;
         private readonly IRotatable _rotator;
 
-        public AlongMoverDirectionRotator(IMovable mover, IRotatable rotator)
+        public AlongMoverDirectionRotator(IRotatable rotator, IMover mover)
         {
             _mover = mover;
             _rotator = rotator;

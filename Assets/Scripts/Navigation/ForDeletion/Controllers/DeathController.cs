@@ -1,24 +1,26 @@
+using System.Collections.Generic;
+
+using Navigation.Characters.Interfaces;
+using Navigation.Common.Interfaces;
 using Navigation.Damage.Interfaces;
 using Navigation.Movement.Controllers;
 
 namespace Navigation.Common.Controllers
 {
-    public class DeathController : IHealthChangeSubscriber
+    public class DeathController : ControllerBase
     {
-        private readonly IHealth          _health;
-        private readonly ControllerBase[] _onlyAliveControllers;
+        private readonly IDying               _dying;
+        private readonly List<ControllerBase> _onlyAliveControllers;
 
-        public DeathController(IHealth health, params ControllerBase[] onlyAliveControllers)
+        public DeathController(IDying dying, params ControllerBase[] onlyAliveControllers)
         {
-            _health = health;
-            _onlyAliveControllers = onlyAliveControllers;
-
-            _health.SubscribeOnHealthChange(this);
+            _dying = dying;
+            _onlyAliveControllers = new List<ControllerBase>(onlyAliveControllers) { this }; // TODO: check this
         }
 
-        public void DamageTaken(float damage)
+        protected override void UpdateLogic(float deltaTime)
         {
-            if (!_health.IsDead())
+            if (!_dying.IsDead())
                 return;
 
             foreach (ControllerBase controller in _onlyAliveControllers)

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Navigation.Movement.Controllers
 {
-    public class PointClickController : MoveController
+    public class PointClickController : ControllerBase, IMovePointBroadcaster
     {
         private const    int       RightMouseButton = 1;
         private readonly Camera    _camera;
@@ -21,8 +21,6 @@ namespace Navigation.Movement.Controllers
             _camera = camera;
             _groundLayerMask = groundLayerMask;
         }
-
-        public override float MoveSpeed => _movable.MoveSpeed;
 
         protected override void UpdateLogic(float deltaTime)
         {
@@ -60,7 +58,7 @@ namespace Navigation.Movement.Controllers
             return false;
         }
 
-        public override void SubscribeOnMovePoints(IMovePointSubscriber subscriber)
+        public void SubscribeOnMovePoints(IMovePointSubscriber subscriber)
         {
             _subscribers.Add(subscriber);
         }

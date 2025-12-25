@@ -1,11 +1,7 @@
 namespace Navigation.Damage.Interfaces
 {
-    public interface IHealth : IDamageable
+    public interface IHealthChangeBroadcaster
     {
-        float RemainHealth { get; }
-
-        bool IsDead();
-
         void SubscribeOnHealthChange(IHealthChangeSubscriber subscriber);
     }
 }
