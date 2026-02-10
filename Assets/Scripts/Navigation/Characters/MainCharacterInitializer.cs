@@ -4,7 +4,6 @@ using Navigation.Controllers;
 using Navigation.CoreMechanics.Health;
 using Navigation.CoreMechanics.Movement;
 using Navigation.CoreMechanics.Rotation;
-using Navigation.ForDeletion.Controllers;
 using Navigation.NavigationEffect;
 
 using UnityEngine;
@@ -22,7 +21,6 @@ namespace Navigation.Characters
         [SerializeField] private float        _maxHealth       = 100;
 
         private Character               _character;
-        private DeathController         _deathController;
         private NavigationEffectSpawner _effectSpawner;
 
         private CharacterView        _view;
