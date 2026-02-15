@@ -38,6 +38,9 @@ namespace Navigation.Characters
 
         private void Update()
         {
+            if (_character.IsDead())
+                return;
+
             foreach (IUpdatable updatable in _updatables)
                 updatable.Update(Time.deltaTime);
         }
