@@ -9,10 +9,13 @@ namespace Navigation.CoreMechanics.Movement
     public class NavMeshAgentMover : IUpdatable, IMover
     {
         private readonly NavMeshAgent _agent;
+        private readonly AgentJumper  _agentJumper;
 
-        public NavMeshAgentMover(NavMeshAgent agent)
+        public NavMeshAgentMover(NavMeshAgent agent, AgentJumper agentJumper)
         {
             _agent = agent;
+            _agentJumper = agentJumper;
+
             CurrentTarget = Position;
         }
 
@@ -33,5 +36,22 @@ namespace Navigation.CoreMechanics.Movement
         {
             CurrentTarget = point;
         }
+
+
+        public bool IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData)
+        {
+            if (_agent.isOnOffMeshLink)
+            {
+                offMeshLinkData = _agent.currentOffMeshLinkData;
+                return true;
+            }
+
+            offMeshLinkData = default;
+            return false;
+        }
+
+        public void Jump(OffMeshLinkData offMeshLinkData) => _agentJumper.Jump(offMeshLinkData);
+
+        public bool IsInJumpProcess => _agentJumper.InProcess;
     }
 }

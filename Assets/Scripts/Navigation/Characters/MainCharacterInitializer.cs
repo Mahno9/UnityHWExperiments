@@ -17,6 +17,7 @@ namespace Navigation.Characters
     {
         [SerializeField] private NavMeshAgent _navMeshAgent;
         [SerializeField] private float        _rotationSpeed;
+        [SerializeField] private float        _jumpSpeed;
         [SerializeField] private string       _groundLayerName = "Ground";
         [SerializeField] private float        _maxHealth       = 100;
 
@@ -41,11 +42,12 @@ namespace Navigation.Characters
 
         private void Initialize()
         {
-            NavMeshAgentMover          mover   = new(_navMeshAgent);
-            AlongMoverDirectionRotator rotator = new(new DirectionRotator(transform, _rotationSpeed), mover);
+            AgentJumper                agentJumper = new(_jumpSpeed, _navMeshAgent, this);
+            NavMeshAgentMover          mover       = new(_navMeshAgent, agentJumper);
+            AlongMoverDirectionRotator rotator     = new(new DirectionRotator(transform, _rotationSpeed), mover);
 
-            _character = new Character(new Health(_maxHealth), mover, rotator);
-            AddUpdatable(_character);
+            _character = gameObject.AddComponent<Character>();
+            _character.Initialize(new Health(_maxHealth), mover, rotator);
 
             _moveController = new PointClickController(_character, Camera.main, LayerMask.GetMask(_groundLayerName));
             _moveController.Enable();
@@ -56,6 +58,7 @@ namespace Navigation.Characters
 
             _view = InitializeView(_character);
         }
+
 
         private void AddUpdatable(IUpdatable updatable) => _updatables.Add(updatable);
 

@@ -49,12 +49,14 @@ namespace Navigation.Mine
             if (_countDownExplosionTimer is not null)
                 return;
 
-            _countDownExplosionTimer = new Timer(_detonationTime, () =>
-            {
-                _explosion.DealDamage();
-                DestroyWithEffect();
-            });
+            _countDownExplosionTimer = new Timer(_detonationTime, Explode);
             _countDownVisualNode.SetActive(true);
+        }
+
+        private void Explode()
+        {
+            _explosion.DealDamage();
+            DestroyWithEffect();
         }
 
         private void DestroyWithEffect()
