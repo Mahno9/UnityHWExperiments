@@ -27,7 +27,15 @@ namespace Navigation.CoreMechanics.Health
             float damageAdjusted = Mathf.Min(RemainHealth, damage);
             RemainHealth -= damageAdjusted;
 
-            NotifySubscribers(damageAdjusted);
+            NotifySubscribersDamage(damageAdjusted);
+        }
+
+        public void Heal(float healthPoints)
+        {
+            float healthPointsAdjusted = Mathf.Min(MaxHealth - RemainHealth, healthPoints);
+            RemainHealth += healthPointsAdjusted;
+
+            NotifySubscribersHeal(healthPointsAdjusted);
         }
 
         public bool IsDead()
@@ -40,10 +48,16 @@ namespace Navigation.CoreMechanics.Health
             _damageSubscribers.Add(subscriber);
         }
 
-        private void NotifySubscribers(float damage)
+        private void NotifySubscribersDamage(float damage)
         {
             foreach (IHealthChangeSubscriber damageSubscriber in _damageSubscribers)
                 damageSubscriber.DamageTaken(damage);
+        }
+
+        private void NotifySubscribersHeal(float healthPoints)
+        {
+            foreach (IHealthChangeSubscriber damageSubscriber in _damageSubscribers)
+                damageSubscriber.HealTaken(healthPoints);
         }
     }
 }

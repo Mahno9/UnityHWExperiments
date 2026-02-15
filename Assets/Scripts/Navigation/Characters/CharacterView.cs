@@ -42,6 +42,12 @@ namespace Navigation.Characters
             UpdateInjuredState();
         }
 
+        public void HealTaken(float healthPoints)
+        {
+            Debug.Log("No animation for heal yet");
+            UpdateInjuredState();
+        }
+
         public void SetCharacter(Character character)
         {
             _character = character;

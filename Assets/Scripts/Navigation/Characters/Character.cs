@@ -3,13 +3,14 @@ using Navigation.CoreMechanics.Health;
 using Navigation.CoreMechanics.Health.Interfaces;
 using Navigation.CoreMechanics.Movement;
 using Navigation.CoreMechanics.Rotation;
+using Navigation.Heal;
 
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Navigation.Characters
 {
-    public class Character : MonoBehaviour, IMovable, IDamageable, IDying, IHealthChangeBroadcaster
+    public class Character : MonoBehaviour, IMovable, IDamageable, IHealable, IDying, IHealthChangeBroadcaster
     {
         private Health                     _health;
         private NavMeshAgentMover          _mover;
@@ -34,6 +35,8 @@ namespace Navigation.Characters
         }
 
         public void TakeDamage(float damage) => _health.TakeDamage(damage);
+
+        public void Heal(float healthPoints) => _health.Heal(healthPoints);
 
         public float RemainHealth => _health.RemainHealth;
 
