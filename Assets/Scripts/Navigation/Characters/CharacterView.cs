@@ -14,9 +14,10 @@ namespace Navigation.Characters
         private const float  MaxLayerWeight   = 1;
 
         [SerializeField] private Animator _animator;
-        [SerializeField] private float    _injureHealth = 30;
-        private readonly         int      _damagedKey   = Animator.StringToHash("Damaged");
-        private readonly         int      _isDeadKey    = Animator.StringToHash("IsDead");
+        [SerializeField] private float    _injureHealth       = 30;
+        private readonly         int      _damagedKey         = Animator.StringToHash("Damaged");
+        private readonly         int      _isDeadKey          = Animator.StringToHash("IsDead");
+        private readonly         int      _isInJumpProcessKey = Animator.StringToHash("IsInJumpProcess");
 
         private readonly int _isRunningKey = Animator.StringToHash("IsRunning");
 
@@ -26,6 +27,7 @@ namespace Navigation.Characters
         {
             Assert.IsNotNull(_animator);
 
+            UpdateJumping();
             UpdateIsRunning();
             UpdateDamaged();
         }
@@ -40,6 +42,11 @@ namespace Navigation.Characters
         {
             _character = character;
             _character.SubscribeOnHealthChange(this);
+        }
+
+        private void UpdateJumping()
+        {
+            _animator.SetBool(_isInJumpProcessKey, _character.IsInJumpProcess);
         }
 
         private void UpdateIsRunning()
