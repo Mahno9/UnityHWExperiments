@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 3343633448243716106}
   - component: {fileID: 8584158872308315337}
   m_Layer: 0
-  m_Name: Heal
+  m_Name: HealPotion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
