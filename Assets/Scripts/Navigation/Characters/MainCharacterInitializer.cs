@@ -15,11 +15,13 @@ namespace Navigation.Characters
     [RequireComponent(typeof(NavigationEffectSpawner))]
     public class MainCharacterInitializer : MonoBehaviour
     {
-        [SerializeField] private NavMeshAgent _navMeshAgent;
-        [SerializeField] private float        _rotationSpeed;
-        [SerializeField] private float        _jumpSpeed;
-        [SerializeField] private string       _groundLayerName = "Ground";
-        [SerializeField] private float        _maxHealth       = 100;
+        [SerializeField] private NavMeshAgent   _navMeshAgent;
+        [SerializeField] private float          _rotationSpeed;
+        [SerializeField] private float          _jumpSpeed;
+        [SerializeField] private AnimationCurve _jumpCurve;
+
+        [SerializeField] private float  _maxHealth       = 100;
+        [SerializeField] private string _groundLayerName = "Ground";
 
         private Character               _character;
         private NavigationEffectSpawner _effectSpawner;
@@ -42,7 +44,7 @@ namespace Navigation.Characters
 
         private void Initialize()
         {
-            AgentJumper                agentJumper = new(_jumpSpeed, _navMeshAgent, this);
+            AgentJumper                agentJumper = new(_jumpSpeed, _navMeshAgent, _jumpCurve, this);
             NavMeshAgentMover          mover       = new(_navMeshAgent, agentJumper);
             AlongMoverDirectionRotator rotator     = new(new DirectionRotator(transform, _rotationSpeed), mover);
 

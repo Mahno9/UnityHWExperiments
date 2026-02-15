@@ -10,13 +10,15 @@ namespace Navigation.CoreMechanics.Movement
         private readonly float        _speed;
         private readonly NavMeshAgent _agent;
 
-        private readonly MonoBehaviour _coroutineRunner;
-        private          Coroutine     _jumpProcess;
+        private readonly MonoBehaviour  _coroutineRunner;
+        private          Coroutine      _jumpProcess;
+        private readonly AnimationCurve _yOffsetCurve;
 
-        public AgentJumper(float speed, NavMeshAgent agent, MonoBehaviour coroutineRunner)
+        public AgentJumper(float speed, NavMeshAgent agent, AnimationCurve yOffsetCurve, MonoBehaviour coroutineRunner)
         {
             _speed = speed;
             _agent = agent;
+            _yOffsetCurve = yOffsetCurve;
             _coroutineRunner = coroutineRunner;
         }
 
@@ -35,12 +37,13 @@ namespace Navigation.CoreMechanics.Movement
             Vector3 startPosition = offMeshLinkData.startPos;
             Vector3 endPosition   = offMeshLinkData.endPos;
 
-            float duration = Vector3.Distance(startPosition, endPosition) / _speed;
+            float targetProgress = Vector3.Distance(startPosition, endPosition) / _speed;
             float progress = 0;
 
-            while (progress < duration)
+            while (progress < targetProgress)
             {
-                _agent.transform.position = Vector3.Lerp(startPosition, endPosition, progress / duration);
+                float yOffset = _yOffsetCurve.Evaluate(progress / targetProgress);
+                _agent.transform.position = Vector3.Lerp(startPosition, endPosition, progress / targetProgress) + Vector3.up * yOffset;
                 progress += Time.deltaTime;
                 yield return null;
             }
