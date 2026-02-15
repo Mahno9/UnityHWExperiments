@@ -11,6 +11,7 @@ namespace Navigation.Characters
         private const float Epsilon = 0.05f;
 
         private const string InjuredLayerName = "Injured";
+        private const float  MinLayerWeight   = 0;
         private const float  MaxLayerWeight   = 1;
 
         [SerializeField] private Animator    _animator;
@@ -88,6 +89,8 @@ namespace Navigation.Characters
         {
             if (_character.RemainHealth <= _injureHealth)
                 _animator.SetLayerWeight(_animator.GetLayerIndex(InjuredLayerName), MaxLayerWeight);
+            else
+                _animator.SetLayerWeight(_animator.GetLayerIndex(InjuredLayerName), MinLayerWeight);
         }
     }
 }

@@ -29,10 +29,12 @@ namespace Navigation.Heal
 
             while (timeTilSpawn > 0)
             {
+                Debug.Log($"Time till spawn heal: {timeTilSpawn}s");
                 timeTilSpawn -= Time.deltaTime;
                 yield return null;
             }
 
+            Debug.Log("Heal spawned!");
             Spawn();
         }
 
