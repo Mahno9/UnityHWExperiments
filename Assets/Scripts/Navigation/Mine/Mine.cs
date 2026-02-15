@@ -1,3 +1,5 @@
+using System.Collections;
+
 using Navigation.CoreMechanics.Damage;
 using Navigation.Utils;
 
@@ -46,11 +48,24 @@ namespace Navigation.Mine
 
         private void StartCountDown()
         {
-            if (_countDownExplosionTimer is not null)
-                return;
+            StartCoroutine(TickTilExplosion());
+        }
 
-            _countDownExplosionTimer = new Timer(_detonationTime, Explode);
+        private IEnumerator TickTilExplosion()
+        {
+            if (_countDownExplosionTimer is not null)
+                yield break;
+
+            float timeTilExplosion = _detonationTime;
             _countDownVisualNode.SetActive(true);
+
+            while (timeTilExplosion > 0)
+            {
+                timeTilExplosion -= Time.deltaTime;
+                yield return null;
+            }
+
+            Explode();
         }
 
         private void Explode()
