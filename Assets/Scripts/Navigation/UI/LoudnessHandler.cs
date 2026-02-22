@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 
+using Navigation.Sounds;
+
 using Unity.VisualScripting;
 
 using UnityEngine;
@@ -18,20 +20,19 @@ namespace Navigation.UI
 
     public class LoudnessHandler : MonoBehaviour
     {
-        private const float MinDb = -80;
-
         [SerializeField] private AudioMixer                 _mixer;
         [SerializeField] private List<SourceNameSliderPair> _sourceSliders;
+
+        private readonly List<LoudnessController> _controllers = new ();
 
         private void Awake()
         {
             foreach (SourceNameSliderPair sourceNameSlider in _sourceSliders)
             {
-                sourceNameSlider.Slider.onValueChanged.AddListener(x =>
-                {
-                    float db = Math.Max((float)(20*Math.Log10(x)), MinDb);
-                    _mixer.SetFloat(sourceNameSlider.SourceName, db);
-                });
+                LoudnessController controller = new (_mixer, sourceNameSlider.SourceName);
+                _controllers.Add(controller);
+
+                sourceNameSlider.Slider.onValueChanged.AddListener(x => controller.SetLoudness(x));
             }
         }
 
