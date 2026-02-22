@@ -6,26 +6,21 @@ using Unity.AI.Navigation;
 using UnityEngine;
 using UnityEngine.AI;
 
+using Object = UnityEngine.Object;
+
 namespace Navigation.Heal
 {
-    public class HealSpawner : MonoBehaviour
+    public class HealSpawner
     {
-        [SerializeField] private GameObject     _healPrefab;
-        [SerializeField] private KeyCode        _callHealKey = KeyCode.F;
-        [SerializeField] private float          _spawnDelay  = 2.0f;
-        [SerializeField] private float          _spawnRadius = 5.0f;
-
-        private void Update()
+        private readonly Transform _spawnTransform;
+        public HealSpawner(Transform spawnTransform)
         {
-            if (Input.GetKeyDown(_callHealKey))
-            {
-                StartCoroutine(ProcessHealSpawn());
-            }
+            _spawnTransform = spawnTransform;
         }
 
-        private IEnumerator ProcessHealSpawn()
+        public IEnumerator ProcessHealSpawn(float spawnDelay, GameObject healPrefab, float spawnRadius)
         {
-            float timeTilSpawn = _spawnDelay;
+            float timeTilSpawn = spawnDelay;
 
             while (timeTilSpawn > 0)
             {
@@ -35,24 +30,24 @@ namespace Navigation.Heal
             }
 
             Debug.Log("Heal spawned!");
-            Spawn();
+            Spawn(healPrefab, spawnRadius);
         }
 
-        private void Spawn()
+        private void Spawn(GameObject healPrefab, float spawnRadius)
         {
-            Instantiate(_healPrefab, PickPosition(), _healPrefab.transform.rotation);
+            Object.Instantiate(healPrefab, PickPosition(spawnRadius), healPrefab.transform.rotation);
         }
 
-        private Vector3 PickPosition()
+        private Vector3 PickPosition(float spawnRadius)
         {
             int tries = 100;
 
             do
             {
-                Vector3 sourcePosition = UnityEngine.Random.insideUnitSphere * _spawnRadius;
-                sourcePosition += transform.position;
+                Vector3 sourcePosition = UnityEngine.Random.insideUnitSphere * spawnRadius;
+                sourcePosition += _spawnTransform.position;
 
-                bool isPositionFound = NavMesh.SamplePosition(sourcePosition, out NavMeshHit hit, _spawnRadius, NavMesh.AllAreas);
+                bool isPositionFound = NavMesh.SamplePosition(sourcePosition, out NavMeshHit hit, spawnRadius, NavMesh.AllAreas);
 
                 if (isPositionFound)
                     return hit.position;
@@ -60,7 +55,7 @@ namespace Navigation.Heal
                 tries--;
             } while (tries > 0);
 
-            return transform.position;
+            return _spawnTransform.position;
         }
     }
 }

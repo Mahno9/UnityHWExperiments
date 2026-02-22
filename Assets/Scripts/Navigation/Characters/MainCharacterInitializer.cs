@@ -15,13 +15,15 @@ namespace Navigation.Characters
     [RequireComponent(typeof(NavigationEffectSpawner))]
     public class MainCharacterInitializer : MonoBehaviour
     {
+        [Header("Navigation")]
         [SerializeField] private NavMeshAgent   _navMeshAgent;
         [SerializeField] private float          _rotationSpeed;
         [SerializeField] private float          _jumpSpeed;
         [SerializeField] private AnimationCurve _jumpCurve;
+        [SerializeField] private string         _groundLayerName = "Ground";
 
+        [Header("Character parameters")]
         [SerializeField] private float  _maxHealth       = 100;
-        [SerializeField] private string _groundLayerName = "Ground";
 
         private Character               _character;
         private NavigationEffectSpawner _effectSpawner;
