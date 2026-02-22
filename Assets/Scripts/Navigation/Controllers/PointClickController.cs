@@ -26,14 +26,6 @@ namespace Navigation.Controllers
 
         protected override void UpdateLogic(float deltaTime)
         {
-            if (_movable.IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData))
-            {
-                if (_movable.IsInJumpProcess == false)
-                    _movable.Jump(offMeshLinkData);
-
-                return;
-            }
-
             if (TryGetMoveTarget(out Vector3 newMovePoint))
             {
                 _movable.SetMovePoint(newMovePoint);

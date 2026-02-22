@@ -29,6 +29,7 @@ namespace Navigation.Characters
         private NavigationEffectSpawner _effectSpawner;
 
         private CharacterView        _view;
+        private JumpController       _jumpController;
         private PointClickController _moveController;
 
         private readonly List<IUpdatable> _updatables = new();
@@ -56,7 +57,11 @@ namespace Navigation.Characters
             _character = gameObject.AddComponent<Character>();
             _character.Initialize(new Health(_maxHealth), mover, rotator);
 
-            _moveController = new PointClickController(_character, Camera.main, LayerMask.GetMask(_groundLayerName));
+            _jumpController = new JumpController(_character);
+            _jumpController.Enable();
+            AddUpdatable(_jumpController);
+
+            _moveController = new PointClickWithJumpsController(_character, _jumpController, Camera.main, LayerMask.GetMask(_groundLayerName));
             _moveController.Enable();
             AddUpdatable(_moveController);
 

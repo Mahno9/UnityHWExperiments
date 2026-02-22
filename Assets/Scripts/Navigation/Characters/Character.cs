@@ -10,7 +10,7 @@ using UnityEngine.AI;
 
 namespace Navigation.Characters
 {
-    public class Character : MonoBehaviour, IMovable, IDamageable, IHealable, IDying, IHealthChangeBroadcaster
+    public class Character : MonoBehaviour, IMovable, IJumpable, IDamageable, IHealable, IDying, IHealthChangeBroadcaster
     {
         private Health                     _health;
         private NavMeshAgentMover          _mover;

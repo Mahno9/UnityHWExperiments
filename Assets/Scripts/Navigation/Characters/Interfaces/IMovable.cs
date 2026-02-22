@@ -13,13 +13,14 @@ namespace Navigation.Characters.Interfaces
 
         public Vector3 Position { get; }
 
-        public bool IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData);
-
-        public bool IsInJumpProcess { get; }
-
         void SetMovePoint(Vector3 point);
+    }
 
+    public interface IJumpable : IUpdatable
+    {
+        public bool IsInJumpProcess { get; }
         void        Jump(OffMeshLinkData offMeshLinkData);
 
+        public bool IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData);
     }
 }
