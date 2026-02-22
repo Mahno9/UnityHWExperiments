@@ -20,6 +20,8 @@ namespace Navigation.Mine
         private Timer        _countDownExplosionTimer;
         private DamageDealer _explosion;
 
+        private YieldInstruction _detonationWaiter;
+
         private void Awake()
         {
             SphereCollider mineCollider = GetComponent<SphereCollider>();
@@ -27,6 +29,8 @@ namespace Navigation.Mine
                 _damage,
                 new SphereTargetsDetector(transform.position + mineCollider.center, _explosionRadius)
             );
+
+            _detonationWaiter = new WaitForSeconds(_detonationTime);
         }
 
         private void Update()
@@ -56,14 +60,9 @@ namespace Navigation.Mine
             if (_countDownExplosionTimer is not null)
                 yield break;
 
-            float timeTilExplosion = _detonationTime;
             _countDownVisualNode.SetActive(true);
 
-            while (timeTilExplosion > 0)
-            {
-                timeTilExplosion -= Time.deltaTime;
-                yield return null;
-            }
+            yield return _detonationWaiter;
 
             Explode();
         }
