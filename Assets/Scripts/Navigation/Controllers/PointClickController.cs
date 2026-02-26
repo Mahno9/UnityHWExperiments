@@ -4,6 +4,7 @@ using Navigation.Characters.Interfaces;
 using Navigation.CoreMechanics.Movement.Interfaces;
 
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Navigation.Controllers
 {

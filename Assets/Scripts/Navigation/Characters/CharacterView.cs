@@ -11,14 +11,20 @@ namespace Navigation.Characters
         private const float Epsilon = 0.05f;
 
         private const string InjuredLayerName = "Injured";
+        private const float  MinLayerWeight   = 0;
         private const float  MaxLayerWeight   = 1;
 
-        [SerializeField] private Animator _animator;
-        [SerializeField] private float    _injureHealth = 30;
-        private readonly         int      _damagedKey   = Animator.StringToHash("Damaged");
-        private readonly         int      _isDeadKey    = Animator.StringToHash("IsDead");
+        [SerializeField] private Animator    _animator;
+        [SerializeField] private float       _injureHealth = 30;
+        [SerializeField] private AudioSource _jumpStartSFX;
+        [SerializeField] private AudioSource _jumpFinishSFX;
+        private readonly         int         _damagedKey         = Animator.StringToHash("Damaged");
+        private readonly         int         _isDeadKey          = Animator.StringToHash("IsDead");
+        private readonly         int         _isInJumpProcessKey = Animator.StringToHash("IsInJumpProcess");
 
         private readonly int _isRunningKey = Animator.StringToHash("IsRunning");
+
+        private bool _prevIsInJumpProgress = false;
 
         private Character _character;
 
@@ -26,6 +32,7 @@ namespace Navigation.Characters
         {
             Assert.IsNotNull(_animator);
 
+            UpdateJumping();
             UpdateIsRunning();
             UpdateDamaged();
         }
@@ -36,10 +43,34 @@ namespace Navigation.Characters
             UpdateInjuredState();
         }
 
+        public void HealTaken(float healthPoints)
+        {
+            Debug.Log("No animation for heal yet");
+            UpdateInjuredState();
+        }
+
         public void SetCharacter(Character character)
         {
             _character = character;
             _character.SubscribeOnHealthChange(this);
+        }
+
+        private void UpdateJumping()
+        {
+            bool isJumping = _character.IsInJumpProcess;
+            ProcessJumpSFX(isJumping);
+            _animator.SetBool(_isInJumpProcessKey, isJumping);
+        }
+
+        private void ProcessJumpSFX(bool isJumping)
+        {
+            if (_prevIsInJumpProgress != isJumping)
+            {
+                if (isJumping) _jumpStartSFX.Play();
+                else _jumpFinishSFX.Play();
+            }
+
+            _prevIsInJumpProgress = isJumping;
         }
 
         private void UpdateIsRunning()
@@ -58,6 +89,8 @@ namespace Navigation.Characters
         {
             if (_character.RemainHealth <= _injureHealth)
                 _animator.SetLayerWeight(_animator.GetLayerIndex(InjuredLayerName), MaxLayerWeight);
+            else
+                _animator.SetLayerWeight(_animator.GetLayerIndex(InjuredLayerName), MinLayerWeight);
         }
     }
 }

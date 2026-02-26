@@ -1,3 +1,5 @@
+using System.Collections;
+
 using Navigation.CoreMechanics.Damage;
 using Navigation.Utils;
 
@@ -18,6 +20,8 @@ namespace Navigation.Mine
         private Timer        _countDownExplosionTimer;
         private DamageDealer _explosion;
 
+        private YieldInstruction _detonationWaiter;
+
         private void Awake()
         {
             SphereCollider mineCollider = GetComponent<SphereCollider>();
@@ -25,6 +29,8 @@ namespace Navigation.Mine
                 _damage,
                 new SphereTargetsDetector(transform.position + mineCollider.center, _explosionRadius)
             );
+
+            _detonationWaiter = new WaitForSeconds(_detonationTime);
         }
 
         private void Update()
@@ -46,15 +52,25 @@ namespace Navigation.Mine
 
         private void StartCountDown()
         {
-            if (_countDownExplosionTimer is not null)
-                return;
+            StartCoroutine(TickTilExplosion());
+        }
 
-            _countDownExplosionTimer = new Timer(_detonationTime, () =>
-            {
-                _explosion.DealDamage();
-                DestroyWithEffect();
-            });
+        private IEnumerator TickTilExplosion()
+        {
+            if (_countDownExplosionTimer is not null)
+                yield break;
+
             _countDownVisualNode.SetActive(true);
+
+            yield return _detonationWaiter;
+
+            Explode();
+        }
+
+        private void Explode()
+        {
+            _explosion.DealDamage();
+            DestroyWithEffect();
         }
 
         private void DestroyWithEffect()
