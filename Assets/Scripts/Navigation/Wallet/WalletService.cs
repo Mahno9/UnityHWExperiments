@@ -27,7 +27,8 @@ namespace Navigation.Wallet
                 return;
             }
 
-            _wallet[type] += amount;
+            if (_wallet.TryAdd(type, amount) == false)
+                _wallet[type] += amount;
 
             OnCurrencyChanged?.Invoke(type, _wallet[type]);
         }

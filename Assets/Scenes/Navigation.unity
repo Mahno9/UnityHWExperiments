@@ -857,7 +857,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &164518320
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2174,6 +2174,7 @@ GameObject:
   - component: {fileID: 339300829}
   - component: {fileID: 339300830}
   - component: {fileID: 339300831}
+  - component: {fileID: 339300832}
   m_Layer: 5
   m_Name: WalletView
   m_TagString: Untagged
@@ -2234,6 +2235,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _view: {fileID: 339300830}
+  _testTriggerInputs: {fileID: 339300832}
+--- !u!114 &339300832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 339300828}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92fec4f55bca44bcb6b487f08b60385f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &345170819 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6603488554207994483, guid: 98f5378049f9b5745a77677f581b32b1,
