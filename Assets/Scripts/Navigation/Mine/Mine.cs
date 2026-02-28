@@ -17,7 +17,7 @@ namespace Navigation.Mine
         [SerializeField] private float _damage;
         [SerializeField] private float _explosionRadius;
 
-        private Timer        _countDownExplosionTimer;
+        private Utils.Timer  _countDownExplosionTimer;
         private DamageDealer _explosion;
 
         private YieldInstruction _detonationWaiter;
