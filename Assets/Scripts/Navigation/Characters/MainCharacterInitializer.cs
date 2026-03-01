@@ -51,7 +51,7 @@ namespace Navigation.Characters
         private void Initialize()
         {
             AgentJumper                agentJumper = new(_jumpSpeed, _navMeshAgent, _jumpCurve, this);
-            NavMeshAgentMover          mover       = new(_navMeshAgent, agentJumper);
+            NavMeshAgentMoverWithJumps          mover       = new(_navMeshAgent, agentJumper);
             AlongMoverDirectionRotator rotator     = new(new DirectionRotator(transform, _rotationSpeed), mover);
 
             _character = gameObject.AddComponent<Character>();

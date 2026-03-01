@@ -13,10 +13,10 @@ namespace Navigation.Characters
     public class Character : MonoBehaviour, IMovable, IJumpable, IDamageable, IHealable, IDying, IHealthChangeBroadcaster
     {
         private Health                     _health;
-        private NavMeshAgentMover          _mover;
+        private NavMeshAgentMoverWithJumps          _mover;
         private AlongMoverDirectionRotator _rotator;
 
-        public void Initialize(Health health, NavMeshAgentMover mover, AlongMoverDirectionRotator rotator)
+        public void Initialize(Health health, NavMeshAgentMoverWithJumps mover, AlongMoverDirectionRotator rotator)
         {
             _health = health;
             _mover = mover;
