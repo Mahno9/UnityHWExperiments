@@ -8,6 +8,7 @@ using UnityEngine.AI;
 
 namespace Delegates.Enemies.Enemy
 {
+    [RequireComponent(typeof(Enemy))]
     public class EnemyInitializer : MonoBehaviour
     {
         [Header("Navigation")]
@@ -33,7 +34,7 @@ namespace Delegates.Enemies.Enemy
             NavMeshAgentMover          mover   = new(_navMeshAgent);
             AlongMoverDirectionRotator rotator = new(new DirectionRotator(transform, _rotationSpeed), mover);
 
-            _enemy = gameObject.AddComponent<Enemy>();
+            _enemy = gameObject.GetComponent<Enemy>();
             _enemy.Initialize(mover, rotator);
 
             _moveController = new BrownianMovementController(_enemy, _newPointRadius, _idleTime);

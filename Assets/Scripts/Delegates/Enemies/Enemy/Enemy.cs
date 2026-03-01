@@ -10,12 +10,13 @@ namespace Delegates.Enemies.Enemy
     {
         private AlongMoverDirectionRotator _rotator;
         private NavMeshAgentMover          _mover;
+        private bool                       _isDead;
 
         public float   MoveSpeed     => _mover.MoveSpeed;
         public Vector3 MoveDirection => _mover.MoveDirection;
         public Vector3 Position      => _mover.Position;
 
-        public bool IsDead() => gameObject.activeSelf == false; // TODO: check this
+        public bool IsDead() => _isDead;
 
         public void Initialize(NavMeshAgentMover mover, AlongMoverDirectionRotator rotator)
         {
@@ -36,6 +37,6 @@ namespace Delegates.Enemies.Enemy
 
         public void SetMovePoint(Vector3 point) => _mover.SetMovePoint(point);
 
-        public void TakeDamage(float damage) => gameObject.SetActive(false);
+        public void TakeDamage(float damage) => _isDead = true;
     }
 }
