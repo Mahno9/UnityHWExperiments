@@ -28,7 +28,7 @@ namespace Delegates.Wallet
 
         public void SetViewActive(bool isActive)
         {
-            _walletRootWidget.SetActive(true);
+            _walletRootWidget.SetActive(isActive);
         }
     }
 }

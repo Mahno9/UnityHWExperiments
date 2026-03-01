@@ -39,6 +39,7 @@ namespace Delegates.Wallet
         {
             foreach (CurrencyType currencyType in Enum.GetValues(typeof(CurrencyType)))
                 _view.OnCurrencyAmountChanged(currencyType, _service.GetAmount(currencyType));
+
             _view.SetViewActive(true);
         }
     }
