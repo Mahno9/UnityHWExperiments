@@ -11,34 +11,48 @@ namespace Navigation.Timer
         private float _timeTotal;
         private float _timeLeft;
 
-        private bool  _isStarted;
+        public event Action<float, float> OnTimerUpdated; // TimeTotal, TimeLeft
+        public event Action OnTimerStarted;
+        public event Action OnTimerStopped;
 
-        public event Action<float, float> OnTimerTicked; // TimeTotal, TimeLeft
+        public bool IsStarted { get; private set; }
 
         public void Update(float deltaTime)
         {
-            if (_isStarted == false)
+            if (IsStarted == false)
                 return;
 
             _timeLeft -= Mathf.Min(deltaTime, _timeLeft);
 
-            OnTimerTicked?.Invoke(_timeTotal, _timeLeft);
+            OnTimerUpdated?.Invoke(_timeTotal, _timeLeft);
 
             if (_timeLeft <= 0)
-                _isStarted = false;
+                StopTimer();
         }
 
-        public void StartTimer(float time)
+        public void StartTimer(float time, bool forceRestart = false)
         {
-            if (_isStarted)
+            if (IsStarted && !forceRestart)
                 return;
 
             _timeTotal = time;
             _timeLeft = time;
 
-            OnTimerTicked?.Invoke(_timeTotal, _timeLeft);
+            OnTimerStarted?.Invoke();
+            OnTimerUpdated?.Invoke(_timeTotal, _timeLeft);
 
-            _isStarted = true;
+            IsStarted = true;
         }
+
+        public void StopTimer()
+        {
+            _timeLeft = 0;
+            IsStarted = false;
+            OnTimerStopped?.Invoke();
+        }
+
+        public void PauseTimer() => IsStarted = false;
+
+        public void ResumeTimer() => IsStarted = true;
     }
 }

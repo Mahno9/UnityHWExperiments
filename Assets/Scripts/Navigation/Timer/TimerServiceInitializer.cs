@@ -16,7 +16,8 @@ namespace Navigation.Timer
 
         private HorizontalDiscreteStatusView _discreteView;
 
-        private TimerService                 _timerService;
+        private TimerService           _timerService;
+        private TimerServiceTestInputs _serviceTestInputs;
 
         private void Awake()
         {
@@ -26,28 +27,46 @@ namespace Navigation.Timer
             _timerSlier.minValue = 0f;
 
             _timerService = new TimerService();
-            _timerService.OnTimerTicked += OnTimerTicked;
+            _timerService.OnTimerUpdated += OnTimerUpdated;
+            _timerService.OnTimerStarted += OnTimerStarted;
+            _timerService.OnTimerStopped += OnTimerStopped;
 
-            _timerService.StartTimer(_timerTime);
+            _serviceTestInputs = new TimerServiceTestInputs(_timerService);
+            OnTimerStopped();
         }
+
 
         private void OnDestroy()
         {
-            _timerService.OnTimerTicked -= OnTimerTicked;
+            _timerService.OnTimerUpdated -= OnTimerUpdated;
+            _timerService.OnTimerStarted -= OnTimerStarted;
+            _timerService.OnTimerStopped -= OnTimerStopped;
         }
 
         private void Update()
         {
             _timerService.Update(Time.deltaTime);
+            _serviceTestInputs.Update(Time.deltaTime);
         }
 
-        private void OnTimerTicked(float maxTime, float currentTime)
+        public void OnTimerStarted()
+        {
+            _timerSlier.gameObject.SetActive(true);
+            _discreteView.SetActive(true);
+        }
+
+        private void OnTimerUpdated(float maxTime, float currentTime)
         {
             _timerSlier.value = currentTime;
             _timerSlier.maxValue = maxTime;
 
-            // Debug.Log($"maxTime: {maxTime}; curTime: {currentTime}; value: {(int)currentTime}");
-            _discreteView.UpdateStatus(currentTime / maxTime);
+            _discreteView.UpdateStatus(maxTime, currentTime);
+        }
+
+        public void OnTimerStopped()
+        {
+            _timerSlier.gameObject.SetActive(false);
+            _discreteView.SetActive(false);
         }
     }
 }

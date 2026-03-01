@@ -32,7 +32,6 @@ namespace Navigation.Timer
             {
                 GameObject newInstance = Object.Instantiate(_statusIconPrefab, _layout.transform);
                 _instances.Add(newInstance);
-                Debug.Log($"instance: {newInstance}");
             }
         }
 
@@ -44,9 +43,13 @@ namespace Navigation.Timer
                 _instances[i].SetActive(i < clampedValue);
         }
 
-        public void UpdateStatus(float value)
+        public void UpdateStatus(float maxTime, float currentTime)
         {
-            float clampedValue = Mathf.Clamp(value, 0, 1);
+            int seconds = (int)maxTime;
+            if (_instances.Count != seconds)
+                InitMaxValue(seconds);
+
+            float clampedValue = Mathf.Clamp(currentTime / maxTime, 0, 1);
             UpdateStatus((int)(Mathf.Ceil(_maxValue * clampedValue)));
         }
 
@@ -56,6 +59,11 @@ namespace Navigation.Timer
                 Object.Destroy(instance);
 
             _instances.Clear();
+        }
+
+        public void SetActive(bool isActive)
+        {
+            _layout.gameObject.SetActive(isActive);
         }
     }
 }
