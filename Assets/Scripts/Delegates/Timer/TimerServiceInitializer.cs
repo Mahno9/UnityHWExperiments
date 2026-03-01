@@ -1,9 +1,7 @@
-using System;
-
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Navigation.Timer
+namespace Delegates.Timer
 {
     public class TimerServiceInitializer : MonoBehaviour
     {

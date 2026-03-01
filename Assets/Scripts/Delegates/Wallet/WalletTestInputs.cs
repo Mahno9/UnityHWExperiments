@@ -4,7 +4,7 @@ using UnityEngine;
 
 using Random = UnityEngine.Random;
 
-namespace Navigation.Wallet
+namespace Delegates.Wallet
 {
     public class WalletTestInputs : MonoBehaviour
     {

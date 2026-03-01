@@ -1,4 +1,4 @@
-namespace Navigation.Wallet
+namespace Delegates.Wallet
 {
     public enum CurrencyType
     {

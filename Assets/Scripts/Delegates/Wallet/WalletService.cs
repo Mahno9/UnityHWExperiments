@@ -1,11 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-using Navigation.Controllers;
-
 using UnityEngine;
 
-namespace Navigation.Wallet
+namespace Delegates.Wallet
 {
     public struct CurrencyTypeValue
     {

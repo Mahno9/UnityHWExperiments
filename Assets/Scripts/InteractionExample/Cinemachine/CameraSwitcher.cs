@@ -3,7 +3,7 @@ using Cinemachine;
 using UnityEngine;
 using UnityEngine.Assertions;
 
-namespace InteractionExample.Cinemachine.Behaviours
+namespace InteractionExample.Cinemachine
 {
     [System.Serializable]
     public struct KeyCameraPair

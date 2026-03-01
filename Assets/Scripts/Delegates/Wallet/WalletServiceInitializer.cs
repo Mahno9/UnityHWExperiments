@@ -2,7 +2,7 @@ using System;
 
 using UnityEngine;
 
-namespace Navigation.Wallet
+namespace Delegates.Wallet
 {
     public class WalletServiceInitializer : MonoBehaviour
     {

@@ -6,7 +6,7 @@ using TMPro;
 
 using UnityEngine;
 
-namespace Navigation.Wallet
+namespace Delegates.Wallet
 {
     [Serializable]
     public struct CurrencyViewPair

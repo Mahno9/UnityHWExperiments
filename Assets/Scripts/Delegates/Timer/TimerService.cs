@@ -4,7 +4,7 @@ using Navigation.Controllers;
 
 using UnityEngine;
 
-namespace Navigation.Timer
+namespace Delegates.Timer
 {
     public class TimerService : IUpdatable
     {
