@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
 
+using Delegates.Enemies.Enemy;
+
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Delegates.Enemies.EnemiesService
 {
     public class EnemiesServiceInitializer : MonoBehaviour
     {
         [SerializeField] private List<Enemy.Enemy> _enemiesPrefabs;
-        [SerializeField] private SpawnArea        _spawnArea;
+        [SerializeField] private AreaEnemySpawner  _spawner;
 
         private EnemiesService           _service;
         private EnemiesServiceTestInputs _testInputs;
@@ -16,13 +19,14 @@ namespace Delegates.Enemies.EnemiesService
         void Awake()
         {
             _service = new EnemiesService();
-            _testInputs = new EnemiesServiceTestInputs(_service, _enemiesPrefabs, _spawnArea, transform);
+            _testInputs = new EnemiesServiceTestInputs(_service, _enemiesPrefabs, _spawner, transform);
         }
 
         private void Update()
         {
             _testInputs.Update(Time.deltaTime);
-            _service.Update(Time.deltaTime);
         }
+
+        public EnemiesService GetService() => _service;
     }
 }

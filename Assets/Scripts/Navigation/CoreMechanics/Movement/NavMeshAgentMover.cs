@@ -1,3 +1,4 @@
+using Navigation.Characters.Interfaces;
 using Navigation.Controllers;
 using Navigation.CoreMechanics.Movement.Interfaces;
 
@@ -6,7 +7,7 @@ using UnityEngine.AI;
 
 namespace Navigation.CoreMechanics.Movement
 {
-    public class NavMeshAgentMover : IUpdatable, IMover
+    public class NavMeshAgentMover : IMover, IMovable
     {
 
         private readonly NavMeshAgent _agent;

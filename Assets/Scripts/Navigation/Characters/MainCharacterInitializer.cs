@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 
+using Delegates.Enemies.Enemy;
+
 using Navigation.Controllers;
 using Navigation.CoreMechanics.Health;
 using Navigation.CoreMechanics.Movement;
@@ -13,17 +15,18 @@ namespace Navigation.Characters
 {
     [RequireComponent(typeof(CharacterView))]
     [RequireComponent(typeof(NavigationEffectSpawner))]
-    public class MainCharacterInitializer : MonoBehaviour
+    public class MainCharacterInitializer : MonoBehaviour, IUpdater
     {
-        [Header("Navigation")]
-        [SerializeField] private NavMeshAgent   _navMeshAgent;
+        [Header("Navigation")] [SerializeField]
+        private NavMeshAgent _navMeshAgent;
+
         [SerializeField] private float          _rotationSpeed;
         [SerializeField] private float          _jumpSpeed;
         [SerializeField] private AnimationCurve _jumpCurve;
         [SerializeField] private string         _groundLayerName = "Ground";
 
-        [Header("Character parameters")]
-        [SerializeField] private float  _maxHealth       = 100;
+        [Header("Character parameters")] [SerializeField]
+        private float _maxHealth = 100;
 
         private Character               _character;
         private NavigationEffectSpawner _effectSpawner;
@@ -44,6 +47,11 @@ namespace Navigation.Characters
             if (_character.IsDead())
                 return;
 
+            Update(Time.deltaTime);
+        }
+
+        public void Update(float deltaTime)
+        {
             foreach (IUpdatable updatable in _updatables)
                 updatable.Update(Time.deltaTime);
         }
@@ -51,7 +59,7 @@ namespace Navigation.Characters
         private void Initialize()
         {
             AgentJumper                agentJumper = new(_jumpSpeed, _navMeshAgent, _jumpCurve, this);
-            NavMeshAgentMoverWithJumps          mover       = new(_navMeshAgent, agentJumper);
+            NavMeshAgentMoverWithJumps mover       = new(_navMeshAgent, agentJumper);
             AlongMoverDirectionRotator rotator     = new(new DirectionRotator(transform, _rotationSpeed), mover);
 
             _character = gameObject.AddComponent<Character>();
@@ -72,7 +80,7 @@ namespace Navigation.Characters
         }
 
 
-        private void AddUpdatable(IUpdatable updatable) => _updatables.Add(updatable);
+        public void AddUpdatable(IUpdatable updatable) => _updatables.Add(updatable);
 
         private NavigationEffectSpawner InitializeEffectSpawner()
         {

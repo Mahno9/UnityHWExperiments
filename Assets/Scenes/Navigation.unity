@@ -1193,6 +1193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 201213919}
   - component: {fileID: 201213918}
+  - component: {fileID: 201213920}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: Untagged
@@ -1216,7 +1217,7 @@ MonoBehaviour:
   - {fileID: 1859601596525394212, guid: f96e0666dd2812e4cb8bb72d14f228aa, type: 3}
   - {fileID: 8886417628388922988, guid: 5ce8765ec67201b49b9287504705e3a7, type: 3}
   - {fileID: 2690463234270965837, guid: a4af1c29f77585f48983f56b7ab45413, type: 3}
-  _spawnArea: {fileID: 898363322}
+  _spawner: {fileID: 201213920}
 --- !u!4 &201213919
 Transform:
   m_ObjectHideFlags: 0
@@ -1233,6 +1234,23 @@ Transform:
   - {fileID: 898363323}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &201213920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201213917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5951893692c4c9da0c200615524ab82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rotationSpeed: 400
+  _newMovePointRadius: 4
+  _idleTime: 2
+  _enemiesServiceInitializer: {fileID: 201213918}
+  _spawnArea: {fileID: 898363322}
 --- !u!1001 &203052866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19831,7 +19849,7 @@ SceneRoots:
   - {fileID: 1772164948}
   - {fileID: 134118656}
   - {fileID: 1209074335}
+  - {fileID: 1811748117}
   - {fileID: 1815577738}
   - {fileID: 1797642727}
-  - {fileID: 1811748117}
   - {fileID: 201213919}

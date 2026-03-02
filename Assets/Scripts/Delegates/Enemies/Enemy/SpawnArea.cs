@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Delegates.Enemies.EnemiesService
+namespace Delegates.Enemies.Enemy
 {
     public class SpawnArea : MonoBehaviour
     {
