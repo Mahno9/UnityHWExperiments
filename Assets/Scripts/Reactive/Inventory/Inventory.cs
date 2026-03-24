@@ -2,44 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
+using UnityEngine;
+using UnityEngine.Assertions;
+
 public class Inventory
 {
-    public List<Item> _items = new();
+    public int CurrentSize => _items.Sum(item => item.Value);
 
-    public int CurrentSize => _items.Sum(item => item.Count);
+    public int MaxSize { get; private set; }
 
-    public int MaxSize;
+    public IReadOnlyDictionary<Item, int> Items => _items;
+
+    private readonly Dictionary<Item, int> _items = new();
 
     public Inventory(List<Item> items, int maxSize)
     {
-        _items = items;
         MaxSize = maxSize;
+        if (items.Any(item => TryAdd(item) == false))
+            Debug.LogWarning($"Only the first {MaxSize} items are placed in inventory from the {items.Count} given items.");
     }
 
-    public void Add(Item item)
+    public bool TryAdd(Item item)
     {
-        if (CurrentSize + item.Count > MaxSize)
-            return;
+        if (CurrentSize + 1 > MaxSize)
+            return false;
 
-        _items.Add(item);
+        _items[item]++;
+
+        return true;
     }
 
     public List<Item> GetItemsBy(string name, int count)
     {
-        _items = new List<Item>();
+        KeyValuePair<Item, int> itemCount = _items.FirstOrDefault(kvItem => kvItem.Key.Name == name);
 
-        for (int i = 0; i < count; i++)
-        {
-            Item item = _items.First(item => item.Name == name);
-            _items.Remove(item);
-        }
+        if (itemCount.Value == 0)
+            return null;
 
-        return _items;
+        int        canGetAmount = Mathf.Min(count, itemCount.Value);
+        List<Item> foundItems   = new(canGetAmount);
+        for (int i = 0; i < canGetAmount; i++)
+            foundItems.Add(itemCount.Key);
+
+        _items[itemCount.Key] -= canGetAmount;
+
+        return foundItems;
     }
 }
 
 public class Item
 {
     public string Name;
-    public int Count;
 }
