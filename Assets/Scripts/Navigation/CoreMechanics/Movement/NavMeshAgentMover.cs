@@ -1,3 +1,4 @@
+using Navigation.Characters.Interfaces;
 using Navigation.Controllers;
 using Navigation.CoreMechanics.Movement.Interfaces;
 
@@ -6,15 +7,14 @@ using UnityEngine.AI;
 
 namespace Navigation.CoreMechanics.Movement
 {
-    public class NavMeshAgentMover : IUpdatable, IMover
+    public class NavMeshAgentMover : IMover, IMovable
     {
-        private readonly NavMeshAgent _agent;
-        private readonly AgentJumper  _agentJumper;
 
-        public NavMeshAgentMover(NavMeshAgent agent, AgentJumper agentJumper)
+        private readonly NavMeshAgent _agent;
+
+        public NavMeshAgentMover(NavMeshAgent agent)
         {
             _agent = agent;
-            _agentJumper = agentJumper;
 
             CurrentTarget = Position;
         }
@@ -49,9 +49,5 @@ namespace Navigation.CoreMechanics.Movement
             offMeshLinkData = default;
             return false;
         }
-
-        public void Jump(OffMeshLinkData offMeshLinkData) => _agentJumper.Jump(offMeshLinkData);
-
-        public bool IsInJumpProcess => _agentJumper.InProcess;
     }
 }
