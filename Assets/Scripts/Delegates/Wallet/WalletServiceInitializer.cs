@@ -10,6 +10,8 @@ namespace Delegates.Wallet
         [SerializeField] private WalletTestInputs _testTriggerInputs;
         private                  WalletService    _service;
 
+        private const int DefaultOldValue = 0;
+
         private void Awake()
         {
             _service = new WalletService();
@@ -22,6 +24,9 @@ namespace Delegates.Wallet
         private void OnDestroy()
         {
             _service.OnCurrencyChanged -= _view.OnCurrencyAmountChanged;
+
+            _testTriggerInputs.OnCurrencyEarn -= _service.Earn;
+            _testTriggerInputs.OnCurrencySpend -= _service.Spend;
         }
 
         private void BindServiceUpdatesToView()
@@ -38,7 +43,7 @@ namespace Delegates.Wallet
         private void PrepareView()
         {
             foreach (CurrencyType currencyType in Enum.GetValues(typeof(CurrencyType)))
-                _view.OnCurrencyAmountChanged(currencyType, _service.GetAmount(currencyType));
+                _view.OnCurrencyAmountChanged(currencyType, DefaultOldValue, _service.GetAmount(currencyType));
 
             _view.SetViewActive(true);
         }

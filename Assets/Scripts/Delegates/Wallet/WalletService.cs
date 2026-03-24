@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 
+using Navigation.Utils;
+
 using UnityEngine;
 
 namespace Delegates.Wallet
@@ -13,9 +15,22 @@ namespace Delegates.Wallet
 
     public class WalletService
     {
-        public event Action<CurrencyType, int> OnCurrencyChanged;
+        public event Action<CurrencyType, int, int> OnCurrencyChanged;
 
-        private readonly Dictionary<CurrencyType, int> _wallet = new();
+        private readonly Dictionary<CurrencyType, ReactiveVariable<int>> _wallet = new();
+
+        public WalletService()
+        {
+            foreach (CurrencyType currencyType in Enum.GetValues(typeof(CurrencyType)))
+            {
+                ReactiveVariable<int> newReactive = new ();
+                _wallet.Add(currencyType, newReactive);
+
+                // Dispose in destructor
+                newReactive.Changed += (oldValue, newValue) =>
+                    OnCurrencyChanged?.Invoke(currencyType, oldValue, newValue);
+            }
+        }
 
         public void Earn(CurrencyType type, int amount)
         {
@@ -25,10 +40,7 @@ namespace Delegates.Wallet
                 return;
             }
 
-            if (_wallet.TryAdd(type, amount) == false)
-                _wallet[type] += amount;
-
-            OnCurrencyChanged?.Invoke(type, _wallet[type]);
+            _wallet[type].Value += amount;
         }
 
         public void Spend(CurrencyType type, int amount)
@@ -39,11 +51,9 @@ namespace Delegates.Wallet
                 return;
             }
 
-            _wallet[type] = Mathf.Max(_wallet[type] - amount, 0);
-
-            OnCurrencyChanged?.Invoke(type, _wallet[type]);
+            _wallet[type].Value = Mathf.Max(_wallet[type].Value - amount, 0);
         }
 
-        public int GetAmount(CurrencyType type) => _wallet.GetValueOrDefault(type);
+        public int GetAmount(CurrencyType type) => _wallet.GetValueOrDefault(type).Value;
     }
 }

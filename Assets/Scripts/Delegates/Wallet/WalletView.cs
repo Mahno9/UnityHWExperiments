@@ -20,7 +20,7 @@ namespace Delegates.Wallet
         [SerializeField] private List<CurrencyViewPair> _currencyDisplays;
         [SerializeField] private GameObject             _walletRootWidget;
 
-        public void OnCurrencyAmountChanged(CurrencyType type, int newAmount)
+        public void OnCurrencyAmountChanged(CurrencyType type, int oldAmount, int newAmount)
         {
             foreach (CurrencyViewPair currencyViewPair in _currencyDisplays.Where(currencyViewPair => currencyViewPair.Type == type))
                 currencyViewPair.View.SetText($"{newAmount}");
