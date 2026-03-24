@@ -25,8 +25,8 @@ namespace Delegates.Timer
             _timerSlier.minValue = 0f;
 
             _timerService = new TimerService();
-            _timerService.OnTimerUpdated += OnTimerUpdated;
             _timerService.OnTimerStarted += OnTimerStarted;
+            _timerService.OnTimerUpdated += OnTimerUpdated;
             _timerService.OnTimerStopped += OnTimerStopped;
 
             _serviceTestInputs = new TimerServiceTestInputs(_timerService);
@@ -36,8 +36,8 @@ namespace Delegates.Timer
 
         private void OnDestroy()
         {
-            _timerService.OnTimerUpdated -= OnTimerUpdated;
             _timerService.OnTimerStarted -= OnTimerStarted;
+            _timerService.OnTimerUpdated -= OnTimerUpdated;
             _timerService.OnTimerStopped -= OnTimerStopped;
         }
 
@@ -47,21 +47,22 @@ namespace Delegates.Timer
             _serviceTestInputs.Update(Time.deltaTime);
         }
 
-        public void OnTimerStarted()
+        private void OnTimerStarted(float timeTotal)
         {
             _timerSlier.gameObject.SetActive(true);
+            _timerSlier.maxValue = timeTotal;
+
             _discreteView.SetActive(true);
         }
 
-        private void OnTimerUpdated(float maxTime, float currentTime)
+        private void OnTimerUpdated(float timeOld, float timeCurrent)
         {
-            _timerSlier.value = currentTime;
-            _timerSlier.maxValue = maxTime;
+            _timerSlier.value = timeCurrent;
 
-            _discreteView.UpdateStatus(maxTime, currentTime);
+            _discreteView.UpdateStatus(timeCurrent);
         }
 
-        public void OnTimerStopped()
+        private void OnTimerStopped()
         {
             _timerSlier.gameObject.SetActive(false);
             _discreteView.SetActive(false);

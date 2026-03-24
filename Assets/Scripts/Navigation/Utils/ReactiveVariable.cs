@@ -2,7 +2,13 @@ using System;
 
 namespace Navigation.Utils
 {
-    public class ReactiveVariable<T> where T : IEquatable<T>
+    public interface IReactiveVariableReadonly<T> where T : IEquatable<T>
+    {
+        public T                  Value { get; }
+        public event Action<T, T> Changed;
+    }
+
+    public class ReactiveVariable<T> : IReactiveVariableReadonly<T> where T : IEquatable<T>
     {
         public event Action<T, T> Changed;
 
@@ -18,6 +24,7 @@ namespace Navigation.Utils
             {
                 T oldValue = _value;
                 _value = value;
+
                 if (_value.Equals(oldValue) == false)
                     Changed?.Invoke(oldValue, _value);
             }

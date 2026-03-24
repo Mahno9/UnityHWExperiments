@@ -35,6 +35,13 @@ namespace Delegates.Timer
             }
         }
 
+        public void SetMaxValue(float maxValue)
+        {
+            int seconds = (int)maxValue;
+            if (_instances.Count != seconds)
+                InitMaxValue(seconds);
+        }
+
         public void UpdateStatus(int value)
         {
             int clampedValue = Mathf.Clamp(value, 0, _maxValue);
@@ -43,13 +50,9 @@ namespace Delegates.Timer
                 _instances[i].SetActive(i < clampedValue);
         }
 
-        public void UpdateStatus(float maxTime, float currentTime)
+        public void UpdateStatus(float currentValue)
         {
-            int seconds = (int)maxTime;
-            if (_instances.Count != seconds)
-                InitMaxValue(seconds);
-
-            float clampedValue = Mathf.Clamp(currentTime / maxTime, 0, 1);
+            float clampedValue = Mathf.Clamp(currentValue / _maxValue, 0, 1);
             UpdateStatus((int)(Mathf.Ceil(_maxValue * clampedValue)));
         }
 
