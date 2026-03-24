@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+using Common.Utils;
+
 namespace Reactive.Enemies.Enemy
 {
     [RequireComponent(typeof(AreaEnemySpawnerFromSettings))]
@@ -15,11 +17,18 @@ namespace Reactive.Enemies.Enemy
         [Serializable]
         private struct EnemySettingsWithCount
         {
-            [Min(0)]             public int           Count;
-            [SerializeReference] public EnemySettings Settings;
+            [Min(0)] public int Count;
+
+            [SerializeReference] [SubclassSelector]
+            public EnemySettings Settings;
         }
 
         private void Awake()
+        {
+            _spawner = GetComponent<AreaEnemySpawnerFromSettings>();
+        }
+
+        private void Start()
         {
             foreach (var enemiesSetting in _enemiesSettings)
                 for (int i = 0; i < enemiesSetting.Count; i++)

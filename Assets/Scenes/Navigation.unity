@@ -12426,7 +12426,7 @@ GameObject:
   - component: {fileID: 1422884446}
   - component: {fileID: 1422884445}
   m_Layer: 0
-  m_Name: Enemies Spawn On Start
+  m_Name: Enemies (Spawn On Start)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12461,8 +12461,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _enemiesSettings:
-  - Count: 0
+  - Count: 3
+    Settings:
+      rid: 6269103595974557703
+  - Count: 2
+    Settings:
+      rid: 6269103595974557704
+  - Count: 1
+    Settings:
+      rid: 6269103595974557702
   _enemiesParent: {fileID: 0}
+  references:
+    version: 2
+    RefIds:
+    - rid: 6269103595974557702
+      type: {class: DragonSettings, ns: Reactive.Enemies.Enemy, asm: Assembly-CSharp}
+      data:
+        Prefab: {fileID: 7712775269189716502, guid: 72940e8cc24387f4c9a9515778d761c0,
+          type: 3}
+        Wisdom: 11
+    - rid: 6269103595974557703
+      type: {class: OrkSettings, ns: Reactive.Enemies.Enemy, asm: Assembly-CSharp}
+      data:
+        Prefab: {fileID: 4909714626603761572, guid: c13d386831946fe4a907cec65c28a66b,
+          type: 3}
+        Strength: 15
+    - rid: 6269103595974557704
+      type: {class: ElfSettings, ns: Reactive.Enemies.Enemy, asm: Assembly-CSharp}
+      data:
+        Prefab: {fileID: 8939986259522068677, guid: 6ab6d7d9be9811b4d8074c7c5a269513,
+          type: 3}
+        Dexterity: 12
 --- !u!114 &1422884446
 MonoBehaviour:
   m_ObjectHideFlags: 0
