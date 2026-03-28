@@ -14,12 +14,9 @@ namespace Delegates.Timer
 
         public event Action<float>  OnTimerStarted; // TimeTotal
 
-        public event Action<float, float> OnTimerUpdated
-        {
-            add => _timeLeft.Changed += value;
-            remove => _timeLeft.Changed -= value;
-        }
-        public event Action         OnTimerStopped;
+        public IReactiveVariableReadonly<float> OnTimerUpdated => _timeLeft;
+
+        public event Action                           OnTimerStopped;
 
         public bool IsStarted { get; private set; }
 

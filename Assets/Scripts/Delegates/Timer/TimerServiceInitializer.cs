@@ -26,7 +26,7 @@ namespace Delegates.Timer
 
             _timerService = new TimerService();
             _timerService.OnTimerStarted += OnTimerStarted;
-            _timerService.OnTimerUpdated += OnTimerUpdated;
+            _timerService.OnTimerUpdated.Changed += OnTimerUpdated;
             _timerService.OnTimerStopped += OnTimerStopped;
 
             _serviceTestInputs = new TimerServiceTestInputs(_timerService);
@@ -37,7 +37,7 @@ namespace Delegates.Timer
         private void OnDestroy()
         {
             _timerService.OnTimerStarted -= OnTimerStarted;
-            _timerService.OnTimerUpdated -= OnTimerUpdated;
+            _timerService.OnTimerUpdated.Changed -= OnTimerUpdated;
             _timerService.OnTimerStopped -= OnTimerStopped;
         }
 

@@ -7,15 +7,9 @@ using UnityEngine;
 
 namespace Delegates.Wallet
 {
-    public struct CurrencyTypeValue
-    {
-        public CurrencyType Type;
-        public int          Value;
-    };
-
     public class WalletService
     {
-        public event Action<CurrencyType, int, int> OnCurrencyChanged;
+        public IReactiveVariableReadonly<int> GetCurrencyReactiveVar(CurrencyType currencyType) => _wallet[currencyType];
 
         private readonly Dictionary<CurrencyType, ReactiveVariable<int>> _wallet = new();
 
@@ -25,10 +19,6 @@ namespace Delegates.Wallet
             {
                 ReactiveVariable<int> newReactive = new ();
                 _wallet.Add(currencyType, newReactive);
-
-                // Dispose in destructor
-                newReactive.Changed += (oldValue, newValue) =>
-                    OnCurrencyChanged?.Invoke(currencyType, oldValue, newValue);
             }
         }
 

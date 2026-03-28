@@ -8,7 +8,7 @@ namespace Reactive.Enemies.Enemy
 {
     public class AreaEnemySpawnerFromSettings : AreaEnemySpawner
     {
-        public Delegates.Enemies.Enemy.Enemy SpawnEnemy<TSettings>(TSettings enemySettings, Transform enemiesParent) where TSettings: EnemySettings
+        public Delegates.Enemies.Enemy.Enemy SpawnEnemy(EnemySettings enemySettings, Transform enemiesParent)
         {
             switch (enemySettings)
             {
