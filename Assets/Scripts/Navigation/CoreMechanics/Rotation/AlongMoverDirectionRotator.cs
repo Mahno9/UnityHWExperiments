@@ -6,23 +6,21 @@ using UnityEngine;
 
 namespace Navigation.CoreMechanics.Rotation
 {
-    public class AlongMoverDirectionRotator : IUpdatable
+    public class AlongMoverDirectionRotator : DirectionRotator
     {
         private readonly IMover     _mover;
-        private readonly IRotatable _rotator;
 
-        public AlongMoverDirectionRotator(IRotatable rotator, IMover mover)
+        public AlongMoverDirectionRotator(Transform transform, float rotationSpeed, IMover mover)
+            : base(transform, rotationSpeed)
         {
             _mover = mover;
-            _rotator = rotator;
         }
 
-        public void Update(float deltaTime)
+        public override void Update(float deltaTime)
         {
             Vector3 lookPoint = _mover.MoveDirection;
-
-            _rotator.SetLookDirection(lookPoint.normalized);
-            _rotator.Update(deltaTime);
+            SetLookDirection(lookPoint.normalized);
+            base.Update(deltaTime);
         }
     }
 }

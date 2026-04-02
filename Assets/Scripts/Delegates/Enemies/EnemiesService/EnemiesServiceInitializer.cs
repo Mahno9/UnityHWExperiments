@@ -25,6 +25,7 @@ namespace Delegates.Enemies.EnemiesService
         private void Update()
         {
             _testInputs.Update(Time.deltaTime);
+            _service.Update(Time.deltaTime);
         }
 
         public EnemiesService GetService() => _service;

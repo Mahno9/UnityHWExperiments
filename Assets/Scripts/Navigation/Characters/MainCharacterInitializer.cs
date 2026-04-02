@@ -60,7 +60,7 @@ namespace Navigation.Characters
         {
             AgentJumper                agentJumper = new(_jumpSpeed, _navMeshAgent, _jumpCurve, this);
             NavMeshAgentMoverWithJumps mover       = new(_navMeshAgent, agentJumper);
-            AlongMoverDirectionRotator rotator     = new(new DirectionRotator(transform, _rotationSpeed), mover);
+            AlongMoverDirectionRotator rotator     = new(transform, _rotationSpeed, mover);
 
             _character = gameObject.AddComponent<Character>();
             _character.Initialize(new Health(_maxHealth), mover, rotator);
@@ -72,6 +72,8 @@ namespace Navigation.Characters
             _moveController = new PointClickWithJumpsController(_character, _jumpController, Camera.main, LayerMask.GetMask(_groundLayerName));
             _moveController.Enable();
             AddUpdatable(_moveController);
+
+            AddUpdatable(_character);
 
             _effectSpawner = InitializeEffectSpawner();
             _moveController.SubscribeOnMovePoints(_effectSpawner);

@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace Navigation.CoreMechanics.Rotation
 {
-    public class DirectionRotator : IRotatable
+    public abstract class DirectionRotator
     {
         private const float Epsilon = 0.05f;
 
         private readonly Transform _transform;
         private          Vector3   _currentLookDirection;
 
-        public DirectionRotator(Transform transform, float rotationSpeed)
+        protected DirectionRotator(Transform transform, float rotationSpeed)
         {
             _transform = transform;
             RotationSpeed = rotationSpeed;
@@ -24,7 +24,7 @@ namespace Navigation.CoreMechanics.Rotation
             _currentLookDirection = newDirection;
         }
 
-        public void Update(float deltaTime)
+        public virtual void Update(float deltaTime)
         {
             if (_currentLookDirection.magnitude < Epsilon)
                 return;

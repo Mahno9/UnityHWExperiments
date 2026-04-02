@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using Navigation.Controllers;
 
+using UnityEngine;
+
 namespace Delegates.Enemies.EnemiesService
 {
     using Enemy = Enemy.Enemy;
@@ -11,6 +13,8 @@ namespace Delegates.Enemies.EnemiesService
     public class EnemiesService: IUpdatable
     {
         private readonly List<Enemy> _enemies = new();
+
+        private readonly List<Enemy> _enemiesToRemove = new();
 
         public int EnemiesCount => _enemies.Count;
 
@@ -22,14 +26,22 @@ namespace Delegates.Enemies.EnemiesService
 
         private void OnEnemyDie(Enemy enemy)
         {
-            _enemies.Remove(enemy);
-            Object.Destroy(enemy.gameObject);
+            _enemiesToRemove.Add(enemy);
         }
 
         public void Update(float deltaTime)
         {
-            foreach (Enemy enemy in _enemies)
-                enemy.Update();
+            ClearDeadEnemies();
+        }
+
+        private void ClearDeadEnemies()
+        {
+            foreach (Enemy enemy in _enemiesToRemove)
+            {
+                _enemies.Remove(enemy);
+                Object.Destroy(enemy.gameObject);
+            }
+            _enemiesToRemove.Clear();
         }
     }
 }

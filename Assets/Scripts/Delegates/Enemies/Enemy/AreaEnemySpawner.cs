@@ -32,7 +32,7 @@ namespace Delegates.Enemies.Enemy
 
             NavMeshAgent               navMeshAgent   = newEnemy.GetComponent<NavMeshAgent>();
             NavMeshAgentMover          mover          = new(navMeshAgent);
-            AlongMoverDirectionRotator rotator        = new(new DirectionRotator(newEnemy.transform, _rotationSpeed), mover);
+            AlongMoverDirectionRotator rotator        = new(newEnemy.transform, _rotationSpeed, mover);
             BrownianMovementController moveController = new(mover, _newMovePointRadius, _idleTime);
             moveController.Enable();
 
