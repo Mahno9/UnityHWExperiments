@@ -48,7 +48,7 @@ namespace Delegates.Wallet
         {
             foreach (CurrencyViewData currencyViewData in _currencyDisplays)
                 _service.GetCurrencyReactiveVar(currencyViewData.Type).Changed -= currencyViewData.Updater;
-            
+
             _service = null;
         }
 

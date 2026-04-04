@@ -3,7 +3,7 @@
 
 #include "UnityStandardConfig.cginc"
 
-#include "Packages/com.adcimon.mdx-importer/ShaderLibrary/MdxStandardCore.cginc"
+#include "Assets/Imports/com.adcimon.mdx-importer-master/ShaderLibrary/MdxStandardCore.cginc"
 VertexOutputForwardBase vertBase (VertexInput v) { return vertForwardBase(v); }
 VertexOutputForwardAdd vertAdd (VertexInput v) { return vertForwardAdd(v); }
 half4 fragBase (VertexOutputForwardBase i) : SV_Target { return fragForwardBaseInternal(i); }

@@ -18,7 +18,7 @@ namespace MiniGame
         };
 
         private readonly IMovable _movable;
-        private readonly float               _moveSpeed;
+        private readonly float    _moveSpeed;
 
         public ArrowsMoveController(IMovable movable, float moveSpeed)
         {
@@ -35,7 +35,7 @@ namespace MiniGame
         private Vector3 ProcessInput()
         {
             return _keyDirections
-                .Where(keyDirection => Input.GetKeyDown((KeyCode)keyDirection.Key))
+                .Where(keyDirection => Input.GetKey(keyDirection.Key))
                 .Aggregate<KeyValuePair<KeyCode, Vector3>, Vector3>(default, (current, keyDirection) => current + keyDirection.Value)
                 .normalized;
         }
