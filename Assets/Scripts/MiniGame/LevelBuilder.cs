@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.AI.Navigation;
 
 namespace MiniGame
 {
@@ -7,7 +8,9 @@ namespace MiniGame
         [SerializeField] private GameObject _floorPrefab;
         [SerializeField] private GameObject _wallPrefab;
         [SerializeField] private Transform _levelRoot;
+        [SerializeField] private NavMeshSurface _navMeshSurface;
 
+        // AI Generated
         public void BuildLevelBox(int width, int height)
         {
             if (_floorPrefab is null || _wallPrefab is null || _levelRoot is null) return;
@@ -52,7 +55,7 @@ namespace MiniGame
                 }
 
                 float localPosX = xMin + currentX + wallLength / 2f;
-                
+
                 // Bottom
                 GameObject wallBottom = Instantiate(_wallPrefab, _levelRoot);
                 wallBottom.transform.localPosition = new Vector3(localPosX, 0, zMin);
@@ -76,7 +79,7 @@ namespace MiniGame
                 }
 
                 float localPosZ = zMin + currentZ + wallLength / 2f;
-                
+
                 // Left
                 GameObject wallLeft = Instantiate(_wallPrefab, _levelRoot);
                 wallLeft.transform.localPosition = new Vector3(xMin, 0, localPosZ);
@@ -88,6 +91,11 @@ namespace MiniGame
                 wallRight.transform.localRotation = Quaternion.Euler(0, 270, 0);
 
                 if (currentZ + wallLength >= totalHeight) break;
+            }
+
+            if (_navMeshSurface is not null)
+            {
+                _navMeshSurface.BuildNavMesh();
             }
         }
 

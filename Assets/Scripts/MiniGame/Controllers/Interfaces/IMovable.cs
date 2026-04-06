@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace MiniGame
 {
-    public interface IMovable
+    public interface ISimpleMovable
     {
         void Move(Vector3 direction);
     }

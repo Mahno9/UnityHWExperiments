@@ -1,11 +1,15 @@
 using Cinemachine;
 
+using Delegates.Enemies.Controllers;
+
 using MiniGame.Characters.Behaviours;
 using MiniGame.Configs;
 
+using Navigation.CoreMechanics.Movement;
 using Navigation.CoreMechanics.Rotation;
 
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace MiniGame.Characters
 {
@@ -18,11 +22,30 @@ namespace MiniGame.Characters
             _updaterService = updaterService;
         }
 
-        public MainCharacter.MainCharacter CreateMainCharacter(MainCharacterConfig config, Vector3 position, CinemachineVirtualCamera camera)
+        public EnemyCharacter CreateEnemyCharacter(EnemyCharacterConfig config, Transform spawnPoint)
         {
-            MainCharacterBeh characterObject = Object.Instantiate(config.Prefab, position, config.Prefab.transform.rotation);
+            EnemyCharacterBeh characterObject = Object.Instantiate(config.Prefab, spawnPoint.position, spawnPoint.rotation);
 
-            // TODO: move to prefab too
+            NavMeshAgent navMeshAgent = characterObject.GetComponent<NavMeshAgent>();
+            navMeshAgent.speed = config.MoveSpeed;
+            NavMeshAgentMover mover = new(navMeshAgent);
+
+            AlongMoverDirectionRotator rotator = new(characterObject.transform, config.RotationSpeed, mover);
+
+            EnemyCharacter character = new(mover, rotator, config.StartHealth);
+            _updaterService.Add(character);
+
+            BrownianMovementController movementController = new(character, config.NewPointRadius, config.IdleTime);
+            character.AddController(movementController);
+
+            return character;
+        }
+
+        public MainCharacter CreateMainCharacter(MainCharacterConfig config, Transform spawnPoint)
+        {
+            MainCharacterBeh characterObject = Object.Instantiate(config.Prefab, spawnPoint.position, spawnPoint.rotation);
+
+            CinemachineVirtualCamera camera = Object.Instantiate(config.VirtualCamera);
             camera.LookAt = characterObject.transform;
             camera.Follow = characterObject.transform;
 
@@ -30,17 +53,16 @@ namespace MiniGame.Characters
 
             CharacterController characterController = characterObject.GetComponent<CharacterController>();
 
-            MainCharacter.MainCharacter character = new(characterController, directionRotator, config.StartHealth);
+            MainCharacter character = new(characterController, directionRotator, config.StartHealth);
 
             LookAtPointerController rotationController = new(character);
             rotationController.Enable();
-            ArrowsMoveController    moveController     = new(character, config.MoveSpeed);
+            ArrowsMoveController moveController = new(character, config.MoveSpeed);
             moveController.Enable();
 
-            _updaterService.Add(rotationController);
-            _updaterService.Add(moveController);
+            character.AddController(rotationController);
+            character.AddController(moveController);
 
-            // Add after controllers to process their input
             _updaterService.Add(character);
 
             return character;

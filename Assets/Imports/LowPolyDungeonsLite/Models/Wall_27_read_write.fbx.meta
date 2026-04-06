@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 542f964f9d702f74d949482dfe0e0e8f
+guid: 026b970cfe5e0454cbb2d5c91a09e318
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable:
@@ -11,7 +11,7 @@ ModelImporter:
     second: //RootNode
   - first:
       21: 2100000
-    second: Dungeon_Mat_01
+    second: Dungeon_Mat_01.014
   - first:
       23: 2300000
     second: //RootNode
@@ -20,7 +20,7 @@ ModelImporter:
     second: //RootNode
   - first:
       43: 4300000
-    second: Ground_01
+    second: Wall_27
   externalObjects: {}
   materials:
     materialImportMode: 0
@@ -50,7 +50,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -85,7 +85,7 @@ ModelImporter:
     secondaryUVMinLightmapResolution: 40
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
     strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60

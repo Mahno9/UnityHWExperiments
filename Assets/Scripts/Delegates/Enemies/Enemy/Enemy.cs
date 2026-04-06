@@ -54,9 +54,9 @@ namespace Delegates.Enemies.Enemy
 
         public void Update(float deltaTime)
         {
-            _mover.Update(Time.deltaTime);
-            _rotator.Update(Time.deltaTime);
-            _moveController.Update(Time.deltaTime);
+            _moveController.Update(deltaTime);
+
+            _rotator.Update(deltaTime);
 
             TryToDie();
         }

@@ -7,18 +7,22 @@ using MiniGame.Configs;
 
 using Navigation.CoreMechanics.Rotation;
 
+using Unity.AI.Navigation;
+
 using UnityEngine;
 
 namespace MiniGame
 {
     public class Bootstrap : MonoBehaviour
     {
-        [SerializeField] private LevelBuilder             _levelBuilder;
-        [SerializeField] private GameObject               _spawnPoint;
-        [SerializeField] private CinemachineVirtualCamera _camera;
-        [SerializeField] private MainCharacterConfig      _mainCharConfig;
+        [SerializeField] private LevelBuilder         _levelBuilder;
+        [SerializeField] private GameObject           _spawnPoint;
+        [SerializeField] private MainCharacterConfig  _mainCharConfig;
 
-        private UpdaterService _updaterService;
+        [SerializeField] private GameObject           _enemySpawnPoint;
+        [SerializeField] private EnemyCharacterConfig _enemyCharConfig;
+
+        private                  UpdaterService       _updaterService;
 
         private void Awake()
         {
@@ -38,7 +42,9 @@ namespace MiniGame
             _levelBuilder.BuildLevelBox(10, 3);
 
             // Spawn
-            charactersFactory.CreateMainCharacter(_mainCharConfig, _spawnPoint.transform.position, _camera);
+            charactersFactory.CreateMainCharacter(_mainCharConfig, _spawnPoint.transform);
+
+            charactersFactory.CreateEnemyCharacter(_enemyCharConfig, _enemySpawnPoint.transform);
 
             yield return null;
         }

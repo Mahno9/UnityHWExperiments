@@ -17,10 +17,10 @@ namespace MiniGame
             { KeyCode.S, Vector3.back },
         };
 
-        private readonly IMovable _movable;
+        private readonly ISimpleMovable _movable;
         private readonly float    _moveSpeed;
 
-        public ArrowsMoveController(IMovable movable, float moveSpeed)
+        public ArrowsMoveController(ISimpleMovable movable, float moveSpeed)
         {
             _movable = movable;
             _moveSpeed = moveSpeed;

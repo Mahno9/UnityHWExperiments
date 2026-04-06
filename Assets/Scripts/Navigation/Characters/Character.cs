@@ -30,7 +30,6 @@ namespace Navigation.Characters
 
         public void Update(float deltaTime)
         {
-            _mover?.Update(Time.deltaTime);
             _rotator?.Update(Time.deltaTime);
         }
 

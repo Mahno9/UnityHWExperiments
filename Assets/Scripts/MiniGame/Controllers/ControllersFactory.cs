@@ -11,7 +11,7 @@ namespace MiniGame
             _updaterService = updaterService;
         }
 
-        public ArrowsMoveController GetArrowsMoveController(IMovable movable, float moveSpeed)
+        public ArrowsMoveController GetArrowsMoveController(ISimpleMovable movable, float moveSpeed)
         {
             var controller = new ArrowsMoveController(movable, moveSpeed);
             _updaterService.Add(controller);

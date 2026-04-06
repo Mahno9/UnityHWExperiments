@@ -19,7 +19,7 @@ namespace Navigation.CoreMechanics.Movement
             CurrentTarget = Position;
         }
 
-        public Vector3 CurrentTarget { get; private set; }
+        private Vector3 CurrentTarget { get; set; }
 
         public float MoveSpeed => _agent.velocity.magnitude;
 
@@ -27,16 +27,11 @@ namespace Navigation.CoreMechanics.Movement
 
         public Vector3 Position => _agent.transform.position;
 
-        public void Update(float deltaTime)
-        {
-            _agent.SetDestination(CurrentTarget);
-        }
-
         public void SetMovePoint(Vector3 point)
         {
             CurrentTarget = point;
+            _agent.SetDestination(CurrentTarget);
         }
-
 
         public bool IsOnNavMeshLink(out OffMeshLinkData offMeshLinkData)
         {
