@@ -11,9 +11,11 @@ namespace MiniGame
         [SerializeField] private NavMeshSurface _navMeshSurface;
 
         // AI Generated
-        public void BuildLevelBox(int width, int height)
+        public Level BuildLevelBox(int width, int height)
         {
-            if (_floorPrefab is null || _wallPrefab is null || _levelRoot is null) return;
+            if (_floorPrefab is null || _wallPrefab is null || _levelRoot is null) return null;
+
+            Level level = new();
 
             Vector3 floorSize = GetPrefabSize(_floorPrefab);
             Vector3 wallSize = GetPrefabSize(_wallPrefab);
@@ -36,6 +38,7 @@ namespace MiniGame
                     GameObject floor = Instantiate(_floorPrefab, _levelRoot);
                     floor.transform.localPosition = new Vector3(localX, 0, localZ);
                     floor.transform.localRotation = Quaternion.identity;
+                    level.AddFloorTile(floor.transform);
                 }
             }
 
@@ -97,6 +100,8 @@ namespace MiniGame
             {
                 _navMeshSurface.BuildNavMesh();
             }
+
+            return level;
         }
 
         private Vector3 GetPrefabSize(GameObject prefab)

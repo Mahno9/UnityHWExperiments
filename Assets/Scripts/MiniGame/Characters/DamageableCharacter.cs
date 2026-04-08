@@ -5,7 +5,7 @@ using Navigation.Controllers;
 
 namespace MiniGame.Characters
 {
-    public abstract class DamageableCharacter : CharacterBase, IDamageable, IDying
+    public abstract class DamageableCharacter : ControllersUpdater, IDamageable, IDying
     {
         public IReactiveVariableReadonly<float> Health => _health;
         public IReactiveVariableReadonly<bool>  IsDead => _isDead;

@@ -4,11 +4,11 @@ using Navigation.Controllers;
 
 namespace MiniGame.Characters
 {
-    public class CharacterBase : IUpdatable
+    public class ControllersUpdater : IUpdatable
     {
         private readonly List<ControllerBase> _controllers;
 
-        protected CharacterBase(params ControllerBase[] controllers) => _controllers = new List<ControllerBase>(controllers);
+        protected ControllersUpdater(params ControllerBase[] controllers) => _controllers = new List<ControllerBase>(controllers);
 
         public void AddController(ControllerBase controller)
         {

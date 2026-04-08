@@ -22,7 +22,7 @@ namespace MiniGame.Characters
             _updaterService = updaterService;
         }
 
-        public EnemyCharacter CreateEnemyCharacter(EnemyCharacterConfig config, Transform spawnPoint)
+        public EnemyCharacter CreateEnemyCharacter(EnemyCharacterConfig config, Pose spawnPoint)
         {
             EnemyCharacterBeh characterObject = Object.Instantiate(config.Prefab, spawnPoint.position, spawnPoint.rotation);
 
