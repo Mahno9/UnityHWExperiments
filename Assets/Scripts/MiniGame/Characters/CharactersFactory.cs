@@ -2,7 +2,6 @@ using Cinemachine;
 
 using Delegates.Enemies.Controllers;
 
-using MiniGame.Characters.Behaviours;
 using MiniGame.Configs;
 
 using Navigation.CoreMechanics.Movement;
@@ -15,55 +14,51 @@ namespace MiniGame.Characters
 {
     public class CharactersFactory
     {
-        private readonly UpdaterService _updaterService;
+        private readonly UpdaterService            _updaterService;
+        private readonly ControllersUpdaterService _controllersUpdaterService;
 
-        public CharactersFactory(UpdaterService updaterService)
+        public CharactersFactory(UpdaterService updaterService, ControllersUpdaterService controllersUpdaterService)
         {
-            _updaterService = updaterService;
+            _updaterService            = updaterService;
+            _controllersUpdaterService = controllersUpdaterService;
         }
 
         public EnemyCharacter CreateEnemyCharacter(EnemyCharacterConfig config, Pose spawnPoint)
         {
-            EnemyCharacterBeh characterObject = Object.Instantiate(config.Prefab, spawnPoint.position, spawnPoint.rotation);
+            EnemyCharacter character = Object.Instantiate(config.Prefab, spawnPoint.position, spawnPoint.rotation);
 
-            NavMeshAgent navMeshAgent = characterObject.GetComponent<NavMeshAgent>();
+            NavMeshAgent navMeshAgent = character.GetComponent<NavMeshAgent>();
             navMeshAgent.speed = config.MoveSpeed;
             NavMeshAgentMover mover = new(navMeshAgent);
 
-            AlongMoverDirectionRotator rotator = new(characterObject.transform, config.RotationSpeed, mover);
+            AlongMoverDirectionRotator rotator = new(character.transform, config.RotationSpeed, mover);
 
-            EnemyCharacter character = new(mover, rotator, config.StartHealth);
-            _updaterService.Add(character);
+            character.Initialize(mover, rotator, config.StartHealth);
 
             BrownianMovementController movementController = new(character, config.NewPointRadius, config.IdleTime);
-            character.AddController(movementController);
+            _controllersUpdaterService.Add(movementController, () => character.IsDestroyed);
 
             return character;
         }
 
         public MainCharacter CreateMainCharacter(MainCharacterConfig config, Transform spawnPoint)
         {
-            MainCharacterBeh characterObject = Object.Instantiate(config.Prefab, spawnPoint.position, spawnPoint.rotation);
+            MainCharacter character = Object.Instantiate(config.Prefab, spawnPoint.position, spawnPoint.rotation);
 
             CinemachineVirtualCamera camera = Object.Instantiate(config.VirtualCamera);
-            camera.LookAt = characterObject.transform;
-            camera.Follow = characterObject.transform;
+            camera.LookAt = character.transform;
+            camera.Follow = character.transform;
 
-            DirectionRotator directionRotator = new(characterObject.transform, config.RotationSpeed);
+            DirectionRotator  directionRotator    = new(character.transform, config.RotationSpeed);
+            CharacterController characterController = character.GetComponent<CharacterController>();
 
-            CharacterController characterController = characterObject.GetComponent<CharacterController>();
-
-            MainCharacter character = new(characterController, directionRotator, config.StartHealth);
+            character.Initialize(characterController, directionRotator, config.StartHealth);
 
             LookAtPointerController rotationController = new(character);
-            rotationController.Enable();
-            ArrowsMoveController moveController = new(character, config.MoveSpeed);
-            moveController.Enable();
+            ArrowsMoveController    moveController     = new(character, config.MoveSpeed);
 
-            character.AddController(rotationController);
-            character.AddController(moveController);
-
-            _updaterService.Add(character);
+            _controllersUpdaterService.Add(rotationController, () => character.IsDestroyed);
+            _controllersUpdaterService.Add(moveController, () => character.IsDestroyed);
 
             return character;
         }

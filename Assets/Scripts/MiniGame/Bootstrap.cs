@@ -36,7 +36,10 @@ namespace MiniGame
         {
             _updaterService = new UpdaterService();
 
-            CharactersFactory charactersFactory = new(_updaterService);
+            ControllersUpdaterService controllersUpdaterService = new();
+            _updaterService.Add(controllersUpdaterService);
+
+            CharactersFactory charactersFactory = new(_updaterService, controllersUpdaterService);
 
             // Load resources
 

@@ -1,5 +1,7 @@
 using System;
 
+using Common.Utils;
+
 using Navigation.Characters.Interfaces;
 using Navigation.Controllers;
 using Navigation.CoreMechanics.Rotation;
@@ -9,7 +11,8 @@ using UnityEngine;
 
 namespace MiniGame.Characters
 {
-    public class MainCharacter : ControllersUpdater, ISimpleMovable, IRotatableInPosition, IDamageable, IDying
+    [RequireComponent(typeof(CharacterController))]
+    public class MainCharacter : MonoDestroyable, ISimpleMovable, IRotatableInPosition, IDamageable, IDying
     {
         public IReactiveVariableReadonly<float> Health => _health;
         public IReactiveVariableReadonly<bool>  IsDead => _isDead;
@@ -17,12 +20,12 @@ namespace MiniGame.Characters
         public Vector3 Position      => _characterController.transform.position;
         public float   RotationSpeed => _rotator.RotationSpeed;
 
-        private readonly ReactiveVariable<float> _health;
-        private readonly ReactiveVariable<bool>  _isDead;
-        private readonly CharacterController     _characterController;
-        private readonly DirectionRotator        _rotator;
+        private ReactiveVariable<float> _health;
+        private ReactiveVariable<bool>  _isDead;
+        private CharacterController     _characterController;
+        private DirectionRotator        _rotator;
 
-        public MainCharacter(CharacterController characterController, DirectionRotator rotator, float health, params ControllerBase[] controllers) : base(controllers)
+        public void Initialize(CharacterController characterController, DirectionRotator rotator, float health)
         {
             _characterController = characterController;
             _rotator             = rotator;
@@ -30,12 +33,9 @@ namespace MiniGame.Characters
             _isDead              = new ReactiveVariable<bool>(false);
         }
 
-        public override void Update(float deltaTime)
+        public void Update()
         {
-            base.Update(deltaTime);
-
-            // _characterController updates just after move
-            _rotator.Update(deltaTime);
+            _rotator.Update(Time.deltaTime);
         }
 
         public virtual void TakeDamage(float damage)

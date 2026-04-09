@@ -1,6 +1,6 @@
 using System;
 
-using Delegates.Enemies.Controllers;
+using Common.Utils;
 
 using Navigation.Characters.Interfaces;
 using Navigation.Controllers;
@@ -9,10 +9,12 @@ using Navigation.CoreMechanics.Rotation;
 using Navigation.Utils;
 
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace MiniGame.Characters
 {
-    public class EnemyCharacter : ControllersUpdater, IMovable, IDamageable, IDying
+    [RequireComponent(typeof(NavMeshAgent))]
+    public class EnemyCharacter : MonoDestroyable, IMovable, IDamageable, IDying
     {
         public IReactiveVariableReadonly<float> Health => _health;
         public IReactiveVariableReadonly<bool>  IsDead => _isDead;
@@ -20,12 +22,12 @@ namespace MiniGame.Characters
         public float   MoveSpeed => _mover.MoveSpeed;
         public Vector3 Position  => _mover.Position;
 
-        private readonly ReactiveVariable<float>    _health;
-        private readonly ReactiveVariable<bool>     _isDead;
-        private readonly AlongMoverDirectionRotator _rotator;
-        private readonly NavMeshAgentMover          _mover;
+        private AlongMoverDirectionRotator _rotator;
+        private NavMeshAgentMover          _mover;
+        private ReactiveVariable<float>    _health;
+        private ReactiveVariable<bool>     _isDead;
 
-        public EnemyCharacter(NavMeshAgentMover mover, AlongMoverDirectionRotator rotator, float startHealth, params ControllerBase[] controllers) : base(controllers)
+        public void Initialize(NavMeshAgentMover mover, AlongMoverDirectionRotator rotator, float startHealth)
         {
             _mover   = mover;
             _rotator = rotator;
@@ -33,11 +35,9 @@ namespace MiniGame.Characters
             _isDead  = new ReactiveVariable<bool>(false);
         }
 
-        public override void Update(float deltaTime)
+        public void Update()
         {
-            base.Update(deltaTime);
-
-            _rotator.Update(deltaTime);
+            _rotator.Update(Time.deltaTime);
         }
 
         public virtual void TakeDamage(float damage)

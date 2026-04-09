@@ -1,8 +1,6 @@
-using System;
-
 using Cinemachine;
 
-using MiniGame.Characters.Behaviours;
+using MiniGame.Characters;
 
 using UnityEngine;
 
@@ -11,7 +9,7 @@ namespace MiniGame.Configs
     [CreateAssetMenu(fileName = "MainCharacterConfig", menuName = "Configs/Gameplay/MainCharacterConfig", order = 0)]
     public class MainCharacterConfig : ScriptableObject
     {
-        [field: SerializeField]         public MainCharacterBeh         Prefab        { get; private set; }
+        [field: SerializeField]         public MainCharacter            Prefab        { get; private set; }
         [field: SerializeField]         public CinemachineVirtualCamera VirtualCamera { get; private set; }
         [field: SerializeField, Min(0)] public float                    MoveSpeed     { get; private set; }
         [field: SerializeField, Min(0)] public float                    RotationSpeed { get; private set; }
