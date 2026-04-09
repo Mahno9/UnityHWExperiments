@@ -25,12 +25,16 @@ namespace MiniGame.Characters
         private CharacterController     _characterController;
         private DirectionRotator        _rotator;
 
+        private void Awake() => enabled = false;
+
         public void Initialize(CharacterController characterController, DirectionRotator rotator, float health)
         {
             _characterController = characterController;
             _rotator             = rotator;
             _health              = new ReactiveVariable<float>(health);
             _isDead              = new ReactiveVariable<bool>(false);
+
+            enabled = true;
         }
 
         public void Update()
@@ -38,7 +42,7 @@ namespace MiniGame.Characters
             _rotator.Update(Time.deltaTime);
         }
 
-        public virtual void TakeDamage(float damage)
+        public void TakeDamage(float damage)
         {
             if (_isDead.Value) return;
 
