@@ -1,6 +1,6 @@
 namespace MiniGame
 {
-    public class GameCycle
+    public class GameplayCycle
     {
         
     }
