@@ -3,7 +3,7 @@ using Unity.AI.Navigation;
 
 namespace MiniGame
 {
-    public class LevelBuilder : MonoBehaviour
+    public class LevelBuilder : MonoBehaviour 
     {
         [SerializeField] private GameObject _floorPrefab;
         [SerializeField] private GameObject _wallPrefab;
