@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26041d005d324da7bdb4b1638a5ceb0f, type: 3}
   m_Name: EnemyCharacterConfig
   m_EditorClassIdentifier: 
-  <Prefab>k__BackingField: {fileID: 5356007379565621688, guid: 8743b5b942ce8524784d69f061d9cbaa,
+  <Prefab>k__BackingField: {fileID: 5586210638530130088, guid: 8743b5b942ce8524784d69f061d9cbaa,
     type: 3}
   <MoveSpeed>k__BackingField: 3
   <RotationSpeed>k__BackingField: 400

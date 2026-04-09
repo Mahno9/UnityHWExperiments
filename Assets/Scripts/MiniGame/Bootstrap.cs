@@ -18,10 +18,8 @@ namespace MiniGame
     {
         [SerializeField] private LevelBuilder        _levelBuilder;
         [SerializeField] private GameObject          _spawnPoint;
-        [SerializeField] private MainCharacterConfig _mainCharConfig;
 
         [SerializeField] private GameObject           _enemySpawnPoint;
-        [SerializeField] private EnemyCharacterConfig _enemyCharConfig;
 
         private UpdaterService _updaterService;
         private EnemySpawner   _spawner;
@@ -42,14 +40,16 @@ namespace MiniGame
             CharactersFactory charactersFactory = new(_updaterService, controllersUpdaterService);
 
             // Load resources
+            MainCharacterConfig mainCharacterConfig = Resources.Load<MainCharacterConfig>("MiniGame/MainCharacterConfig");
+            EnemyCharacterConfig enemyCharacterConfig = Resources.Load<EnemyCharacterConfig>("MiniGame/EnemyCharacterConfig");
 
             // Load level
             Level level = _levelBuilder.BuildLevelBox(4, 3);
 
             // Spawn
-            charactersFactory.CreateMainCharacter(_mainCharConfig, _spawnPoint.transform);
+            charactersFactory.CreateMainCharacter(mainCharacterConfig, _spawnPoint.transform);
 
-            _spawner = new EnemySpawner(charactersFactory, _enemyCharConfig, Enumerable.Range(0, 10).Select(_ => level.GetRandomSpawnPoint()).ToArray());
+            _spawner = new EnemySpawner(charactersFactory, enemyCharacterConfig, Enumerable.Range(0, 10).Select(_ => level.GetRandomSpawnPoint()).ToArray());
             _spawner.Spawn(7);
 
             yield return null;

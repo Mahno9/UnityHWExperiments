@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d168074485d14ffcb6dd62230622b1f5, type: 3}
   m_Name: MainCharacterConfig
   m_EditorClassIdentifier: 
-  <Prefab>k__BackingField: {fileID: 3938489820180423690, guid: aaebc8ccaf4cce043b05f5b6b0eac0a0,
+  <Prefab>k__BackingField: {fileID: 2911407406688688418, guid: aaebc8ccaf4cce043b05f5b6b0eac0a0,
     type: 3}
   <VirtualCamera>k__BackingField: {fileID: 2198305382356539306, guid: 50be0904ba68b004bb62e91c00703935,
     type: 3}
