@@ -10,13 +10,13 @@ namespace Delegates.Timer
     public class TimerService : IUpdatable
     {
         private          float                   _timeTotal;
-        private readonly ReactiveVariable<float> _timeLeft = new ();
+        private readonly ReactiveVariable<float> _timeLeft = new();
 
-        public event Action<float>  OnTimerStarted; // TimeTotal
+        public event Action<float> OnTimerStarted; // TimeTotal
 
         public IReactiveVariableReadonly<float> OnTimerUpdated => _timeLeft;
 
-        public event Action                           OnTimerStopped;
+        public event Action OnTimerStopped;
 
         public bool IsStarted { get; private set; }
 

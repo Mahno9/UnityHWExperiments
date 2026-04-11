@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 using Delegates.Enemies.Enemy;
 
@@ -10,31 +11,25 @@ namespace MiniGame.Characters
 {
     public class EnemySpawner
     {
-        private readonly Pose[]          _spawnPoints;
         private readonly CharactersFactory    _charFactory;
         private readonly EnemyCharacterConfig _config;
 
         public EnemySpawner(CharactersFactory charFactory, EnemyCharacterConfig config, params Pose[] spawnPoints)
         {
-            _spawnPoints = spawnPoints;
             _charFactory = charFactory;
             _config = config;
         }
 
-        public List<EnemyCharacter> Spawn(int amount)
+        public List<EnemyCharacter> Spawn(params Pose[] spawnPoints)
         {
-            Shuffle(_spawnPoints);
+            Shuffle(spawnPoints);
 
-            int                  pointsCount = _spawnPoints.Length;
-            List<EnemyCharacter> enemies     = new();
+            int                  pointsCount = spawnPoints.Length;
 
-            for (int i = 0; i < amount; i++)
-            {
-                Pose spawnPosition = _spawnPoints[i % pointsCount];
-                enemies.Add(_charFactory.CreateEnemyCharacter(_config, spawnPosition));
-            }
-
-            return enemies;
+            return spawnPoints
+                .Select((t, i) => spawnPoints[i % pointsCount])
+                .Select(spawnPosition => _charFactory.CreateEnemyCharacter(_config, spawnPosition))
+                .ToList();
         }
 
         private static void Shuffle(Pose[] array)

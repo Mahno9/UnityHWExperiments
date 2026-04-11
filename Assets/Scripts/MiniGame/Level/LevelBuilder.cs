@@ -15,13 +15,13 @@ namespace MiniGame
         {
             if (_floorPrefab is null || _wallPrefab is null || _levelRoot is null) return null;
 
-            Level level = new();
-
             Vector3 floorSize = GetPrefabSize(_floorPrefab);
-            Vector3 wallSize = GetPrefabSize(_wallPrefab);
+            Vector3 wallSize  = GetPrefabSize(_wallPrefab);
 
             float cellSizeX = floorSize.x;
             float cellSizeZ = floorSize.z;
+
+            Level level = new(new Vector2(cellSizeX, cellSizeZ));
             float wallLength = wallSize.x;
 
             float totalWidth = width * cellSizeX;
@@ -96,10 +96,7 @@ namespace MiniGame
                 if (currentZ + wallLength >= totalHeight) break;
             }
 
-            if (_navMeshSurface is not null)
-            {
-                _navMeshSurface.BuildNavMesh();
-            }
+            _navMeshSurface?.BuildNavMesh();
 
             return level;
         }

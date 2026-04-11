@@ -1,0 +1,25 @@
+using Common.Utils;
+
+using MiniGame.LoseConditions;
+using MiniGame.WinConditions;
+
+using UnityEngine;
+
+namespace MiniGame.Configs
+{
+    [CreateAssetMenu(fileName = "LevelConfig", menuName = "Configs/Gameplay/LevelConfig", order = 0)]
+    public class LevelConfig : ScriptableObject
+    {
+        [field: SerializeField] public int   SpawnPointsCount                { get; private set; }
+        [field: SerializeField] public int   StartEnemiesCount               { get; private set; }
+        [field: SerializeField] public float EnemiesSpawnDelay               { get; private set; }
+        [field: SerializeField] public float MainCharacterSpawnExcludeRadius { get; private set; }
+
+
+        [SerializeReference] [SubclassSelector]
+        public ILoseCondition LoseCondition;
+
+        [SerializeReference] [SubclassSelector]
+        public IWinCondition WinCondition;
+    }
+}

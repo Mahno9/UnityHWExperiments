@@ -16,6 +16,7 @@ public static class R
     public static class MiniGame
     {
         public const string EnemyCharacterConfig = "MiniGame/EnemyCharacterConfig";
+        public const string LevelConfig = "MiniGame/LevelConfig";
         public const string MainCharacterConfig = "MiniGame/MainCharacterConfig";
     }
     public static class Sprite_Assets
