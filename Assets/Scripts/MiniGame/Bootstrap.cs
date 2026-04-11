@@ -40,8 +40,9 @@ namespace MiniGame
             CharactersFactory charactersFactory = new(_updaterService, controllersUpdaterService);
 
             // Load resources
-            MainCharacterConfig mainCharacterConfig = Resources.Load<MainCharacterConfig>("MiniGame/MainCharacterConfig");
-            EnemyCharacterConfig enemyCharacterConfig = Resources.Load<EnemyCharacterConfig>("MiniGame/EnemyCharacterConfig");
+
+            MainCharacterConfig mainCharacterConfig = Resources.Load<MainCharacterConfig>(R.MiniGame.MainCharacterConfig);
+            EnemyCharacterConfig enemyCharacterConfig = Resources.Load<EnemyCharacterConfig>(R.MiniGame.EnemyCharacterConfig);
 
             // Load level
             Level level = _levelBuilder.BuildLevelBox(4, 3);
