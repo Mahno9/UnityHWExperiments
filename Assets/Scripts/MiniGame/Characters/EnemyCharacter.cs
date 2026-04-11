@@ -35,7 +35,7 @@ namespace MiniGame.Characters
             _rotator = rotator;
             _health  = new ReactiveVariable<float>(startHealth);
             _isDead  = new ReactiveVariable<bool>(false);
-            
+
             enabled  = true;
         }
 
@@ -48,6 +48,7 @@ namespace MiniGame.Characters
         {
             if (_isDead.Value) return;
 
+            Debug.Log($"Damage to enemy: {damage}");
             _health.Value = MathF.Max(0, _health.Value - damage);
             if (_health.Value <= 0)
                 _isDead.Value = true;

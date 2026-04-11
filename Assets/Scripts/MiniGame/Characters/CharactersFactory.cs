@@ -3,6 +3,7 @@ using Cinemachine;
 using Delegates.Enemies.Controllers;
 
 using MiniGame.Configs;
+using MiniGame.CoreMechanics.Shooting;
 
 using Navigation.CoreMechanics.Movement;
 using Navigation.CoreMechanics.Rotation;
@@ -14,12 +15,10 @@ namespace MiniGame.Characters
 {
     public class CharactersFactory
     {
-        private readonly UpdaterService            _updaterService;
         private readonly ControllersUpdaterService _controllersUpdaterService;
 
-        public CharactersFactory(UpdaterService updaterService, ControllersUpdaterService controllersUpdaterService)
+        public CharactersFactory(ControllersUpdaterService controllersUpdaterService)
         {
-            _updaterService            = updaterService;
             _controllersUpdaterService = controllersUpdaterService;
         }
 
@@ -49,16 +48,20 @@ namespace MiniGame.Characters
             camera.LookAt = character.transform;
             camera.Follow = character.transform;
 
-            DirectionRotator  directionRotator    = new(character.transform, config.RotationSpeed);
+            DirectionRotator    directionRotator    = new(character.transform, config.RotationSpeed);
             CharacterController characterController = character.GetComponent<CharacterController>();
+            Shooter             shooter             = new(config.ProjectilePrefab);
 
-            character.Initialize(characterController, directionRotator, config.StartHealth);
+            character.Initialize(characterController, directionRotator, config.StartHealth, shooter);
 
             LookAtPointerController rotationController = new(character);
-            ArrowsMoveController    moveController     = new(character, config.MoveSpeed);
-
             _controllersUpdaterService.Add(rotationController, () => character.IsDestroyed);
+
+            ArrowsMoveController moveController = new(character, config.MoveSpeed);
             _controllersUpdaterService.Add(moveController, () => character.IsDestroyed);
+
+            ShootController shootController = new(character);
+            _controllersUpdaterService.Add(shootController, () => character.IsDestroyed);
 
             return character;
         }

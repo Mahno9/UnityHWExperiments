@@ -16,6 +16,8 @@ MonoBehaviour:
     type: 3}
   <VirtualCamera>k__BackingField: {fileID: 2198305382356539306, guid: 50be0904ba68b004bb62e91c00703935,
     type: 3}
+  <ProjectilePrefab>k__BackingField: {fileID: 5893331394708423442, guid: cb91197902b87c44ea61ab0455e04bf8,
+    type: 3}
   <MoveSpeed>k__BackingField: 4
-  <RotationSpeed>k__BackingField: 400
+  <RotationSpeed>k__BackingField: 9999
   <StartHealth>k__BackingField: 100

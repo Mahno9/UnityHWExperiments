@@ -12,6 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d41d866ac54453d906abec568887d10, type: 3}
   m_Name: LevelConfig
   m_EditorClassIdentifier: 
-  <StartEnemiesCount>k__BackingField: 0
-  <EnemiesSpawnDelay>k__BackingField: 0
-  <MainCharacterSpawnExcludeRadius>k__BackingField: 0
+  <SpawnPointsCount>k__BackingField: 0
+  <StartEnemiesCount>k__BackingField: 10
+  <EnemiesSpawnDelay>k__BackingField: 1
+  <MainCharacterSpawnExcludeRadius>k__BackingField: 1.5
+  LoseCondition:
+    rid: 8763370718240440321
+  WinCondition:
+    rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 8763370718240440321
+      type: {class: LoseOnEnemiesOverflow, ns: MiniGame.LoseConditions, asm: Assembly-CSharp}
+      data: 

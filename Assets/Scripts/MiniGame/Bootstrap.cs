@@ -33,7 +33,7 @@ namespace MiniGame
             ControllersUpdaterService controllersUpdaterService = new();
             _updaterService.Add(controllersUpdaterService);
 
-            CharactersFactory charactersFactory = new(_updaterService, controllersUpdaterService);
+            CharactersFactory charactersFactory = new(controllersUpdaterService);
 
             // Load resources
 
