@@ -173,6 +173,10 @@ Shader "Custom/WallBackfaceTransparency"
 
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
+
+            float3 _LightDirection;
+            float3 _LightPosition;
 
             struct Attributes
             {
@@ -186,12 +190,31 @@ Shader "Custom/WallBackfaceTransparency"
                 float4 positionCS   : SV_POSITION;
             };
 
+            float4 GetShadowPositionHClip(float3 positionWS, float3 normalWS)
+            {
+                #if _CASTING_PUNCTUAL_LIGHT_SHADOW
+                    float3 lightDir = normalize(_LightPosition - positionWS);
+                #else
+                    float3 lightDir = _LightDirection;
+                #endif
+
+                float4 positionCS = TransformWorldToHClip(ApplyShadowBias(positionWS, normalWS, lightDir));
+
+                #if UNITY_REVERSED_Z
+                    positionCS.z = min(positionCS.z, UNITY_NEAR_CLIP_VALUE);
+                #else
+                    positionCS.z = max(positionCS.z, UNITY_NEAR_CLIP_VALUE);
+                #endif
+
+                return positionCS;
+            }
+
             Varyings vert(Attributes input)
             {
                 Varyings output;
                 VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz);
                 VertexNormalInputs normalInput = GetVertexNormalInputs(input.normalOS);
-                
+
                 output.positionCS = GetShadowPositionHClip(vertexInput.positionWS, normalInput.normalWS);
                 return output;
             }
