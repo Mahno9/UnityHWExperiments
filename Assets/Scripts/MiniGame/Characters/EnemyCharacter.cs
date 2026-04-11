@@ -2,6 +2,8 @@ using System;
 
 using Common.Utils;
 
+using MiniGame.CoreMechanics.Damage;
+
 using Navigation.Characters.Interfaces;
 using Navigation.Controllers;
 using Navigation.CoreMechanics.Movement;
@@ -14,7 +16,7 @@ using UnityEngine.AI;
 namespace MiniGame.Characters
 {
     [RequireComponent(typeof(NavMeshAgent))]
-    public class EnemyCharacter : MonoDestroyable, IMovable, IDamageable, IDying
+    public class EnemyCharacter : MonoDestroyable, IMovable, IDamageable, IDying, IHaveHealth
     {
         public IReactiveVariableReadonly<float> Health => _health;
         public IReactiveVariableReadonly<bool>  IsDead => _isDead;
@@ -51,7 +53,10 @@ namespace MiniGame.Characters
             Debug.Log($"Damage to enemy: {damage}");
             _health.Value = MathF.Max(0, _health.Value - damage);
             if (_health.Value <= 0)
+            {
                 _isDead.Value = true;
+                Destroy();
+            }
         }
 
         public void SetMovePoint(Vector3 point) => _mover.SetMovePoint(point);

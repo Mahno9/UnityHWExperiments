@@ -2,6 +2,7 @@ using Cinemachine;
 
 using Delegates.Enemies.Controllers;
 
+using MiniGame.Characters.View;
 using MiniGame.Configs;
 using MiniGame.CoreMechanics.Shooting;
 
@@ -36,6 +37,10 @@ namespace MiniGame.Characters
 
             BrownianMovementController movementController = new(character, config.NewPointRadius, config.IdleTime);
             _controllersUpdaterService.Add(movementController, () => character.IsDestroyed);
+
+            EnemyHealthView healthView = character.GetComponentInChildren<EnemyHealthView>(true);
+            if (healthView)
+                healthView.Initialize(character, character);
 
             return character;
         }

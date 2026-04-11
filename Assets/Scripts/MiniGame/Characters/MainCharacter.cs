@@ -2,6 +2,7 @@ using System;
 
 using Common.Utils;
 
+using MiniGame.CoreMechanics.Damage;
 using MiniGame.CoreMechanics.Shooting;
 
 using Navigation.Characters.Interfaces;
@@ -14,7 +15,7 @@ using UnityEngine;
 namespace MiniGame.Characters
 {
     [RequireComponent(typeof(CharacterController))]
-    public class MainCharacter : MonoDestroyable, ISimpleMovable, IRotatableInPosition, IDamageable, IDying, IShooter
+    public class MainCharacter : MonoDestroyable, ISimpleMovable, IRotatableInPosition, IDamageable, IDying, IShooter, IHaveHealth
     {
         [SerializeField] private Transform _muzzle;
 
