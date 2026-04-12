@@ -1,6 +1,6 @@
 using System.Linq;
 
-using Navigation.Characters.Interfaces;
+using MiniGame.CoreMechanics.Damage;
 
 using UnityEngine;
 
@@ -13,13 +13,15 @@ namespace MiniGame.CoreMechanics.Shooting
         [SerializeField] private float _damage;
         [SerializeField] private float _maxDistance = 100f;
 
-        private IDamageable[] _friends;
+        // private TeamId        _shooterTeamId;
         private float         _flightDistance;
+        private IDamageDealer _damageDealer;
 
 
-        public void Initialize(params IDamageable[] friends)
+        public void Initialize(IDamageDealer damageDealer)
         {
-            _friends = friends;
+            _damageDealer = damageDealer;
+            // _shooterTeamId = teamId;
         }
 
         private void Update()
@@ -41,19 +43,8 @@ namespace MiniGame.CoreMechanics.Shooting
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.TryGetComponent(out IDamageable target))
-            {
+            if (!other.TryGetComponent(out IDamageable target) || _damageDealer.Damage(target))
                 Destroy(gameObject);
-                return;
-            }
-
-            if (IsFriend(target))
-                return;
-
-            target.TakeDamage(_damage);
-            Destroy(gameObject);
         }
-
-        private bool IsFriend(IDamageable target) => _friends.Any(friend => friend == target);
     }
 }

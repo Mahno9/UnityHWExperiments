@@ -6,11 +6,12 @@ using MiniGame.CoreMechanics.Damage;
 using MiniGame.CoreMechanics.Shooting;
 
 using Navigation.Characters.Interfaces;
-using Navigation.Controllers;
 using Navigation.CoreMechanics.Rotation;
 using Navigation.Utils;
 
 using UnityEngine;
+
+using IDamageable = MiniGame.CoreMechanics.Damage.IDamageable;
 
 namespace MiniGame.Characters
 {
@@ -60,10 +61,12 @@ namespace MiniGame.Characters
                 _isDead.Value = true;
         }
 
+        public TeamId GetTeamId() => _shooter.GetTeamId();
+
         public void Move(Vector3 direction) => _characterController.Move(direction);
 
         public void SetLookDirection(Vector3 direction) => _rotator.SetLookDirection(direction);
 
-        public void Shoot() => _shooter.Shoot(_muzzle, this);
+        public void Shoot() => _shooter.Shoot(_muzzle);
     }
 }

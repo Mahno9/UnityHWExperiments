@@ -16,6 +16,6 @@ MonoBehaviour:
     type: 3}
   <MoveSpeed>k__BackingField: 3
   <RotationSpeed>k__BackingField: 400
-  <StartHealth>k__BackingField: 100
+  <StartHealth>k__BackingField: 4
   <NewPointRadius>k__BackingField: 5
   <IdleTime>k__BackingField: 3

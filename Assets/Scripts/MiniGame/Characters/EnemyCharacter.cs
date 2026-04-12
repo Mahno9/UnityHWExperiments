@@ -13,6 +13,8 @@ using Navigation.Utils;
 using UnityEngine;
 using UnityEngine.AI;
 
+using IDamageable = MiniGame.CoreMechanics.Damage.IDamageable;
+
 namespace MiniGame.Characters
 {
     [RequireComponent(typeof(NavMeshAgent))]
@@ -58,6 +60,8 @@ namespace MiniGame.Characters
                 Destroy();
             }
         }
+
+        public TeamId GetTeamId() => TeamId.Enemy;
 
         public void SetMovePoint(Vector3 point) => _mover.SetMovePoint(point);
     }

@@ -38,7 +38,7 @@ namespace MiniGame.Characters
             BrownianMovementController movementController = new(character, config.NewPointRadius, config.IdleTime);
             _controllersUpdaterService.Add(movementController, () => character.IsDestroyed);
 
-            EnemyHealthView healthView = character.GetComponentInChildren<EnemyHealthView>(true);
+            HealthView healthView = character.GetComponentInChildren<HealthView>(true);
             if (healthView)
                 healthView.Initialize(character, character);
 
@@ -55,7 +55,7 @@ namespace MiniGame.Characters
 
             DirectionRotator    directionRotator    = new(character.transform, config.RotationSpeed);
             CharacterController characterController = character.GetComponent<CharacterController>();
-            Shooter             shooter             = new(config.ProjectilePrefab);
+            Shooter             shooter             = new(config.ProjectilePrefab, config.ShootDamage, TeamId.Player);
 
             character.Initialize(characterController, directionRotator, config.StartHealth, shooter);
 

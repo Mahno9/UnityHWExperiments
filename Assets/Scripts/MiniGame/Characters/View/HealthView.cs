@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace MiniGame.Characters.View
 {
-    public class EnemyHealthView : MonoBehaviour
+    public class HealthView : MonoBehaviour
     {
         [SerializeField] private Slider _healthSlider;
 
