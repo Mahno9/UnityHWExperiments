@@ -4,6 +4,7 @@ using Delegates.Enemies.Controllers;
 
 using MiniGame.Characters.View;
 using MiniGame.Configs;
+using MiniGame.CoreMechanics.Damage;
 using MiniGame.CoreMechanics.Shooting;
 
 using Navigation.CoreMechanics.Movement;
@@ -31,9 +32,10 @@ namespace MiniGame.Characters
             navMeshAgent.speed = config.MoveSpeed;
             NavMeshAgentMover mover = new(navMeshAgent);
 
-            AlongMoverDirectionRotator rotator = new(character.transform, config.RotationSpeed, mover);
+            AlongMoverDirectionRotator rotator      = new(character.transform, config.RotationSpeed, mover);
+            IDamageDealer              damageDealer = new DamageDealer(config.ContactDamage, TeamId.Enemy);
 
-            character.Initialize(mover, rotator, config.StartHealth);
+            character.Initialize(mover, rotator, config.StartHealth, damageDealer);
 
             BrownianMovementController movementController = new(character, config.NewPointRadius, config.IdleTime);
             _controllersUpdaterService.Add(movementController, () => character.IsDestroyed);
@@ -67,6 +69,10 @@ namespace MiniGame.Characters
 
             ShootController shootController = new(character);
             _controllersUpdaterService.Add(shootController, () => character.IsDestroyed);
+
+            HealthView healthView = character.GetComponentInChildren<HealthView>(true);
+            if (healthView)
+                healthView.Initialize(character, character);
 
             return character;
         }

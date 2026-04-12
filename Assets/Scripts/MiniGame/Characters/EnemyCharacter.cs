@@ -31,16 +31,20 @@ namespace MiniGame.Characters
         private ReactiveVariable<float>    _health;
         private ReactiveVariable<bool>     _isDead;
 
+        private IDamageDealer _damageDealer;
+
         private void Awake() => enabled = false;
 
-        public void Initialize(NavMeshAgentMover mover, AlongMoverDirectionRotator rotator, float startHealth)
+        public void Initialize(NavMeshAgentMover mover, AlongMoverDirectionRotator rotator, float startHealth, IDamageDealer damageDealer)
         {
-            _mover   = mover;
+            _mover = mover;
             _rotator = rotator;
-            _health  = new ReactiveVariable<float>(startHealth);
-            _isDead  = new ReactiveVariable<bool>(false);
+            _health = new ReactiveVariable<float>(startHealth);
+            _isDead = new ReactiveVariable<bool>(false);
 
-            enabled  = true;
+            _damageDealer = damageDealer;
+
+            enabled = true;
         }
 
         public void Update()
@@ -60,9 +64,10 @@ namespace MiniGame.Characters
             }
         }
 
-        private void OnCollisionEnter(Collision other)
+        private void OnTriggerEnter(Collider other)
         {
-            Debug.Log($"Collided with: {other.gameObject.name}");
+            if (other.TryGetComponent(out IDamageable damageable))
+                _damageDealer.Damage(damageable);
         }
 
         public TeamId GetTeamId() => TeamId.Enemy;

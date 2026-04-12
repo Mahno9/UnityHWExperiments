@@ -8,10 +8,11 @@ namespace MiniGame.Configs
     public class EnemyCharacterConfig : ScriptableObject
     {
         [field: SerializeField]         public EnemyCharacter Prefab         { get; private set; }
-        [field: SerializeField, Min(0)] public float             MoveSpeed      { get; private set; }
-        [field: SerializeField, Min(0)] public float             RotationSpeed  { get; private set; }
-        [field: SerializeField, Min(0)] public float             StartHealth    { get; private set; }
-        [field: SerializeField, Min(0)] public float             NewPointRadius { get; private set; }
-        [field: SerializeField, Min(0)] public float             IdleTime       { get; private set; }
+        [field: SerializeField, Min(0)] public float          MoveSpeed      { get; private set; }
+        [field: SerializeField, Min(0)] public float          RotationSpeed  { get; private set; }
+        [field: SerializeField, Min(0)] public float          StartHealth    { get; private set; }
+        [field: SerializeField, Min(0)] public float          NewPointRadius { get; private set; }
+        [field: SerializeField, Min(0)] public float          IdleTime       { get; private set; }
+        [field: SerializeField, Min(0)] public float          ContactDamage         { get; private set; }
     }
 }
