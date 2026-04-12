@@ -52,13 +52,17 @@ namespace MiniGame.Characters
         {
             if (_isDead.Value) return;
 
-            Debug.Log($"Damage to enemy: {damage}");
             _health.Value = MathF.Max(0, _health.Value - damage);
             if (_health.Value <= 0)
             {
                 _isDead.Value = true;
                 Destroy();
             }
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            Debug.Log($"Collided with: {other.gameObject.name}");
         }
 
         public TeamId GetTeamId() => TeamId.Enemy;
