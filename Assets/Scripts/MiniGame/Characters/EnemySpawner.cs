@@ -24,10 +24,7 @@ namespace MiniGame.Characters
         {
             Shuffle(spawnPoints);
 
-            int                  pointsCount = spawnPoints.Length;
-
             return spawnPoints
-                .Select((t, i) => spawnPoints[i % pointsCount])
                 .Select(spawnPosition => _charFactory.CreateEnemyCharacter(_config, spawnPosition))
                 .ToList();
         }

@@ -63,6 +63,9 @@ namespace MiniGame
 
         private void OnGameModeWin(bool b, bool b1)
         {
+            if (b1 == false)
+                return;
+
             ProcessFinish();
             Debug.Log("Win!");
             _coroutineRunner.StartCoroutine(Launch());
@@ -70,6 +73,9 @@ namespace MiniGame
 
         private void OnGameModeDefeat(bool b, bool b1)
         {
+            if (b1 == false)
+                return;
+
             ProcessFinish();
             Debug.Log("Defeat!");
             _coroutineRunner.StartCoroutine(Launch());

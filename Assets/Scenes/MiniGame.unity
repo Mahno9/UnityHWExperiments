@@ -681,25 +681,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelBuilder: {fileID: 136436478}
-  _spawnPoint: {fileID: 1730078457}
-  _enemySpawnPoint: {fileID: 1525805332}
-  _mainCharacterRadius: 0
-  _gameModeOptions:
-    WinCondition:
-      rid: 8763370858859986946
-    LoseCondition:
-      rid: 8763370858859986949
-  references:
-    version: 2
-    RefIds:
-    - rid: 8763370858859986946
-      type: {class: WinOnSurviveOverTime, ns: MiniGame.WinConditions, asm: Assembly-CSharp}
-      data:
-        _surviveTime: 1.91
-    - rid: 8763370858859986949
-      type: {class: LoseOnEnemiesOverflow, ns: MiniGame.LoseConditions, asm: Assembly-CSharp}
-      data:
-        _enemiesMaxCount: 43
 --- !u!4 &1877698139
 Transform:
   m_ObjectHideFlags: 0
