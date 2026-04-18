@@ -89,7 +89,7 @@ namespace MiniGame
 
         public void ProcessGameEnd()
         {
-            _enemiesService.Dispose();
+            _enemiesService.DestroyEnemies();
             _mainCharacter.Destroy();
         }
 

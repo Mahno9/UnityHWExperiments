@@ -10,12 +10,11 @@ using UnityEngine;
 
 namespace MiniGame
 {
-    // TODO: make readonly interface
-    public class EnemiesService : IUpdatable, IDisposable
+    public class EnemiesService : IUpdatable
     {
         public event Action OnEnemyKilled;
 
-        private readonly List<EnemyCharacter> _enemies = new();
+        private readonly LinkedList<EnemyCharacter> _enemies = new();
 
         private readonly EnemySpawner              _spawner;
         private readonly SpawnPoseGeneratorService _spawnPoseGenerator;
@@ -30,35 +29,35 @@ namespace MiniGame
 
         public void SpawnEnemy()
         {
-            _enemies.AddRange(
-                _spawner.Spawn(GetRandomPoseOnLevel())
-            );
+            foreach (EnemyCharacter enemy in _spawner.Spawn(GetRandomPoseOnLevel()))
+                _enemies.AddLast(enemy);
             Debug.Log($"Enemies count: {EnemiesCount}");
         }
 
         public void SpawnEnemies(int amount)
         {
-            _enemies.AddRange(
-                _spawner.Spawn(
-                    Enumerable.Range(0, amount)
-                        .Select(_ => GetRandomPoseOnLevel())
-                        .ToArray()
-                )
-            );
+            Pose[] poses = Enumerable.Range(0, amount).Select(_ => GetRandomPoseOnLevel()).ToArray();
+            foreach (EnemyCharacter enemy in _spawner.Spawn(poses))
+                _enemies.AddLast(enemy);
             Debug.Log($"Enemies count: {EnemiesCount}");
         }
 
         public void Update(float deltaTime)
         {
-            for (int i = _enemies.Count - 1; i >= 0; i--)
+            LinkedListNode<EnemyCharacter> node = _enemies.First;
+            while (node != null)
             {
-                if (_enemies[i].IsDead.Value == false)
-                    continue;
+                LinkedListNode<EnemyCharacter> next = node.Next;
 
-                _enemies[i].Destroy();
-                _enemies.RemoveAt(i);
+                if (node.Value.IsDead.Value)
+                {
+                    node.Value.Destroy();
+                    _enemies.Remove(node);
 
-                OnEnemyKilled?.Invoke();
+                    OnEnemyKilled?.Invoke();
+                }
+
+                node = next;
             }
         }
 
@@ -67,10 +66,15 @@ namespace MiniGame
             return _spawnPoseGenerator.GetRandomSpawnPointWithExcluding();
         }
 
-        public void Dispose()
+        public void DestroyEnemies()
         {
             foreach (EnemyCharacter enemy in _enemies)
-                enemy.Destroy();
+            {
+                if (enemy != null)
+                    enemy.Destroy();
+            }
+
+            _enemies.Clear();
         }
     }
 }
