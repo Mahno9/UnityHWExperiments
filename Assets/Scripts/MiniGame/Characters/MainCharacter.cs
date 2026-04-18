@@ -53,9 +53,11 @@ namespace MiniGame.Characters
 
         public void TakeDamage(float damage)
         {
-            if (_isDead.Value) return;
+            if (_isDead.Value)
+                return;
 
             _health.Value = MathF.Max(0, _health.Value - damage);
+
             if (_health.Value <= 0)
                 _isDead.Value = true;
         }

@@ -35,6 +35,8 @@ namespace MiniGame
             _enemyCharacterConfig = enemyCharacterConfig;
             _spawnPoseGenerator = spawnPoseGenerator;
             _coroutineRunner = coroutineRunner;
+
+            _gameMode = new GameMode(_levelConfig, _charactersFactory, _enemyCharacterConfig, _spawnPoseGenerator, _mainCharacterConfig);
         }
 
         public void Dispose()
@@ -45,8 +47,6 @@ namespace MiniGame
         public IEnumerator Launch()
         {
             // Confirm pop up window here
-
-            _gameMode = new GameMode(_levelConfig, _charactersFactory, _enemyCharacterConfig, _spawnPoseGenerator, _mainCharacterConfig);
 
             _gameMode.Start();
 

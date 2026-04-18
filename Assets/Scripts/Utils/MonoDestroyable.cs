@@ -12,10 +12,10 @@ namespace Common.Utils
 
         public void Destroy()
         {
-            Destroy(gameObject);
-
             IsDestroyed = true;
             Destroyed?.Invoke(this);
+
+            Destroy(gameObject);
         }
     }
 }
