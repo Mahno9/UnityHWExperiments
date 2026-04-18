@@ -1,15 +1,20 @@
+using System;
+
 using Navigation.Utils;
+
+using UnityEngine;
 
 namespace MiniGame.WinConditions
 {
+    [Serializable]
     public abstract class WinConditionBase : IWinCondition
     {
         private readonly ReactiveVariable<bool>          _isWinVar = new();
-        public             IReactiveVariableReadonly<bool> IsWin => _isWinVar;
+        public           IReactiveVariableReadonly<bool> IsWin => _isWinVar;
 
-        protected void TriggerWin() => _isWinVar.Value = true;
+        public abstract void Update(float deltaTime);
 
-        public abstract void Update(float     deltaTime);
-        public abstract void Init(WinInitData data);
+        protected      void TriggerWin()           => _isWinVar.Value = true;
+        public virtual void Init(WinInitData data) => _isWinVar.Value = false;
     }
 }

@@ -58,10 +58,7 @@ namespace MiniGame.Characters
 
             _health.Value = MathF.Max(0, _health.Value - damage);
             if (_health.Value <= 0)
-            {
                 _isDead.Value = true;
-                Destroy();
-            }
         }
 
         private void OnTriggerEnter(Collider other)

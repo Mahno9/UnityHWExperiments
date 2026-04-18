@@ -13,6 +13,8 @@ namespace MiniGame
     // TODO: make readonly interface
     public class EnemiesService : IUpdatable, IDisposable
     {
+        public event Action OnEnemyKilled;
+
         private readonly List<EnemyCharacter> _enemies = new();
 
         private readonly EnemySpawner              _spawner;
@@ -31,6 +33,7 @@ namespace MiniGame
             _enemies.AddRange(
                 _spawner.Spawn(GetRandomPoseOnLevel())
             );
+            Debug.Log($"Enemies count: {EnemiesCount}");
         }
 
         public void SpawnEnemies(int amount)
@@ -42,6 +45,7 @@ namespace MiniGame
                         .ToArray()
                 )
             );
+            Debug.Log($"Enemies count: {EnemiesCount}");
         }
 
         public void Update(float deltaTime)
@@ -53,6 +57,8 @@ namespace MiniGame
 
                 _enemies[i].Destroy();
                 _enemies.RemoveAt(i);
+
+                OnEnemyKilled?.Invoke();
             }
         }
 
@@ -63,7 +69,7 @@ namespace MiniGame
 
         public void Dispose()
         {
-            foreach (var enemy in _enemies)
+            foreach (EnemyCharacter enemy in _enemies)
                 enemy.Destroy();
         }
     }

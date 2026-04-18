@@ -10,13 +10,6 @@ namespace MiniGame
     public class Bootstrap : MonoBehaviour
     {
         [SerializeField] private LevelBuilder _levelBuilder;
-        [SerializeField] private Transform    _spawnPoint;
-
-        [SerializeField] private GameObject _enemySpawnPoint;
-
-        [SerializeField] private float _mainCharacterRadius;
-
-        [SerializeField] private GameModeOptions _gameModeOptions;
 
         private UpdaterService _updaterService;
 
@@ -49,7 +42,7 @@ namespace MiniGame
 
             // Spawn
 
-            GameplayCycle gameplayCycle = new(_gameModeOptions, charactersFactory, mainCharacterConfig, _spawnPoint, enemyCharacterConfig, levelConfig, spawnPoseGenerator, this);
+            GameplayCycle gameplayCycle = new(charactersFactory, mainCharacterConfig, enemyCharacterConfig, levelConfig, spawnPoseGenerator, this);
 
             // Start game
 

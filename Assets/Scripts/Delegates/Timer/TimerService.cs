@@ -9,8 +9,8 @@ namespace Delegates.Timer
 {
     public class TimerService : IUpdatable
     {
-        private          float                   _timeTotal;
-        private readonly ReactiveVariable<float> _timeLeft = new();
+        private         float                   _timeTotal;
+        public readonly ReactiveVariable<float> _timeLeft = new();
 
         public event Action<float> OnTimerStarted; // TimeTotal
 

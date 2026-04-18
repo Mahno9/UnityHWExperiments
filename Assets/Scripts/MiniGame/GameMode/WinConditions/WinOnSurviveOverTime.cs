@@ -1,15 +1,30 @@
+using Delegates.Timer;
+
+using UnityEngine;
+
 namespace MiniGame.WinConditions
 {
     public class WinOnSurviveOverTime : WinConditionBase
     {
-        public override void Update(float deltaTime)
+        [SerializeField] private float _surviveTime;
+
+        private readonly TimerService _surviveTimer;
+
+        public WinOnSurviveOverTime()
         {
-            throw new System.NotImplementedException();
+            _surviveTimer = new TimerService();
+            _surviveTimer.OnTimerStopped += TriggerWin;
         }
 
         public override void Init(WinInitData data)
         {
-            // throw new System.NotImplementedException();
+            base.Init(data);
+            _surviveTimer.StartTimer(_surviveTime, true);
+        }
+
+        public override void Update(float deltaTime)
+        {
+            _surviveTimer.Update(deltaTime);
         }
     }
 }

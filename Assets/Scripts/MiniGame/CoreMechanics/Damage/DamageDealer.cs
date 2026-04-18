@@ -18,7 +18,6 @@ namespace MiniGame.CoreMechanics.Damage
             if (IsFriend(target))
                 return false;
 
-            Debug.Log($"Damage to: {target} : {_damage}");
             target.TakeDamage(_damage);
             return true;
         }

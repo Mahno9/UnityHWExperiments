@@ -16,7 +16,7 @@ namespace MiniGame
             _level = level;
         }
 
-        public void Init(Transform excludeTransform, float excludeRadius)
+        public void InitExclude(Transform excludeTransform, float excludeRadius)
         {
             _excludeTransform = excludeTransform;
             _excludeRadius = excludeRadius;

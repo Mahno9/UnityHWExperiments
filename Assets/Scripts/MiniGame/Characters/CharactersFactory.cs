@@ -47,7 +47,7 @@ namespace MiniGame.Characters
             return character;
         }
 
-        public MainCharacter CreateMainCharacter(MainCharacterConfig config, Transform spawnPoint)
+        public MainCharacter CreateMainCharacter(MainCharacterConfig config, Pose spawnPoint)
         {
             MainCharacter character = Object.Instantiate(config.Prefab, spawnPoint.position, spawnPoint.rotation);
 

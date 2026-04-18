@@ -17,6 +17,7 @@ namespace MiniGame.LoseConditions
 
         public override void Init(LoseInitData data)
         {
+            base.Init(data);
             _mainCharacter = data.MainCharacter;
         }
 
