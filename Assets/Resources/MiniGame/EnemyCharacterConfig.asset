@@ -19,3 +19,4 @@ MonoBehaviour:
   <StartHealth>k__BackingField: 4
   <NewPointRadius>k__BackingField: 5
   <IdleTime>k__BackingField: 3
+  <ContactDamage>k__BackingField: 1

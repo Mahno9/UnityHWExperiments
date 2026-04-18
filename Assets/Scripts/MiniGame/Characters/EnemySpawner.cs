@@ -14,7 +14,7 @@ namespace MiniGame.Characters
         private readonly CharactersFactory    _charFactory;
         private readonly EnemyCharacterConfig _config;
 
-        public EnemySpawner(CharactersFactory charFactory, EnemyCharacterConfig config, params Pose[] spawnPoints)
+        public EnemySpawner(CharactersFactory charFactory, EnemyCharacterConfig config)
         {
             _charFactory = charFactory;
             _config = config;

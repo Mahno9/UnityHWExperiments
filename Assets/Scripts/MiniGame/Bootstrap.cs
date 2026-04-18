@@ -10,18 +10,19 @@ namespace MiniGame
     public class Bootstrap : MonoBehaviour
     {
         [SerializeField] private LevelBuilder _levelBuilder;
-        [SerializeField] private GameObject   _spawnPoint;
+        [SerializeField] private Transform    _spawnPoint;
 
         [SerializeField] private GameObject _enemySpawnPoint;
 
         [SerializeField] private float _mainCharacterRadius;
+
+        [SerializeField] private GameModeOptions _gameModeOptions;
 
         private UpdaterService _updaterService;
 
         private void Awake()
         {
             StartCoroutine(ProcessStart());
-            // ProcessStart();
         }
 
         private void Update() => _updaterService.Update(Time.deltaTime);
@@ -39,22 +40,21 @@ namespace MiniGame
 
             MainCharacterConfig  mainCharacterConfig  = Resources.Load<MainCharacterConfig>(R.MiniGame.MainCharacterConfig);
             EnemyCharacterConfig enemyCharacterConfig = Resources.Load<EnemyCharacterConfig>(R.MiniGame.EnemyCharacterConfig);
-            LevelConfig levelConfig = Resources.Load<LevelConfig>(R.MiniGame.LevelConfig);
+            LevelConfig          levelConfig          = Resources.Load<LevelConfig>(R.MiniGame.LevelConfig);
 
             // Load level
 
-            Level level = _levelBuilder.BuildLevelBox(4, 3);
+            Level                     level              = _levelBuilder.BuildLevelBox(4, 3);
+            SpawnPoseGeneratorService spawnPoseGenerator = new(level);
 
             // Spawn
 
-            MainCharacter mainCharacter = charactersFactory.CreateMainCharacter(mainCharacterConfig, _spawnPoint.transform);
+            GameplayCycle gameplayCycle = new(_gameModeOptions, charactersFactory, mainCharacterConfig, _spawnPoint, enemyCharacterConfig, levelConfig, spawnPoseGenerator, this);
 
             // Start game
 
-            GameMode gameMode = new(levelConfig, charactersFactory, enemyCharacterConfig, level, mainCharacter);
-            _updaterService.Add(gameMode);
-
-            gameMode.Start();
+            StartCoroutine(gameplayCycle.Launch());
+            _updaterService.Add(gameplayCycle);
 
             yield return null;
         }

@@ -681,7 +681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelBuilder: {fileID: 136436478}
-  _spawnPoint: {fileID: 1730078456}
+  _spawnPoint: {fileID: 1730078457}
   _enemySpawnPoint: {fileID: 1525805332}
   _mainCharacterRadius: 0
 --- !u!4 &1877698139
