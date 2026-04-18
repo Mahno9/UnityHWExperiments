@@ -1,5 +1,7 @@
 using System;
 
+using MiniGame.Characters;
+
 using Navigation.Utils;
 
 using UnityEngine.Serialization;
@@ -11,11 +13,17 @@ namespace MiniGame.LoseConditions
     [Serializable]
     public class LoseOnPlayerDeath : LoseConditionBase
     {
+        private MainCharacter _mainCharacter;
+
+        public override void Init(LoseInitData data)
+        {
+            _mainCharacter = data.MainCharacter;
+        }
+
         public override void Update(float deltaTime)
         {
-            // TODO
-            if (Random.Range(0, 100) == 1)
-                IsLostVar.Value = true;
+            if (_mainCharacter.IsDead.Value)
+                TriggerLost();
         }
     }
 }

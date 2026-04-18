@@ -5,6 +5,8 @@ namespace MiniGame.WinConditions
 {
     public interface IWinCondition : IUpdatable
     {
-        public IReactiveVariableReadonly<bool> IsWin();
+        public IReactiveVariableReadonly<bool> IsWin { get; }
+
+        public void Init(WinInitData data);
     }
 }

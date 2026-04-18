@@ -6,5 +6,10 @@ namespace MiniGame.WinConditions
         {
             throw new System.NotImplementedException();
         }
+
+        public override void Init(WinInitData data)
+        {
+            // throw new System.NotImplementedException();
+        }
     }
 }

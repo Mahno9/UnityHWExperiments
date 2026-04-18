@@ -4,10 +4,12 @@ namespace MiniGame.WinConditions
 {
     public abstract class WinConditionBase : IWinCondition
     {
-        protected ReactiveVariable<bool> IsWinVar;
+        private readonly ReactiveVariable<bool>          _isWinVar = new();
+        public             IReactiveVariableReadonly<bool> IsWin => _isWinVar;
 
-        public abstract void Update(float deltaTime);
+        protected void TriggerWin() => _isWinVar.Value = true;
 
-        public IReactiveVariableReadonly<bool> IsWin() => IsWinVar;
+        public abstract void Update(float     deltaTime);
+        public abstract void Init(WinInitData data);
     }
 }
