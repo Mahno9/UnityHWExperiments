@@ -8,8 +8,8 @@ namespace MiniGame
     public class SpawnPoseGeneratorService
     {
         private readonly Level     _level;
-        private          Transform _excludeTransform;
         private          float     _excludeRadius;
+        private          Transform _excludeTransform;
 
         public SpawnPoseGeneratorService(Level level)
         {
@@ -30,7 +30,7 @@ namespace MiniGame
 
         public Pose GetRandomSpawnPointWithExcluding()
         {
-            float   sqrRadius = _excludeRadius * _excludeRadius;
+            float sqrRadius = _excludeRadius * _excludeRadius;
 
             List<Transform> candidates = _level.FloorTiles
                 .Where(t => (t.position - _excludeTransform.position).sqrMagnitude > sqrRadius)
@@ -50,6 +50,9 @@ namespace MiniGame
             return tile.position + new Vector3(offsetX, 0, offsetZ);
         }
 
-        private static Quaternion RandomRotation() => Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+        private static Quaternion RandomRotation()
+        {
+            return Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+        }
     }
 }

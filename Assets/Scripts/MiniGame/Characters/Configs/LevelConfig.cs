@@ -1,8 +1,6 @@
 using Common.Utils;
 
-using MiniGame.LoseConditions;
 using MiniGame.LoseConditions.ConfigData;
-using MiniGame.WinConditions;
 using MiniGame.WinConditions.ConfigData;
 
 using UnityEngine;

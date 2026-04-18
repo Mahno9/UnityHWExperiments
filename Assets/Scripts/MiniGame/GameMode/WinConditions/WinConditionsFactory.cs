@@ -18,7 +18,7 @@ namespace MiniGame.WinConditions
             return configData switch
             {
                 WinOnSurviveOverTimeConfig config => new WinOnSurviveOverTime(config.SurviveTime),
-                WinOnKillAmountConfig      config => new WinOnKillAmount(_enemiesService, config.KillsRequired),
+                WinOnKillAmountConfig config => new WinOnKillAmount(_enemiesService, config.KillsRequired),
                 _ => throw new InvalidEnumArgumentException($"Unknown type of argument: {configData}")
             };
         }

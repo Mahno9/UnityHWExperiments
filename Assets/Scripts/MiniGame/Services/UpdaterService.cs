@@ -8,12 +8,15 @@ namespace MiniGame
     {
         private readonly List<IUpdatable> _updatableList = new();
 
-        public void Add(IUpdatable updatable) => _updatableList.Add(updatable);
-
         public void Update(float deltaTime)
         {
             foreach (IUpdatable updatable in _updatableList)
                 updatable.Update(deltaTime);
+        }
+
+        public void Add(IUpdatable updatable)
+        {
+            _updatableList.Add(updatable);
         }
     }
 }

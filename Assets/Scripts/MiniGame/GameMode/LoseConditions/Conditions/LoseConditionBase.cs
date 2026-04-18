@@ -7,8 +7,9 @@ namespace MiniGame.LoseConditions
     [Serializable]
     public abstract class LoseConditionBase : ILoseCondition
     {
-        private readonly ReactiveVariable<bool>          _isLostVar = new();
         public           IReactiveVariableReadonly<bool> IsLost => _isLostVar;
+
+        private readonly ReactiveVariable<bool>          _isLostVar = new();
 
         public LoseConditionBase()
         {
@@ -17,6 +18,9 @@ namespace MiniGame.LoseConditions
 
         public abstract void Update(float deltaTime);
 
-        protected      void TriggerLost()           => _isLostVar.Value = true;
+        protected void TriggerLost()
+        {
+            _isLostVar.Value = true;
+        }
     }
 }

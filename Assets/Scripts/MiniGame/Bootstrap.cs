@@ -2,7 +2,6 @@ using System.Collections;
 
 using MiniGame.Characters;
 using MiniGame.Configs;
-using MiniGame.LoseConditions;
 
 using UnityEngine;
 
@@ -19,7 +18,10 @@ namespace MiniGame
             StartCoroutine(ProcessStart());
         }
 
-        private void Update() => _updaterService.Update(Time.deltaTime);
+        private void Update()
+        {
+            _updaterService.Update(Time.deltaTime);
+        }
 
         private IEnumerator ProcessStart()
         {
@@ -28,7 +30,7 @@ namespace MiniGame
             ControllersUpdaterService controllersUpdaterService = new();
             _updaterService.Add(controllersUpdaterService);
 
-            CharactersFactory     charactersFactory     = new(controllersUpdaterService, _updaterService);
+            CharactersFactory charactersFactory = new(controllersUpdaterService, _updaterService);
 
             // Load resources
 

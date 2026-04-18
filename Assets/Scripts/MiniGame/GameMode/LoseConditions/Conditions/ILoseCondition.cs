@@ -1,7 +1,3 @@
-using System;
-
-using MiniGame.Characters;
-
 using Navigation.Controllers;
 using Navigation.Utils;
 

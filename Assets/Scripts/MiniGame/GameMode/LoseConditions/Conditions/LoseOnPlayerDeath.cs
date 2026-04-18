@@ -2,12 +2,6 @@ using System;
 
 using MiniGame.Characters;
 
-using Navigation.Utils;
-
-using UnityEngine.Serialization;
-
-using Random = UnityEngine.Random;
-
 namespace MiniGame.LoseConditions
 {
     [Serializable]

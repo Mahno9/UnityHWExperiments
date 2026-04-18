@@ -1,15 +1,9 @@
-using System.Collections.Generic;
-
-using MiniGame.Characters;
-
-using Navigation.Utils;
-
 namespace MiniGame.LoseConditions
 {
     public class LoseOnEnemiesOverflow : LoseConditionBase
     {
-        private readonly EnemiesService _enemiesService;
         private readonly int            _enemiesMaxCount;
+        private readonly EnemiesService _enemiesService;
 
         public LoseOnEnemiesOverflow(EnemiesService enemiesService, int enemiesMaxCount)
         {

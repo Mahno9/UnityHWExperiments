@@ -1,9 +1,6 @@
 using System;
 using System.Collections;
 
-using MiniGame.Characters;
-using MiniGame.Configs;
-
 using Navigation.Controllers;
 
 using UnityEngine;
@@ -12,8 +9,8 @@ namespace MiniGame
 {
     public class GameplayCycle : IUpdatable, IDisposable
     {
-        private readonly GameMode      _gameMode;
         private readonly MonoBehaviour _coroutineRunner;
+        private readonly GameMode      _gameMode;
 
         public GameplayCycle(
             GameMode      gameMode,
@@ -28,6 +25,11 @@ namespace MiniGame
             ProcessFinish();
         }
 
+        public void Update(float deltaTime)
+        {
+            _gameMode?.Update(deltaTime);
+        }
+
         public IEnumerator Launch()
         {
             // Confirm pop up window here
@@ -38,11 +40,6 @@ namespace MiniGame
             _gameMode.Defeat.Changed += OnGameModeDefeat;
 
             yield return null;
-        }
-
-        public void Update(float deltaTime)
-        {
-            _gameMode?.Update(deltaTime);
         }
 
         private void OnGameModeWin(bool b, bool b1)

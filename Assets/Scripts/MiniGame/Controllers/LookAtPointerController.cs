@@ -6,8 +6,8 @@ namespace MiniGame
 {
     public class LookAtPointerController : ControllerBase
     {
-        private readonly IRotatableInPosition _rotatable;
         private readonly Camera               _camera;
+        private readonly IRotatableInPosition _rotatable;
 
         public LookAtPointerController(IRotatableInPosition rotatable)
         {

@@ -11,7 +11,7 @@ namespace MiniGame.WinConditions
         public WinOnKillAmount(EnemiesService enemiesService, int killsRequired)
         {
             _enemiesService = enemiesService;
-            _killsRequired  = killsRequired;
+            _killsRequired = killsRequired;
             _enemiesService.OnEnemyKilled += OnEnemyDead;
         }
 

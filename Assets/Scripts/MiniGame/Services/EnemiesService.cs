@@ -12,8 +12,6 @@ namespace MiniGame
 {
     public class EnemiesService : IUpdatable
     {
-        public event Action OnEnemyKilled;
-
         private readonly LinkedList<EnemyCharacter> _enemies = new();
 
         private readonly EnemySpawner              _spawner;
@@ -26,19 +24,6 @@ namespace MiniGame
         }
 
         public int EnemiesCount => _enemies.Count;
-
-        public void SpawnEnemy()
-        {
-            foreach (EnemyCharacter enemy in _spawner.Spawn(GetRandomPoseOnLevel()))
-                _enemies.AddLast(enemy);
-        }
-
-        public void SpawnEnemies(int amount)
-        {
-            Pose[] poses = Enumerable.Range(0, amount).Select(_ => GetRandomPoseOnLevel()).ToArray();
-            foreach (EnemyCharacter enemy in _spawner.Spawn(poses))
-                _enemies.AddLast(enemy);
-        }
 
         public void Update(float deltaTime)
         {
@@ -59,6 +44,21 @@ namespace MiniGame
             }
         }
 
+        public event Action OnEnemyKilled;
+
+        public void SpawnEnemy()
+        {
+            foreach (EnemyCharacter enemy in _spawner.Spawn(GetRandomPoseOnLevel()))
+                _enemies.AddLast(enemy);
+        }
+
+        public void SpawnEnemies(int amount)
+        {
+            Pose[] poses = Enumerable.Range(0, amount).Select(_ => GetRandomPoseOnLevel()).ToArray();
+            foreach (EnemyCharacter enemy in _spawner.Spawn(poses))
+                _enemies.AddLast(enemy);
+        }
+
         private Pose GetRandomPoseOnLevel()
         {
             return _spawnPoseGenerator.GetRandomSpawnPointWithExcluding();
@@ -67,10 +67,8 @@ namespace MiniGame
         public void DestroyEnemies()
         {
             foreach (EnemyCharacter enemy in _enemies)
-            {
                 if (enemy != null)
                     enemy.Destroy();
-            }
 
             _enemies.Clear();
         }

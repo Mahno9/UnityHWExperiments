@@ -1,5 +1,3 @@
-using System;
-
 using MiniGame.CoreMechanics.Damage;
 
 using UnityEngine;
@@ -10,11 +8,9 @@ namespace MiniGame.CoreMechanics.Shooting
 {
     public class Shooter
     {
-        private readonly Projectile _projectilePrefab;
         private readonly float      _damage;
+        private readonly Projectile _projectilePrefab;
         private readonly TeamId     _teamId;
-
-        public TeamId GetTeamId() => _teamId;
 
         public Shooter(Projectile projectilePrefab, float damage, TeamId teamId)
         {
@@ -28,6 +24,11 @@ namespace MiniGame.CoreMechanics.Shooting
             Object.Instantiate(_projectilePrefab, muzzle.position, muzzle.rotation)
                 .Initialize(new DamageDealer(_damage, _teamId)
                 );
+        }
+
+        public TeamId GetTeamId()
+        {
+            return _teamId;
         }
     }
 }

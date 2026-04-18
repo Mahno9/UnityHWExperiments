@@ -1,11 +1,9 @@
-using UnityEngine;
-
 namespace MiniGame.CoreMechanics.Damage
 {
     public class DamageDealer : IDamageDealer
     {
-        private readonly TeamId _friendTeamId;
         private readonly float  _damage;
+        private readonly TeamId _friendTeamId;
 
         public DamageDealer(float damage, TeamId friendTeamId)
         {
@@ -22,6 +20,9 @@ namespace MiniGame.CoreMechanics.Damage
             return true;
         }
 
-        private bool IsFriend(IDamageable target) => target.GetTeamId() == _friendTeamId;
+        private bool IsFriend(IDamageable target)
+        {
+            return target.GetTeamId() == _friendTeamId;
+        }
     }
 }

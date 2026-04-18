@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace MiniGame
 {
     public class ControllersFactory
@@ -13,7 +11,7 @@ namespace MiniGame
 
         public ArrowsMoveController GetArrowsMoveController(ISimpleMovable movable, float moveSpeed)
         {
-            var controller = new ArrowsMoveController(movable, moveSpeed);
+            ArrowsMoveController controller = new(movable, moveSpeed);
             _updaterService.Add(controller);
             return controller;
         }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.ComponentModel;
 
 using MiniGame.Characters;
@@ -8,8 +7,8 @@ namespace MiniGame.LoseConditions
 {
     public class LoseConditionsFactory
     {
-        private readonly MainCharacter  _mainCharacter;
         private readonly EnemiesService _enemiesService;
+        private readonly MainCharacter  _mainCharacter;
 
         public LoseConditionsFactory(MainCharacter mainCharacter, EnemiesService enemiesService)
         {

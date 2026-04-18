@@ -9,12 +9,6 @@ namespace MiniGame
     {
         private readonly List<(ControllerBase controller, Func<bool> shouldRemove)> _entries = new();
 
-        public void Add(ControllerBase controller, Func<bool> shouldRemove)
-        {
-            controller.Enable();
-            _entries.Add((controller, shouldRemove));
-        }
-
         public void Update(float deltaTime)
         {
             for (int i = _entries.Count - 1; i >= 0; i--)
@@ -27,6 +21,12 @@ namespace MiniGame
 
                 _entries[i].controller.Update(deltaTime);
             }
+        }
+
+        public void Add(ControllerBase controller, Func<bool> shouldRemove)
+        {
+            controller.Enable();
+            _entries.Add((controller, shouldRemove));
         }
     }
 }

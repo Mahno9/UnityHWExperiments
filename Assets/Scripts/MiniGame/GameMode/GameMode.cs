@@ -14,27 +14,25 @@ namespace MiniGame
 {
     public class GameMode : IUpdatable
     {
-        public IReactiveVariableReadonly<bool> Win    => _winCondition.IsWin;
-        public IReactiveVariableReadonly<bool> Defeat => _loseCondition.IsLost;
+        private readonly CharactersFactory _charactersFactory;
+        private readonly EnemiesService    _enemiesService;
 
         private readonly LevelConfig               _levelConfig;
-        private readonly CharactersFactory         _charactersFactory;
-        private readonly SpawnPoseGeneratorService _spawnPoseGenerator;
         private readonly MainCharacterConfig       _mainCharacterConfig;
-        private          MainCharacter             _mainCharacter;
+        private readonly SpawnPoseGeneratorService _spawnPoseGenerator;
 
         private readonly TimerService   _spawnTimer;
-        private readonly EnemiesService _enemiesService;
+        private          ILoseCondition _loseCondition;
+        private          MainCharacter  _mainCharacter;
 
-        private IWinCondition  _winCondition;
-        private ILoseCondition _loseCondition;
+        private IWinCondition _winCondition;
 
         public GameMode(
             LevelConfig               levelConfig,
             CharactersFactory         charactersFactory,
             EnemyCharacterConfig      enemyCharacterConfig,
             SpawnPoseGeneratorService spawnPoseGenerator,
-            MainCharacterConfig             mainCharacterConfig)
+            MainCharacterConfig       mainCharacterConfig)
         {
             _levelConfig = levelConfig;
             _charactersFactory = charactersFactory;
@@ -46,6 +44,18 @@ namespace MiniGame
 
             _spawnTimer = new TimerService();
             _spawnTimer.OnTimerStopped += OnSpawnTimerTick;
+        }
+
+        public IReactiveVariableReadonly<bool> Win    => _winCondition.IsWin;
+        public IReactiveVariableReadonly<bool> Defeat => _loseCondition.IsLost;
+
+        public void Update(float deltaTime)
+        {
+            _spawnTimer.Update(deltaTime);
+            _enemiesService.Update(deltaTime);
+
+            _loseCondition.Update(deltaTime);
+            _winCondition.Update(deltaTime);
         }
 
         public void Start()
@@ -63,16 +73,7 @@ namespace MiniGame
 
             StartSpawnTimer();
 
-            Debug.Log($"GameStarted");
-        }
-
-        public void Update(float deltaTime)
-        {
-            _spawnTimer.Update(deltaTime);
-            _enemiesService.Update(deltaTime);
-
-            _loseCondition.Update(deltaTime);
-            _winCondition.Update(deltaTime);
+            Debug.Log("GameStarted");
         }
 
         private void OnSpawnTimerTick()
@@ -88,6 +89,9 @@ namespace MiniGame
             _mainCharacter.Destroy();
         }
 
-        private void StartSpawnTimer() => _spawnTimer.StartTimer(_levelConfig.EnemiesSpawnDelay, true);
+        private void StartSpawnTimer()
+        {
+            _spawnTimer.StartTimer(_levelConfig.EnemiesSpawnDelay, true);
+        }
     }
 }

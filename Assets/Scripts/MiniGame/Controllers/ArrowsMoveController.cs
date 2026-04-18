@@ -9,16 +9,16 @@ namespace MiniGame
 {
     public class ArrowsMoveController : ControllerBase
     {
-        private readonly Dictionary<KeyCode, Vector3> _keyDirections = new Dictionary<KeyCode, Vector3>
+        private readonly Dictionary<KeyCode, Vector3> _keyDirections = new()
         {
             { KeyCode.A, Vector3.left },
             { KeyCode.D, Vector3.right },
             { KeyCode.W, Vector3.forward },
-            { KeyCode.S, Vector3.back },
+            { KeyCode.S, Vector3.back }
         };
 
         private readonly ISimpleMovable _movable;
-        private readonly float    _moveSpeed;
+        private readonly float          _moveSpeed;
 
         public ArrowsMoveController(ISimpleMovable movable, float moveSpeed)
         {

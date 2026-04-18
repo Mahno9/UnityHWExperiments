@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-using Delegates.Enemies.Enemy;
-
 using MiniGame.Configs;
 
 using UnityEngine;
