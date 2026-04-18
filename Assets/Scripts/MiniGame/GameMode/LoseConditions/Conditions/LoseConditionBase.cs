@@ -10,9 +10,13 @@ namespace MiniGame.LoseConditions
         private readonly ReactiveVariable<bool>          _isLostVar = new();
         public           IReactiveVariableReadonly<bool> IsLost => _isLostVar;
 
+        public LoseConditionBase()
+        {
+            _isLostVar.Value = false;
+        }
+
         public abstract void Update(float deltaTime);
 
-        public virtual void Init(LoseInitData data) => _isLostVar.Value = false;
         protected      void TriggerLost()           => _isLostVar.Value = true;
     }
 }

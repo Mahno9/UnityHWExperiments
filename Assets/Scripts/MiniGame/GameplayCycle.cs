@@ -12,31 +12,15 @@ namespace MiniGame
 {
     public class GameplayCycle : IUpdatable, IDisposable
     {
-        private readonly CharactersFactory         _charactersFactory;
-        private readonly MainCharacterConfig       _mainCharacterConfig;
-        private readonly LevelConfig               _levelConfig;
-        private readonly EnemyCharacterConfig      _enemyCharacterConfig;
-        private readonly SpawnPoseGeneratorService _spawnPoseGenerator;
-        private readonly MonoBehaviour             _coroutineRunner;
-
-        private          GameMode      _gameMode;
+        private readonly GameMode      _gameMode;
+        private readonly MonoBehaviour _coroutineRunner;
 
         public GameplayCycle(
-            CharactersFactory         charactersFactory,
-            MainCharacterConfig       mainCharacterConfig,
-            EnemyCharacterConfig      enemyCharacterConfig,
-            LevelConfig               levelConfig,
-            SpawnPoseGeneratorService spawnPoseGenerator,
-            MonoBehaviour             coroutineRunner)
+            GameMode      gameMode,
+            MonoBehaviour coroutineRunner)
         {
-            _charactersFactory = charactersFactory;
-            _mainCharacterConfig = mainCharacterConfig;
-            _levelConfig = levelConfig;
-            _enemyCharacterConfig = enemyCharacterConfig;
-            _spawnPoseGenerator = spawnPoseGenerator;
+            _gameMode = gameMode;
             _coroutineRunner = coroutineRunner;
-
-            _gameMode = new GameMode(_levelConfig, _charactersFactory, _enemyCharacterConfig, _spawnPoseGenerator, _mainCharacterConfig);
         }
 
         public void Dispose()

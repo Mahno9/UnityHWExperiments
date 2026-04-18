@@ -26,8 +26,8 @@ namespace MiniGame
         private readonly TimerService   _spawnTimer;
         private readonly EnemiesService _enemiesService;
 
-        private readonly IWinCondition  _winCondition;
-        private readonly ILoseCondition _loseCondition;
+        private IWinCondition  _winCondition;
+        private ILoseCondition _loseCondition;
 
         public GameMode(
             LevelConfig               levelConfig,
@@ -46,10 +46,6 @@ namespace MiniGame
 
             _spawnTimer = new TimerService();
             _spawnTimer.OnTimerStopped += OnSpawnTimerTick;
-
-            // IDK if this ok - use configs just from a scriptable object
-            _winCondition = _levelConfig.WinCondition;
-            _loseCondition = _levelConfig.LoseCondition;
         }
 
         public void Start()
@@ -59,12 +55,11 @@ namespace MiniGame
             _spawnPoseGenerator.InitExclude(_mainCharacter.transform, _levelConfig.MainCharacterSpawnExcludeRadius);
             _enemiesService.SpawnEnemies(_levelConfig.StartEnemiesCount);
 
-            _winCondition.Init(new WinInitData { EnemiesService = _enemiesService });
-            _loseCondition.Init(new LoseInitData
-            {
-                MainCharacter = _mainCharacter,
-                EnemiesService = _enemiesService
-            });
+            LoseConditionsFactory loseConditionsFactory = new(_mainCharacter, _enemiesService);
+            _loseCondition = loseConditionsFactory.GetLoseCondition(_levelConfig.LoseConditionConfig);
+
+            WinConditionsFactory winConditionsFactory = new(_enemiesService);
+            _winCondition = winConditionsFactory.GetWinCondition(_levelConfig.WinConditionConfig);
 
             StartSpawnTimer();
 

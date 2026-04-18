@@ -15,18 +15,17 @@ MonoBehaviour:
   <StartEnemiesCount>k__BackingField: 10
   <EnemiesSpawnDelay>k__BackingField: 1
   <MainCharacterSpawnExcludeRadius>k__BackingField: 3
-  LoseCondition:
-    rid: 8763370877471686658
-  WinCondition:
-    rid: 8763370877471686659
+  LoseConditionConfig:
+    rid: 8763370877471686667
+  WinConditionConfig:
+    rid: 8763370877471686668
   references:
     version: 2
     RefIds:
-    - rid: 8763370877471686658
-      type: {class: LoseOnEnemiesOverflow, ns: MiniGame.LoseConditions, asm: Assembly-CSharp}
+    - rid: 8763370877471686667
+      type: {class: LoseOnPlayerDeathConfig, ns: MiniGame.LoseConditions, asm: Assembly-CSharp}
+      data: 
+    - rid: 8763370877471686668
+      type: {class: WinOnKillAmountConfig, ns: MiniGame.WinConditions, asm: Assembly-CSharp}
       data:
-        _enemiesMaxCount: 12
-    - rid: 8763370877471686659
-      type: {class: WinOnSurviveOverTime, ns: MiniGame.WinConditions, asm: Assembly-CSharp}
-      data:
-        _surviveTime: 131
+        KillsRequired: 5

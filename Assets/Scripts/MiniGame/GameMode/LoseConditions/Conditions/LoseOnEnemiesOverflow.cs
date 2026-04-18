@@ -4,20 +4,17 @@ using MiniGame.Characters;
 
 using Navigation.Utils;
 
-using UnityEngine;
-
 namespace MiniGame.LoseConditions
 {
     public class LoseOnEnemiesOverflow : LoseConditionBase
     {
-        [SerializeField] private int                  _enemiesMaxCount;
+        private readonly EnemiesService _enemiesService;
+        private readonly int            _enemiesMaxCount;
 
-        private                  EnemiesService _enemiesService;
-
-        public override void Init(LoseInitData data)
+        public LoseOnEnemiesOverflow(EnemiesService enemiesService, int enemiesMaxCount)
         {
-            base.Init(data);
-            _enemiesService = data.EnemiesService;
+            _enemiesService = enemiesService;
+            _enemiesMaxCount = enemiesMaxCount;
         }
 
         public override void Update(float deltaTime)

@@ -2,6 +2,7 @@ using System.Collections;
 
 using MiniGame.Characters;
 using MiniGame.Configs;
+using MiniGame.LoseConditions;
 
 using UnityEngine;
 
@@ -27,7 +28,7 @@ namespace MiniGame
             ControllersUpdaterService controllersUpdaterService = new();
             _updaterService.Add(controllersUpdaterService);
 
-            CharactersFactory charactersFactory = new(controllersUpdaterService);
+            CharactersFactory     charactersFactory     = new(controllersUpdaterService);
 
             // Load resources
 
@@ -42,7 +43,8 @@ namespace MiniGame
 
             // Spawn
 
-            GameplayCycle gameplayCycle = new(charactersFactory, mainCharacterConfig, enemyCharacterConfig, levelConfig, spawnPoseGenerator, this);
+            GameMode      gameMode      = new(levelConfig, charactersFactory, enemyCharacterConfig, spawnPoseGenerator, mainCharacterConfig);
+            GameplayCycle gameplayCycle = new(gameMode, this);
 
             // Start game
 

@@ -1,7 +1,9 @@
 using Common.Utils;
 
 using MiniGame.LoseConditions;
+using MiniGame.LoseConditions.ConfigData;
 using MiniGame.WinConditions;
+using MiniGame.WinConditions.ConfigData;
 
 using UnityEngine;
 
@@ -16,9 +18,9 @@ namespace MiniGame.Configs
 
 
         [SerializeReference] [SubclassSelector]
-        public ILoseCondition LoseCondition;
+        public ILoseConditionConfigData LoseConditionConfig;
 
         [SerializeReference] [SubclassSelector]
-        public IWinCondition WinCondition;
+        public IWinConditionConfigData WinConditionConfig;
     }
 }

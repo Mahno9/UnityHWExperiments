@@ -10,7 +10,5 @@ namespace MiniGame.LoseConditions
     public interface ILoseCondition : IUpdatable
     {
         public IReactiveVariableReadonly<bool> IsLost { get; }
-
-        public void Init(LoseInitData data);
     }
 }

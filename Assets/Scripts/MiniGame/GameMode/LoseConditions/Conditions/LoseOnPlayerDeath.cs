@@ -15,10 +15,9 @@ namespace MiniGame.LoseConditions
     {
         private MainCharacter _mainCharacter;
 
-        public override void Init(LoseInitData data)
+        public LoseOnPlayerDeath(MainCharacter mainCharacter)
         {
-            base.Init(data);
-            _mainCharacter = data.MainCharacter;
+            _mainCharacter = mainCharacter;
         }
 
         public override void Update(float deltaTime)
