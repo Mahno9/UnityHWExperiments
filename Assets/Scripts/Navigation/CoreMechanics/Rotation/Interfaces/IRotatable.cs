@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Navigation.CoreMechanics.Rotation.Interfaces
 {
-    public interface IRotatable : IUpdatable
+    public interface IRotatable
     {
         float RotationSpeed { get; }
 

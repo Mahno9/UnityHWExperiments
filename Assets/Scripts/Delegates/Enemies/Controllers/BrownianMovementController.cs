@@ -32,7 +32,6 @@ namespace Delegates.Enemies.Controllers
 
         protected override void UpdateLogic(float deltaTime)
         {
-            _movable.Update(deltaTime);
             _idleTimer.Update(deltaTime);
 
             if (Mathf.Approximately(_movable.MoveSpeed, 0))

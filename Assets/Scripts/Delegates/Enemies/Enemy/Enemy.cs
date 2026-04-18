@@ -54,9 +54,9 @@ namespace Delegates.Enemies.Enemy
 
         public void Update(float deltaTime)
         {
-            _mover.Update(Time.deltaTime);
-            _rotator.Update(Time.deltaTime);
-            _moveController.Update(Time.deltaTime);
+            _moveController.Update(deltaTime);
+
+            _rotator.Update(deltaTime);
 
             TryToDie();
         }
@@ -70,5 +70,22 @@ namespace Delegates.Enemies.Enemy
         public void SetMovePoint(Vector3 point) => _mover.SetMovePoint(point);
 
         public void TakeDamage(float damage) => _isAlive = false;
+
+        private bool _isHovered;
+
+        private void OnMouseEnter() => _isHovered = true;
+        private void OnMouseExit() => _isHovered = false;
+
+        private void OnGUI()
+        {
+            if (!_isHovered) return;
+
+            GUIStyle style = new GUIStyle(GUI.skin.label) { fontSize = 20 };
+            Vector2 mousePos = Input.mousePosition;
+            Rect labelRect = new Rect(mousePos.x + 10, Screen.height - mousePos.y - 30, 500, 30);
+            
+            GUI.Box(labelRect, "");
+            GUI.Label(labelRect, ToString(), style);
+        }
     }
 }

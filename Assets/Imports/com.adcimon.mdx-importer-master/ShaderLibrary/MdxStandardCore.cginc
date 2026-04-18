@@ -4,7 +4,7 @@
 #include "UnityCG.cginc"
 #include "UnityShaderVariables.cginc"
 #include "UnityStandardConfig.cginc"
-#include "Packages/com.adcimon.mdx-importer/ShaderLibrary/MdxStandardInput.cginc"
+#include "Assets/Imports/com.adcimon.mdx-importer-master/ShaderLibrary/MdxStandardInput.cginc"
 #include "UnityPBSLighting.cginc"
 #include "UnityStandardUtils.cginc"
 #include "UnityGBuffer.cginc"

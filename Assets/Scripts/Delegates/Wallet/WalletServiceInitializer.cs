@@ -16,18 +16,19 @@ namespace Delegates.Wallet
 
             BindServiceUpdatesToView();
             PrepareView();
+
             BindTestTriggersToService();
         }
 
         private void OnDestroy()
         {
-            _service.OnCurrencyChanged -= _view.OnCurrencyAmountChanged;
+            _view.UnsubscribeFromService();
+
+            _testTriggerInputs.OnCurrencyEarn -= _service.Earn;
+            _testTriggerInputs.OnCurrencySpend -= _service.Spend;
         }
 
-        private void BindServiceUpdatesToView()
-        {
-            _service.OnCurrencyChanged += _view.OnCurrencyAmountChanged;
-        }
+        private void BindServiceUpdatesToView() => _view.SubscribeToService(_service);
 
         private void BindTestTriggersToService()
         {
@@ -35,12 +36,6 @@ namespace Delegates.Wallet
             _testTriggerInputs.OnCurrencySpend += _service.Spend;
         }
 
-        private void PrepareView()
-        {
-            foreach (CurrencyType currencyType in Enum.GetValues(typeof(CurrencyType)))
-                _view.OnCurrencyAmountChanged(currencyType, _service.GetAmount(currencyType));
-
-            _view.SetViewActive(true);
-        }
+        private void PrepareView() => _view.SetViewActive(true);
     }
 }

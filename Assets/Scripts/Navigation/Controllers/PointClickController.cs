@@ -31,8 +31,6 @@ namespace Navigation.Controllers
                 _movable.SetMovePoint(newMovePoint);
                 NotifyOnNewMovePoint(newMovePoint);
             }
-
-            _movable.Update(deltaTime);
         }
 
         private bool TryGetMoveTarget(out Vector3 targetPosition)

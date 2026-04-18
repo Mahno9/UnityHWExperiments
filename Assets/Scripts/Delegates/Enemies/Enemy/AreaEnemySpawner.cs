@@ -26,13 +26,13 @@ namespace Delegates.Enemies.Enemy
         [Header("System")] [SerializeField] private EnemiesServiceInitializer _enemiesServiceInitializer;
         [SerializeField]                    private SpawnArea                 _spawnArea;
 
-        public Enemy SpawnEnemy(Enemy enemyPrefab, Transform enemiesParent, Func<bool> aliveDelegate = null)
+        public T SpawnEnemy<T>(T enemyPrefab, Transform enemiesParent, Func<bool> aliveDelegate = null) where T : Enemy
         {
-            Enemy newEnemy = Instantiate(enemyPrefab, _spawnArea.GetRandomPoint(), enemyPrefab.transform.rotation, enemiesParent);
+            T newEnemy = Instantiate(enemyPrefab, _spawnArea.GetRandomPoint(), enemyPrefab.transform.rotation, enemiesParent);
 
             NavMeshAgent               navMeshAgent   = newEnemy.GetComponent<NavMeshAgent>();
             NavMeshAgentMover          mover          = new(navMeshAgent);
-            AlongMoverDirectionRotator rotator        = new(new DirectionRotator(newEnemy.transform, _rotationSpeed), mover);
+            AlongMoverDirectionRotator rotator        = new(newEnemy.transform, _rotationSpeed, mover);
             BrownianMovementController moveController = new(mover, _newMovePointRadius, _idleTime);
             moveController.Enable();
 

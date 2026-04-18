@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26041d005d324da7bdb4b1638a5ceb0f, type: 3}
+  m_Name: EnemyCharacterConfig
+  m_EditorClassIdentifier: 
+  <Prefab>k__BackingField: {fileID: 5586210638530130088, guid: 8743b5b942ce8524784d69f061d9cbaa,
+    type: 3}
+  <MoveSpeed>k__BackingField: 3
+  <RotationSpeed>k__BackingField: 400
+  <StartHealth>k__BackingField: 4
+  <NewPointRadius>k__BackingField: 5
+  <IdleTime>k__BackingField: 3
+  <ContactDamage>k__BackingField: 1

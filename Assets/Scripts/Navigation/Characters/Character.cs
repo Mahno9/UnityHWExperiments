@@ -30,8 +30,7 @@ namespace Navigation.Characters
 
         public void Update(float deltaTime)
         {
-            _mover.Update(Time.deltaTime);
-            _rotator.Update(Time.deltaTime);
+            _rotator?.Update(Time.deltaTime);
         }
 
         public void TakeDamage(float damage) => _health.TakeDamage(damage);

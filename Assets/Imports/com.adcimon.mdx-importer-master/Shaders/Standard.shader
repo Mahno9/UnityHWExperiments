@@ -91,7 +91,7 @@ Shader "MDX/Standard"
 
             #pragma vertex vertBase
             #pragma fragment fragBase
-            #include "Packages/com.adcimon.mdx-importer/ShaderLibrary/MdxStandardCoreForward.cginc"
+            #include "Assets/Imports/com.adcimon.mdx-importer-master/ShaderLibrary/MdxStandardCoreForward.cginc"
 
             ENDCG
         }
@@ -129,7 +129,7 @@ Shader "MDX/Standard"
 
             #pragma vertex vertAdd
             #pragma fragment fragAdd
-            #include "Packages/com.adcimon.mdx-importer/ShaderLibrary/MdxStandardCoreForward.cginc"
+            #include "Assets/Imports/com.adcimon.mdx-importer-master/ShaderLibrary/MdxStandardCoreForward.cginc"
 
             ENDCG
         }
@@ -196,7 +196,7 @@ Shader "MDX/Standard"
             #pragma vertex vertDeferred
             #pragma fragment fragDeferred
 
-            #include "Packages/com.adcimon.mdx-importer/ShaderLibrary/MdxStandardCore.cginc"
+            #include "Assets/Imports/com.adcimon.mdx-importer-master/ShaderLibrary/MdxStandardCore.cginc"
 
             ENDCG
         }
@@ -262,7 +262,7 @@ Shader "MDX/Standard"
 
             #pragma vertex vertBase
             #pragma fragment fragBase
-            #include "Packages/com.adcimon.mdx-importer/ShaderLibrary/MdxStandardCoreForward.cginc"
+            #include "Assets/Imports/com.adcimon.mdx-importer-master/ShaderLibrary/MdxStandardCoreForward.cginc"
 
             ENDCG
         }
@@ -296,7 +296,7 @@ Shader "MDX/Standard"
 
             #pragma vertex vertAdd
             #pragma fragment fragAdd
-            #include "Packages/com.adcimon.mdx-importer/ShaderLibrary/MdxStandardCoreForward.cginc"
+            #include "Assets/Imports/com.adcimon.mdx-importer-master/ShaderLibrary/MdxStandardCoreForward.cginc"
 
             ENDCG
         }
