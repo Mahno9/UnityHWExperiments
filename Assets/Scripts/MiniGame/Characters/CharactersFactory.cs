@@ -1,5 +1,7 @@
 using Cinemachine;
 
+using Common.Utils;
+
 using Delegates.Enemies.Controllers;
 
 using MiniGame.Characters.View;
@@ -10,6 +12,8 @@ using MiniGame.CoreMechanics.Shooting;
 using Navigation.CoreMechanics.Movement;
 using Navigation.CoreMechanics.Rotation;
 
+using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,10 +22,12 @@ namespace MiniGame.Characters
     public class CharactersFactory
     {
         private readonly ControllersUpdaterService _controllersUpdaterService;
+        private readonly UpdaterService            _updaterService;
 
-        public CharactersFactory(ControllersUpdaterService controllersUpdaterService)
+        public CharactersFactory(ControllersUpdaterService controllersUpdaterService, UpdaterService updaterService)
         {
             _controllersUpdaterService = controllersUpdaterService;
+            _updaterService = updaterService;
         }
 
         public EnemyCharacter CreateEnemyCharacter(EnemyCharacterConfig config, Pose spawnPoint)
@@ -54,6 +60,7 @@ namespace MiniGame.Characters
             CinemachineVirtualCamera camera = Object.Instantiate(config.VirtualCamera);
             camera.LookAt = character.transform;
             camera.Follow = character.transform;
+            camera.AddComponent<ConditionalDestroyer>().Initialize(() => character.IsDestroyed);
 
             DirectionRotator    directionRotator    = new(character.transform, config.RotationSpeed);
             CharacterController characterController = character.GetComponent<CharacterController>();

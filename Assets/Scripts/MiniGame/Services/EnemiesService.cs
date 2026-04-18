@@ -31,7 +31,6 @@ namespace MiniGame
         {
             foreach (EnemyCharacter enemy in _spawner.Spawn(GetRandomPoseOnLevel()))
                 _enemies.AddLast(enemy);
-            Debug.Log($"Enemies count: {EnemiesCount}");
         }
 
         public void SpawnEnemies(int amount)
@@ -39,7 +38,6 @@ namespace MiniGame
             Pose[] poses = Enumerable.Range(0, amount).Select(_ => GetRandomPoseOnLevel()).ToArray();
             foreach (EnemyCharacter enemy in _spawner.Spawn(poses))
                 _enemies.AddLast(enemy);
-            Debug.Log($"Enemies count: {EnemiesCount}");
         }
 
         public void Update(float deltaTime)
