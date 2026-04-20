@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+
+using TMPro;
 
 using UnityEngine;
 
@@ -22,13 +25,13 @@ namespace Delegates.Wallet
 
         private void OnDestroy()
         {
-            _view.UnsubscribeFromService();
+            _view.Dispose();
 
             _testTriggerInputs.OnCurrencyEarn -= _service.Earn;
             _testTriggerInputs.OnCurrencySpend -= _service.Spend;
         }
 
-        private void BindServiceUpdatesToView() => _view.SubscribeToService(_service);
+        private void BindServiceUpdatesToView() => _view.Initialize(_service);
 
         private void BindTestTriggersToService()
         {

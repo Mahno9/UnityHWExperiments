@@ -2438,14 +2438,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20df8773344340adb0be883ac2f1f666, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _currencyDisplays:
-  - Type: 0
-    View: {fileID: 1097444077}
-  - Type: 1
-    View: {fileID: 1036592197}
-  - Type: 2
-    View: {fileID: 466658920}
   _walletRootWidget: {fileID: 164518319}
+  _currencyViews:
+  - {fileID: 852635189}
+  - {fileID: 888406687}
+  - {fileID: 2004200980}
 --- !u!114 &339300831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6542,6 +6539,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 852635188}
+  - component: {fileID: 852635189}
   m_Layer: 5
   m_Name: Money
   m_TagString: Untagged
@@ -6570,6 +6568,20 @@ RectTransform:
   m_AnchoredPosition: {x: 15, y: 40}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &852635189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 852635187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52cbd5ad1c6b4ce99aa7966a8916359c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 0
+  _view: {fileID: 1097444077}
 --- !u!1 &859136707
 GameObject:
   m_ObjectHideFlags: 0
@@ -6841,6 +6853,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 888406686}
+  - component: {fileID: 888406687}
   m_Layer: 5
   m_Name: Honey
   m_TagString: Untagged
@@ -6869,6 +6882,20 @@ RectTransform:
   m_AnchoredPosition: {x: 15, y: 0}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &888406687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888406685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52cbd5ad1c6b4ce99aa7966a8916359c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 1
+  _view: {fileID: 1036592197}
 --- !u!1 &890639753
 GameObject:
   m_ObjectHideFlags: 0
@@ -19287,6 +19314,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2004200979}
+  - component: {fileID: 2004200980}
   m_Layer: 5
   m_Name: Bones
   m_TagString: Untagged
@@ -19315,6 +19343,20 @@ RectTransform:
   m_AnchoredPosition: {x: 15, y: -40}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2004200980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2004200978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52cbd5ad1c6b4ce99aa7966a8916359c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _type: 2
+  _view: {fileID: 466658920}
 --- !u!4 &2005612108 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6603488554207994483, guid: 98f5378049f9b5745a77677f581b32b1,
