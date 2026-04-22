@@ -1,6 +1,7 @@
 using System;
 
 using Navigation.Controllers;
+using Navigation.Utils;
 
 using UnityEngine;
 
@@ -8,12 +9,14 @@ namespace Delegates.Timer
 {
     public class TimerService : IUpdatable
     {
-        private float _timeTotal;
-        private float _timeLeft;
+        private          float                   _timeTotal;
+        private readonly ReactiveVariable<float> _timeLeft = new ();
 
-        public event Action<float, float> OnTimerUpdated; // TimeTotal, TimeLeft
-        public event Action OnTimerStarted;
-        public event Action OnTimerStopped;
+        public event Action<float>  OnTimerStarted; // TimeTotal
+
+        public IReactiveVariableReadonly<float> OnTimerUpdated => _timeLeft;
+
+        public event Action                           OnTimerStopped;
 
         public bool IsStarted { get; private set; }
 
@@ -22,11 +25,9 @@ namespace Delegates.Timer
             if (IsStarted == false)
                 return;
 
-            _timeLeft -= Mathf.Min(deltaTime, _timeLeft);
+            _timeLeft.Value -= Mathf.Min(deltaTime, _timeLeft.Value);
 
-            OnTimerUpdated?.Invoke(_timeTotal, _timeLeft);
-
-            if (_timeLeft <= 0)
+            if (_timeLeft.Value <= 0)
                 StopTimer();
         }
 
@@ -36,17 +37,16 @@ namespace Delegates.Timer
                 return;
 
             _timeTotal = time;
-            _timeLeft = time;
+            _timeLeft.Value = time;
 
-            OnTimerStarted?.Invoke();
-            OnTimerUpdated?.Invoke(_timeTotal, _timeLeft);
+            OnTimerStarted?.Invoke(_timeTotal);
 
             IsStarted = true;
         }
 
         public void StopTimer()
         {
-            _timeLeft = 0;
+            _timeLeft.Value = 0;
             IsStarted = false;
             OnTimerStopped?.Invoke();
         }

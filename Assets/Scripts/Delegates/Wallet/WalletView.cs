@@ -2,28 +2,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-using TMPro;
-
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Delegates.Wallet
 {
     [Serializable]
-    public struct CurrencyViewPair
+    internal struct CurrencyViewWithType
     {
-        public CurrencyType    Type;
-        public TextMeshProUGUI View;
+        [FormerlySerializedAs("CurrencyView")] public CounterView  CounterView;
+        public  CurrencyType CurrencyType;
     }
 
-    public class WalletView : MonoBehaviour
+    public class WalletView : MonoBehaviour, IDisposable
     {
-        [SerializeField] private List<CurrencyViewPair> _currencyDisplays;
         [SerializeField] private GameObject             _walletRootWidget;
+        [SerializeField] private List<CurrencyViewWithType>     _currencyViews;
 
-        public void OnCurrencyAmountChanged(CurrencyType type, int newAmount)
+        public void Initialize(WalletService service)
         {
-            foreach (CurrencyViewPair currencyViewPair in _currencyDisplays.Where(currencyViewPair => currencyViewPair.Type == type))
-                currencyViewPair.View.SetText($"{newAmount}");
+            foreach (CurrencyViewWithType view in _currencyViews)
+                view.CounterView.Initialize(service.GetCurrencyReactiveVar(view.CurrencyType));
+        }
+
+        public void Dispose()
+        {
+            foreach (CurrencyViewWithType view in _currencyViews)
+                view.CounterView.Dispose();
         }
 
         public void SetViewActive(bool isActive)
