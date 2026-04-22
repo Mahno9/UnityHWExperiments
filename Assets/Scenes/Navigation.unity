@@ -2440,9 +2440,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _walletRootWidget: {fileID: 164518319}
   _currencyViews:
-  - {fileID: 852635189}
-  - {fileID: 888406687}
-  - {fileID: 2004200980}
+  - CounterView: {fileID: 852635189}
+    CurrencyType: 0
+  - CounterView: {fileID: 888406687}
+    CurrencyType: 1
+  - CounterView: {fileID: 2004200980}
+    CurrencyType: 2
 --- !u!114 &339300831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6580,7 +6583,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52cbd5ad1c6b4ce99aa7966a8916359c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 0
   _view: {fileID: 1097444077}
 --- !u!1 &859136707
 GameObject:
@@ -6894,7 +6896,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52cbd5ad1c6b4ce99aa7966a8916359c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 1
   _view: {fileID: 1036592197}
 --- !u!1 &890639753
 GameObject:
@@ -19355,7 +19356,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52cbd5ad1c6b4ce99aa7966a8916359c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 2
   _view: {fileID: 466658920}
 --- !u!4 &2005612108 stripped
 Transform:
